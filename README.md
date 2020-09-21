@@ -5,3 +5,8 @@
 ### Drag n Drop
 
 ### CRUD
+
+#### GOALS:
+
+    Use Hooks
+    Unit testing
