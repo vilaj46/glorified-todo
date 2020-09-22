@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 import App from "../App/App";
 import AddTodoForm from "./AddTodoForm";
@@ -25,5 +25,5 @@ test("button should add item to list", async () => {
   fireEvent.submit(button);
 
   // Will fail if we cannot find the new list item.
-  await findByText(/Food shopping/i);
+  const li = await findByText(/Food shopping/i);
 });
