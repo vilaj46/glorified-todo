@@ -11,6 +11,7 @@ const TodoItem = ({ item, index, completeTodo, removeTodo }) => {
 
   return (
     <li
+      data-testid={item.IDNumber}
       className={`${styles.li} ${item.completed ? styles.completed : ""}`}
       onClick={() => completeTodo({ ...item, index })}
     >

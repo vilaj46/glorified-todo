@@ -8,7 +8,12 @@ import App from "./components/App/App";
 // Simple styling we will be going for:
 // https://www.w3schools.com/howto/howto_js_todolist.asp
 
-// Ability to delete.
+// Add the correct 'x' and 'check' icon.
+// Transition from completed to uncomplete.
+// See if we can get the remove block full.
+
+// Test for completion.
+// Test for removal.
 
 ReactDOM.render(
   <React.StrictMode>
