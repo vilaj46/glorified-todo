@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useDrag, useDrop } from "react-dnd";
 
 import styles from "./TodoItems.module.css";
 
@@ -9,11 +10,35 @@ import x from "../../svgs/x.svg";
 import checkComplete from "../../svgs/checkComplete.svg";
 import xComplete from "../../svgs/xComplete.svg";
 
-const TodoItem = ({ item, index, completeTodo, removeTodo }) => {
-  const removeHelper = (e, item) => {
+import DragTypes from "./DragTypes.js";
+
+const TodoItem = ({ item, index, completeTodo, removeTodo, swapTodoItems }) => {
+  /**
+   * removeHelper
+   *
+   * @param {Object} e - Event object.
+   *
+   * We need to stop the bubbling up because it was just triggering
+   * the complete item action.
+   */
+  const removeHelper = (e) => {
     e.stopPropagation();
     removeTodo({ ...item, index });
   };
+
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: DragTypes.TodoItem, data: { ...item, index } },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  });
+
+  const [{ isOver }, drop] = useDrop({
+    accept: DragTypes.TodoItem,
+    drop: (itemBeingDragged) => {
+      swapTodoItems(itemBeingDragged.data, { ...item, index });
+    },
+  });
 
   const checkImg = item.completed ? checkComplete : check;
   const xImg = item.completed ? xComplete : x;
@@ -23,11 +48,14 @@ const TodoItem = ({ item, index, completeTodo, removeTodo }) => {
       data-testid={item.IDNumber}
       className={`${styles.li} ${item.completed ? styles.completed : ""}`}
       onClick={() => completeTodo({ ...item, index })}
+      ref={drag}
     >
       <span className={styles.span}>
         <img src={checkImg} alt="Completed!" className={styles.check} />
       </span>
-      <p className={styles.p}>{item.todo}</p>
+      <p className={styles.p} ref={drop}>
+        {item.todo}
+      </p>
       <button
         type="button"
         data-testid={`${item.IDNumber}-button`}
@@ -51,6 +79,7 @@ TodoItem.propTypes = {
   index: PropTypes.number.isRequired,
   completeTodo: PropTypes.func.isRequired,
   removeTodo: PropTypes.func.isRequired,
+  swapTodoItems: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

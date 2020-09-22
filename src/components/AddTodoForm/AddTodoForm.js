@@ -7,16 +7,25 @@ import styles from "./AddTodoForm.module.css";
 
 const AddTodoForm = ({ addTodo }) => {
   const [value, setValue] = useState("");
+  const [showWarning, setShowWarning] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addTodo({
+    const didAdd = addTodo({
       todo: value,
       IDNumber: value + Math.random(10000),
       completed: false,
     });
-    setValue("");
+    if (didAdd) {
+      setValue("");
+      setShowWarning(false);
+    } else {
+      console.log(didAdd);
+      setShowWarning(true);
+    }
   };
+
+  const warningDisplay = showWarning ? styles.display : styles.hide;
 
   return (
     <Form className={styles.form} onSubmit={(e) => onSubmit(e)}>
@@ -29,13 +38,18 @@ const AddTodoForm = ({ addTodo }) => {
         className={styles.input}
         onSubmit={(e) => onSubmit(e)}
       />
-      <Button
-        onClick={(e) => onSubmit(e)}
-        data-testid="add-todo"
-        className={styles.button}
-      >
-        Add
-      </Button>
+      <div className={styles.buttonContainer}>
+        <span className={`${styles.warning} ${warningDisplay}`}>
+          You must write something!
+        </span>
+        <Button
+          onClick={(e) => onSubmit(e)}
+          data-testid="add-todo"
+          className={styles.button}
+        >
+          Add
+        </Button>
+      </div>
     </Form>
   );
 };

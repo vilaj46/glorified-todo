@@ -7,7 +7,7 @@ export default () => {
    * addTodo
    *
    * @param {Object} item - A potentially new todo item.
-   * @return {Array} todos - a list of todo items with the new todo, addTodo - function which allows us to add a new todo.
+   * @return {Boolean} Whether we added the TodoItem.
    *
    * Checks if our new todo isnt just a blank space.
    * If its not add it to the list.
@@ -18,6 +18,9 @@ export default () => {
       item.todo = text;
       todos.push(item);
       setTodos([...todos]);
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -68,6 +71,7 @@ export default () => {
    */
   const removeTodo = (item) => {
     const { index, IDNumber } = item;
+
     if (todos[index].IDNumber === IDNumber) {
       todos.splice(index, 1);
     } else {
@@ -85,5 +89,21 @@ export default () => {
     setTodos([...todos]);
   };
 
-  return [todos, addTodo, completeTodo, removeTodo];
+  /**
+   * swapTodoItems
+   *
+   * @param {Object} item1 - Item being dragged / dropped.
+   * @param {*} item2 - Item being dropped on.
+   *
+   * Swap the items in the array.
+   */
+  const swapTodoItems = (item1, item2) => {
+    let newItem1 = { ...item1, index: item2.index };
+    let newItem2 = { ...item2, index: item1.index };
+    todos[item1.index] = newItem2;
+    todos[item2.index] = newItem1;
+    setTodos([...todos]);
+  };
+
+  return [todos, addTodo, completeTodo, removeTodo, swapTodoItems];
 };

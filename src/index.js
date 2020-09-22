@@ -8,8 +8,8 @@ import App from "./components/App/App";
 // Simple styling we will be going for:
 // https://www.w3schools.com/howto/howto_js_todolist.asp
 
-// Add the correct 'x' and 'check' icon.
-// Transition from completed to uncomplete.
+// Drag N Drop.
+// Login / Authentication.
 
 ReactDOM.render(
   <React.StrictMode>

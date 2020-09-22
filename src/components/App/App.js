@@ -9,7 +9,13 @@ import TodoItems from "../TodoItems/TodoItems";
 import useAddItem from "./useAddItem";
 
 function App() {
-  const [todos, addTodo, completeTodo, removeTodo] = useAddItem();
+  const [
+    todos,
+    addTodo,
+    completeTodo,
+    removeTodo,
+    swapTodoItems,
+  ] = useAddItem();
   return (
     <Jumbotron>
       <div className={styles.top}>
@@ -22,6 +28,7 @@ function App() {
         todos={todos}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
+        swapTodoItems={swapTodoItems}
       />
     </Jumbotron>
   );

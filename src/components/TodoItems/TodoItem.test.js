@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import TodoItem from "./TodoItem";
-import TodoItems from "./TodoItems";
 
 const MOCK_ITEM = {
   todo: "Food Shopping",
