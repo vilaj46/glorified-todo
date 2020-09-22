@@ -10,9 +10,6 @@ import App from "./components/App/App";
 
 // Add the correct 'x' and 'check' icon.
 // Transition from completed to uncomplete.
-// See if we can get the remove block full.
-
-// Test for removal.
 
 ReactDOM.render(
   <React.StrictMode>

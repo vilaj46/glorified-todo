@@ -3,11 +3,20 @@ import PropTypes from "prop-types";
 
 import styles from "./TodoItems.module.css";
 
+import check from "../../svgs/check.svg";
+import x from "../../svgs/x.svg";
+
+import checkComplete from "../../svgs/checkComplete.svg";
+import xComplete from "../../svgs/xComplete.svg";
+
 const TodoItem = ({ item, index, completeTodo, removeTodo }) => {
   const removeHelper = (e, item) => {
     e.stopPropagation();
     removeTodo({ ...item, index });
   };
+
+  const checkImg = item.completed ? checkComplete : check;
+  const xImg = item.completed ? xComplete : x;
 
   return (
     <li
@@ -15,7 +24,9 @@ const TodoItem = ({ item, index, completeTodo, removeTodo }) => {
       className={`${styles.li} ${item.completed ? styles.completed : ""}`}
       onClick={() => completeTodo({ ...item, index })}
     >
-      {/* <span className={styles.span}>^</span> */}
+      <span className={styles.span}>
+        <img src={checkImg} alt="Completed!" className={styles.check} />
+      </span>
       <p className={styles.p}>{item.todo}</p>
       <button
         type="button"
@@ -25,7 +36,7 @@ const TodoItem = ({ item, index, completeTodo, removeTodo }) => {
         }`}
         onClick={(e) => removeHelper(e)}
       >
-        X
+        <img src={xImg} alt="Remove" className={styles.x} />
       </button>
     </li>
   );

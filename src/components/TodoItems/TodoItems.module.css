@@ -1,9 +1,9 @@
 .li {
   font-size: 1.25rem;
   line-height: 1.5;
-  padding: 0.5rem 0;
   display: flex;
   z-index: 1;
+  height: 46px;
 }
 
 .li:hover {
@@ -18,7 +18,7 @@
 .p {
   width: 80%;
   margin: 0 auto;
-  padding-left: 1rem;
+  padding: 0.5rem 0;
 }
 
 .span {
@@ -29,9 +29,12 @@
 }
 
 .remove {
+  display: block;
   border: none;
   background-color: #ffffff;
   z-index: 10;
+  margin: auto 0;
+  height: 100%;
 }
 
 .remove:hover {
@@ -53,4 +56,15 @@
 
 .completed:hover .remove {
   background-color: #888888;
+}
+
+.x {
+  display: block;
+  margin: auto;
+}
+
+.check {
+  display: block;
+  margin: auto;
+  padding-top: 25%;
 }
