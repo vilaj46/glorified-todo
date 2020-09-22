@@ -1,2 +1,0 @@
-(this["webpackJsonpglorified-todo"]=this["webpackJsonpglorified-todo"]||[]).push([[0],[,,,function(e,t,n){e.exports=n(10)},,,,,function(e,t,n){},function(e,t,n){},function(e,t,n){"use strict";n.r(t);var o=n(0),a=n.n(o),r=n(2),c=n.n(r);n(8),n(9);var i=function(){return a.a.createElement("div",{className:"App"},a.a.createElement("header",{className:"App-header"},"Glorified Todo"))};c.a.render(a.a.createElement(a.a.StrictMode,null,a.a.createElement(i,null)),document.getElementById("root"))}],[[3,1,2]]]);
-//# sourceMappingURL=main.c6decb53.chunk.js.map
