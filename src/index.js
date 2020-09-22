@@ -12,7 +12,6 @@ import App from "./components/App/App";
 // Transition from completed to uncomplete.
 // See if we can get the remove block full.
 
-// Test for completion.
 // Test for removal.
 
 ReactDOM.render(

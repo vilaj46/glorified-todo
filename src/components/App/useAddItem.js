@@ -35,7 +35,6 @@ export default () => {
    * Toggle completed on the found item.
    */
   const completeTodo = (item) => {
-    console.log(item);
     const { index, IDNumber } = item;
     if (todos[index].IDNumber === IDNumber) {
       todos[index].completed = !todos[index].completed;

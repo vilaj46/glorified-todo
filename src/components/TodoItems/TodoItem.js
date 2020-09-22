@@ -19,6 +19,7 @@ const TodoItem = ({ item, index, completeTodo, removeTodo }) => {
       <p className={styles.p}>{item.todo}</p>
       <button
         type="button"
+        data-testid={`${item.IDNumber}-button`}
         className={`${styles.span} ${styles.remove} ${
           item.completed ? styles.completed : ""
         }`}
