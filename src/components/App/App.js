@@ -9,7 +9,7 @@ import TodoItems from "../TodoItems/TodoItems";
 import useAddItem from "./useAddItem";
 
 function App() {
-  const [todos, addTodo, completeTodo] = useAddItem();
+  const [todos, addTodo, completeTodo, removeTodo] = useAddItem();
   return (
     <Jumbotron>
       <div className={styles.top}>
@@ -18,7 +18,11 @@ function App() {
         </header>
         <AddTodoForm addTodo={addTodo} />
       </div>
-      <TodoItems todos={todos} completeTodo={completeTodo} />
+      <TodoItems
+        todos={todos}
+        completeTodo={completeTodo}
+        removeTodo={removeTodo}
+      />
     </Jumbotron>
   );
 }

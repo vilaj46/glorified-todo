@@ -15,6 +15,7 @@ const AddTodoForm = ({ addTodo }) => {
       IDNumber: value + Math.random(10000),
       completed: false,
     });
+    setValue("");
   };
 
   return (

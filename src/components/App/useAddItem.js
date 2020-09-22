@@ -53,5 +53,37 @@ export default () => {
     setTodos([...todos]);
   };
 
-  return [todos, addTodo, completeTodo];
+  /**
+   * removeTodo
+   *
+   * @param {Object} item - The todo item we will be removing.
+   *
+   * Given the item and the current index of the item.
+   * First we check if the given index is the one we are removing.
+   *
+   * If it isn't ( basically if we add drag and drop or item movement),
+   * then we will traverse the array checking.
+   *
+   * Remove the found item.
+   */
+  const removeTodo = (item) => {
+    const { index, IDNumber } = item;
+    if (todos[index].IDNumber === IDNumber) {
+      todos.splice(index, 1);
+    } else {
+      let searchedIndex;
+      for (let i = 0; i < todos.length; i++) {
+        const todo = todos[i];
+        if (todo.IDNumber === IDNumber) {
+          searchedIndex = i;
+          break;
+        }
+      }
+      todos.splice(searchedIndex, 1);
+    }
+
+    setTodos([...todos]);
+  };
+
+  return [todos, addTodo, completeTodo, removeTodo];
 };

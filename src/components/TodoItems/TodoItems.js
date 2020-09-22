@@ -5,7 +5,7 @@ import TodoItem from "./TodoItem";
 
 import styles from "./TodoItems.module.css";
 
-const TodoItems = ({ todos, completeTodo }) => {
+const TodoItems = ({ todos, completeTodo, removeTodo }) => {
   return (
     <ul className={styles.ul}>
       {todos.map((item, index) => {
@@ -15,6 +15,7 @@ const TodoItems = ({ todos, completeTodo }) => {
             key={item.IDNumber}
             index={index}
             completeTodo={completeTodo}
+            removeTodo={removeTodo}
           />
         );
       })}
@@ -25,6 +26,7 @@ const TodoItems = ({ todos, completeTodo }) => {
 TodoItems.propTypes = {
   todos: PropTypes.array.isRequired,
   completeTodo: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired,
 };
 
 export default TodoItems;

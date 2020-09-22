@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 
 import styles from "./TodoItems.module.css";
 
-const TodoItem = ({ item, index, completeTodo }) => {
+const TodoItem = ({ item, index, completeTodo, removeTodo }) => {
+  const removeHelper = (e, item) => {
+    e.stopPropagation();
+    removeTodo({ ...item, index });
+  };
+
   return (
     <li
       className={`${styles.li} ${item.completed ? styles.completed : ""}`}
@@ -11,7 +16,15 @@ const TodoItem = ({ item, index, completeTodo }) => {
     >
       {/* <span className={styles.span}>^</span> */}
       <p className={styles.p}>{item.todo}</p>
-      <span className={`${styles.span} ${styles.remove}`}>X</span>
+      <button
+        type="button"
+        className={`${styles.span} ${styles.remove} ${
+          item.completed ? styles.completed : ""
+        }`}
+        onClick={(e) => removeHelper(e)}
+      >
+        X
+      </button>
     </li>
   );
 };
@@ -23,6 +36,8 @@ TodoItem.propTypes = {
     completed: PropTypes.bool.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  completeTodo: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired,
 };
 
 export default TodoItem;
