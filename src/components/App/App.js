@@ -1,20 +1,22 @@
 import React from "react";
-
 import Jumbotron from "react-bootstrap/Jumbotron";
 
 import styles from "./App.module.css";
 
-import AddTodoInput from "../AddTodoInput/AddTodoInput";
+import AddTodoForm from "../AddTodoInput/AddTodoForm";
+import TodoItems from "../TodoItems/TodoItems";
+
+import useAddItem from "./useAddItem";
 
 function App() {
-  // const [items] = useState([]);
-
+  const [todos, addTodo] = useAddItem();
   return (
     <Jumbotron>
       <header className={styles.header}>
         <h1>My Glorified To Do List</h1>
       </header>
-      <AddTodoInput />
+      <AddTodoForm addTodo={addTodo} />
+      <TodoItems todos={todos} />
     </Jumbotron>
   );
 }
