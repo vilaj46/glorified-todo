@@ -6,16 +6,10 @@ import styles from "./App.module.css";
 import AddTodoForm from "../AddTodoForm/AddTodoForm";
 import TodoItems from "../TodoItems/TodoItems";
 
-import useAddItem from "./useAddItem";
+import useTodos from "./useTodos";
 
 function App() {
-  const [
-    todos,
-    addTodo,
-    completeTodo,
-    removeTodo,
-    swapTodoItems,
-  ] = useAddItem();
+  const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
   return (
     <Jumbotron>
       <div className={styles.top}>

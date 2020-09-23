@@ -8,7 +8,7 @@ import App from "./components/App/App";
 // Simple styling we will be going for:
 // https://www.w3schools.com/howto/howto_js_todolist.asp
 
-// Drag N Drop.
+// Test swapping of items?
 // Login / Authentication.
 
 ReactDOM.render(

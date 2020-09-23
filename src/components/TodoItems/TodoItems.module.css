@@ -68,3 +68,11 @@
   margin: auto;
   padding-top: 25%;
 }
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}

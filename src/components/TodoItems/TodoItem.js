@@ -26,14 +26,14 @@ const TodoItem = ({ item, index, completeTodo, removeTodo, swapTodoItems }) => {
     removeTodo({ ...item, index });
   };
 
-  const [{ isDragging }, drag] = useDrag({
+  const [, drag] = useDrag({
     item: { type: DragTypes.TodoItem, data: { ...item, index } },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   });
 
-  const [{ isOver }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: DragTypes.TodoItem,
     drop: (itemBeingDragged) => {
       swapTodoItems(itemBeingDragged.data, { ...item, index });
@@ -51,7 +51,13 @@ const TodoItem = ({ item, index, completeTodo, removeTodo, swapTodoItems }) => {
       ref={drag}
     >
       <span className={styles.span}>
-        <img src={checkImg} alt="Completed!" className={styles.check} />
+        <img
+          src={checkImg}
+          alt="Completed!"
+          className={`${styles.check} ${
+            item.completed ? styles.show : styles.hide
+          }`}
+        />
       </span>
       <p className={styles.p} ref={drop}>
         {item.todo}
