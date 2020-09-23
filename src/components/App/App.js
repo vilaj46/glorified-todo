@@ -19,11 +19,10 @@ import useAuthentication from "./useAuthentication";
 const App = () => {
   const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
   const [authentication, setToken] = useAuthentication();
-  console.log(authentication);
   return (
     <Jumbotron>
       <div className={styles.top}>
-        <Header />
+        <Header authentication={authentication} />
         <Route
           path="/"
           exact

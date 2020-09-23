@@ -12,7 +12,12 @@ import App from "./components/App/App";
 // Testing:
 // React Dnd
 // Hooks
+
 // Login / Authentication.
+// Show Password
+// Profile Page / Icon should be added in.
+// List of items TodoItems for edit.
+// Ability to change password.
 
 ReactDOM.render(
   <React.StrictMode>

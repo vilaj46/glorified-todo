@@ -2,7 +2,10 @@ import { useState } from "react";
 
 export default () => {
   // { username, token }
-  const [authentication, setAuthentication] = useState([]);
+  const [authentication, setAuthentication] = useState({
+    username: "",
+    token: "",
+  });
 
   /**
    * setToken
@@ -12,7 +15,7 @@ export default () => {
    * Authentication is processed and we are adding it to App state.
    */
   const setToken = (data) => {
-    setAuthentication({ ...data });
+    setAuthentication({ username: data.username, token: data.response });
   };
 
   return [authentication, setToken];
