@@ -1,31 +1,51 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 import Jumbotron from "react-bootstrap/Jumbotron";
 
 import styles from "./App.module.css";
 
-import AddTodoForm from "../AddTodoForm/AddTodoForm";
+// Pages
+import LoginPage from "../LoginPage/LoginPage";
+import SignupPage from "../SignupPage/SignupPage";
 import TodoItems from "../TodoItems/TodoItems";
 
+import Header from "../Header/Header";
+import AddTodoForm from "../AddTodoForm/AddTodoForm";
+
+// Hooks
 import useTodos from "./useTodos";
 
-function App() {
+const App = () => {
   const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
   return (
     <Jumbotron>
       <div className={styles.top}>
-        <header className={styles.header}>
-          <h1>My Glorified To Do List</h1>
-        </header>
-        <AddTodoForm addTodo={addTodo} />
+        <Header />
+        <Route
+          path="/"
+          exact
+          render={() => <AddTodoForm addTodo={addTodo} />}
+        />
       </div>
-      <TodoItems
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        swapTodoItems={swapTodoItems}
-      />
+
+      <Switch>
+        <Route path="/" exact>
+          <TodoItems
+            todos={todos}
+            completeTodo={completeTodo}
+            removeTodo={removeTodo}
+            swapTodoItems={swapTodoItems}
+          />
+        </Route>
+        <Route path="/login" exact>
+          <LoginPage />
+        </Route>
+        <Route path="/signup" exact>
+          <SignupPage />
+        </Route>
+      </Switch>
     </Jumbotron>
   );
-}
+};
 
 export default App;
