@@ -1,0 +1,31 @@
+.form {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.error {
+  border: 1px solid #f02849;
+}
+
+.textError {
+  color: #f02849;
+}
+
+.boldError {
+  font-weight: 600;
+}
+
+.loginButton {
+  width: 100%;
+  text-align: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.authProblem {
+  position: absolute;
+  right: 5px;
+  top: 10%;
+}

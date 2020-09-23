@@ -14,9 +14,12 @@ import AddTodoForm from "../AddTodoForm/AddTodoForm";
 
 // Hooks
 import useTodos from "./useTodos";
+import useAuthentication from "./useAuthentication";
 
 const App = () => {
   const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
+  const [authentication, setToken] = useAuthentication();
+  console.log(authentication);
   return (
     <Jumbotron>
       <div className={styles.top}>
@@ -38,7 +41,7 @@ const App = () => {
           />
         </Route>
         <Route path="/login" exact>
-          <LoginPage />
+          <LoginPage setToken={setToken} />
         </Route>
         <Route path="/signup" exact>
           <SignupPage />
