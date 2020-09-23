@@ -29,3 +29,29 @@
   right: 5px;
   top: 10%;
 }
+
+.showPW1 {
+  position: absolute;
+  right: 35px;
+  top: 10%;
+  border: none;
+  outline: none;
+}
+
+.showPW2 {
+  position: absolute;
+  right: 5px;
+  top: 10%;
+  border: none;
+  outline: none;
+}
+
+.showPW1:hover,
+.showPW2:hover {
+  cursor: pointer;
+}
+
+.showPW1:focus,
+.showPW2:focus {
+  outline: none;
+}

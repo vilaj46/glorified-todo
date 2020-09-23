@@ -13,8 +13,10 @@ import App from "./components/App/App";
 // React Dnd
 // Hooks
 
+// Clean up LoginPage
+
 // Login / Authentication.
-// Show Password
+// Error on the borders if there is an error with it.
 // Profile Page / Icon should be added in.
 // List of items TodoItems for edit.
 // Ability to change password.

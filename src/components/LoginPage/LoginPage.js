@@ -3,20 +3,28 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
 import styles from "./LoginPage.module.css";
 
 import api from "../../api.js";
 
 import authProblem from "../../svgs/auth_problem.svg";
+import showPassword from "../../svgs/show_password.svg";
+import hidePassword from "../../svgs/hide_password.svg";
 
 const LoginPage = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
+  const [displayPassword, setDisplayPassword] = useState(false);
+
+  const history = useHistory();
   const onSubmit = (e) => {
+    console.log("submit");
     e.preventDefault();
     const response = api.post(username, password);
     if (response === 404) {
@@ -27,9 +35,14 @@ const LoginPage = ({ setToken }) => {
       setUsernameError(false);
     } else {
       setToken({ username, response });
+      history.push("/profile");
       setUsernameError(false);
       setPasswordError(false);
     }
+  };
+
+  const togglePWVisibility = (bool) => {
+    setDisplayPassword(bool);
   };
 
   return (
@@ -65,10 +78,27 @@ const LoginPage = ({ setToken }) => {
 
         <Form.Group controlId="formBasicPassword" className={styles.relative}>
           <Form.Control
-            type="password"
+            type={displayPassword ? "text" : "password"}
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          {displayPassword ? (
+            <button
+              type="button"
+              className={passwordError ? styles.showPW1 : styles.showPW2}
+              onClick={() => togglePWVisibility(false)}
+            >
+              <img src={hidePassword} alt="Password Vision" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={passwordError ? styles.showPW1 : styles.showPW2}
+              onClick={() => togglePWVisibility(true)}
+            >
+              <img src={showPassword} alt="Password Vision" />
+            </button>
+          )}
           {passwordError && (
             <img
               src={authProblem}
@@ -83,7 +113,7 @@ const LoginPage = ({ setToken }) => {
                 <span className={styles.boldError}>Forgot Password?</span>
               </p>
             ) : (
-              <p>Never share your password with anyone.</p>
+              <p>Never share your password with anyone else.</p>
             )}
           </Form.Text>
         </Form.Group>
@@ -94,6 +124,12 @@ const LoginPage = ({ setToken }) => {
     </Jumbotron>
   );
 };
+
+// const UnderPasswordMessage = ({ passwordError }) => {
+//   return (
+
+//   );
+// };
 
 LoginPage.propTypes = {
   setToken: PropTypes.func.isRequired,

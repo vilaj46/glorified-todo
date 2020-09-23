@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 import styles from "../App/App.module.css";
 
-const Header = ({ authentication }) => {
-  const displayLogout =
-    authentication.username.length > 0 && authentication.token.length > 0;
+const Header = ({ authentication, setToken, isAuthenticated }) => {
+  // const isAuthenticated =
+  //   authentication.username.length > 0 && authentication.token.length > 0;
 
   return (
     <header className={styles.header}>
@@ -17,8 +17,8 @@ const Header = ({ authentication }) => {
           <Link className={styles.link} to="/">
             <Button className={styles.button}>Items</Button>
           </Link>
-          <LogButton displayLogout={displayLogout} />
-          <SignProfileButton displayLogout={displayLogout} />
+          <LogButton isAuthenticated={isAuthenticated} setToken={setToken} />
+          <SignProfileButton isAuthenticated={isAuthenticated} />
         </ButtonGroup>
       </div>
       <h1>My Glorified To Do List</h1>
@@ -26,10 +26,12 @@ const Header = ({ authentication }) => {
   );
 };
 
-const SignProfileButton = ({ displayLogout }) => {
-  if (displayLogout) {
+const SignProfileButton = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
     return (
-      <Button className={`${styles.button} ${styles.link}`}>Profile</Button>
+      <Link to="/profile">
+        <Button className={`${styles.button} ${styles.link}`}>Profile</Button>
+      </Link>
     );
   } else {
     return (
@@ -40,10 +42,15 @@ const SignProfileButton = ({ displayLogout }) => {
   }
 };
 
-const LogButton = ({ displayLogout }) => {
-  if (displayLogout) {
+const LogButton = ({ isAuthenticated, setToken }) => {
+  if (isAuthenticated) {
     return (
-      <Button className={`${styles.button} ${styles.link}`}>Logout</Button>
+      <Button
+        className={`${styles.button} ${styles.link}`}
+        onClick={() => setToken({ username: "", response: "" })}
+      >
+        Logout
+      </Button>
     );
   } else {
     return (
@@ -59,6 +66,7 @@ Header.propTypes = {
     username: PropTypes.string.isRequired,
     token: PropTypes.string.isRequired,
   }).isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 export default Header;
