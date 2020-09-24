@@ -35,24 +35,31 @@ const LoginPage = ({ setToken }) => {
     const response = api.post(username, password);
 
     if (username.trim().length === 0) {
+      console.log("submit");
       // Username value is empty.
       setUsernameError(true);
       setPasswordError(false);
-      setUsernameMessage(1);
+      setUsernameMessage(3);
+      setTimeout(() => {
+        setUsernameMessage(1);
+      }, 50);
     } else if (password.trim().length === 0) {
       // Password value is empty.
       setPasswordError(true);
       setUsernameError(false);
       setPasswordMessage(1);
     } else if (response === 404) {
+      // Username not found.
       setUsernameError(true);
       setPasswordError(false);
       setUsernameMessage(2);
     } else if (response === 406) {
+      // Incorrect password.
       setPasswordError(true);
       setUsernameError(false);
       setPasswordMessage(2);
     } else {
+      // Successful login.
       setToken({ username, response });
       history.push("/profile");
       setUsernameError(false);

@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import styles from "../LoginPage.module.css";
 
 const UsernameText = ({ usernameError, usernameMessage }) => {
+  console.log(usernameMessage);
   const messages = [
     <p>We'll never share your email with anyone else.</p>,
     <p className={styles.textError}>Email cannot be blank.</p>,
@@ -13,6 +14,9 @@ const UsernameText = ({ usernameError, usernameMessage }) => {
       <span className={styles.boldError}>Sign up for an account.</span>
     </p>,
   ];
+
+  messages[3] = messages[usernameMessage];
+
   return (
     <Form.Text className="text-muted">
       {usernameError ? messages[usernameMessage] : messages[0]}

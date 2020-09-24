@@ -11,6 +11,12 @@
 
 .textError {
   color: #f02849;
+  animation: pop 0.25s ease-in-out;
+}
+@keyframes pop {
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .boldError {
