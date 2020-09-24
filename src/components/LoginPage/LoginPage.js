@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
@@ -9,9 +9,13 @@ import styles from "./LoginPage.module.css";
 
 import api from "../../api.js";
 
-import authProblem from "../../svgs/auth_problem.svg";
-import showPassword from "../../svgs/show_password.svg";
-import hidePassword from "../../svgs/hide_password.svg";
+// Helper Components
+import LoginButton from "./helpers/LoginButton";
+import UsernameText from "./helpers/UsernameText";
+import PasswordText from "./helpers/PasswordText";
+import UsernameErrorSVG from "./helpers/UsernameErrorSVG";
+import PasswordErrorSVG from "./helpers/PasswordErrorSVG";
+import PasswordVisibilityButton from "./helpers/PasswordVisibilityButton";
 
 const LoginPage = ({ setToken }) => {
   const [username, setUsername] = useState("");
@@ -22,17 +26,32 @@ const LoginPage = ({ setToken }) => {
 
   const [displayPassword, setDisplayPassword] = useState(false);
 
+  const [usernameMessage, setUsernameMessage] = useState(0);
+  const [passwordMessage, setPasswordMessage] = useState(0);
+
   const history = useHistory();
   const onSubmit = (e) => {
-    console.log("submit");
     e.preventDefault();
     const response = api.post(username, password);
-    if (response === 404) {
+
+    if (username.trim().length === 0) {
+      // Username value is empty.
       setUsernameError(true);
       setPasswordError(false);
+      setUsernameMessage(1);
+    } else if (password.trim().length === 0) {
+      // Password value is empty.
+      setPasswordError(true);
+      setUsernameError(false);
+      setPasswordMessage(1);
+    } else if (response === 404) {
+      setUsernameError(true);
+      setPasswordError(false);
+      setUsernameMessage(2);
     } else if (response === 406) {
       setPasswordError(true);
       setUsernameError(false);
+      setPasswordMessage(2);
     } else {
       setToken({ username, response });
       history.push("/profile");
@@ -55,81 +74,35 @@ const LoginPage = ({ setToken }) => {
             onChange={(e) => setUsername(e.target.value)}
             className={usernameError ? styles.error : ""}
           />
-          {usernameError && (
-            <img
-              src={authProblem}
-              alt="Authentication Problem"
-              className={styles.authProblem}
-            />
-          )}
-          <Form.Text className="text-muted">
-            {usernameError ? (
-              <p className={styles.textError}>
-                The email you've entered doesn't match any account.{" "}
-                <span className={styles.boldError}>
-                  Sign up for an account.
-                </span>
-              </p>
-            ) : (
-              <p>We'll never share your email with anyone else.</p>
-            )}
-          </Form.Text>
+          <UsernameErrorSVG usernameError={usernameError} />
+          <UsernameText
+            usernameError={usernameError}
+            usernameMessage={usernameMessage}
+          />
         </Form.Group>
-
         <Form.Group controlId="formBasicPassword" className={styles.relative}>
           <Form.Control
             type={displayPassword ? "text" : "password"}
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
+            className={passwordError ? styles.error : ""}
           />
-          {displayPassword ? (
-            <button
-              type="button"
-              className={passwordError ? styles.showPW1 : styles.showPW2}
-              onClick={() => togglePWVisibility(false)}
-            >
-              <img src={hidePassword} alt="Password Vision" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              className={passwordError ? styles.showPW1 : styles.showPW2}
-              onClick={() => togglePWVisibility(true)}
-            >
-              <img src={showPassword} alt="Password Vision" />
-            </button>
-          )}
-          {passwordError && (
-            <img
-              src={authProblem}
-              alt="Authentication Problem"
-              className={styles.authProblem}
-            />
-          )}
-          <Form.Text className="text-muted">
-            {passwordError ? (
-              <p className={styles.textError}>
-                The password you've entered is incorrect.{" "}
-                <span className={styles.boldError}>Forgot Password?</span>
-              </p>
-            ) : (
-              <p>Never share your password with anyone else.</p>
-            )}
-          </Form.Text>
+          <PasswordVisibilityButton
+            displayPassword={displayPassword}
+            passwordError={passwordError}
+            togglePWVisibility={togglePWVisibility}
+          />
+          <PasswordErrorSVG passwordError={passwordError} />
+          <PasswordText
+            passwordError={passwordError}
+            passwordMessage={passwordMessage}
+          />
         </Form.Group>
-        <Button variant="primary" type="submit" className={styles.loginButton}>
-          Log In
-        </Button>
+        <LoginButton />
       </Form>
     </Jumbotron>
   );
 };
-
-// const UnderPasswordMessage = ({ passwordError }) => {
-//   return (
-
-//   );
-// };
 
 LoginPage.propTypes = {
   setToken: PropTypes.func.isRequired,
