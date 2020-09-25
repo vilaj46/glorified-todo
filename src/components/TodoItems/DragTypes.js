@@ -1,3 +1,3 @@
 export default {
-  TodoItem: "TodoItem",
+  TODO_ITEM: "TODO_ITEM",
 };

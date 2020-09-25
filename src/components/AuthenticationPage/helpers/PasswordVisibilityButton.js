@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import showPassword from "../../../svgs/show_password.svg";
 import hidePassword from "../../../svgs/hide_password.svg";
 
-import styles from "../LoginPage.module.css";
+import styles from "../AuthenticationPage.module.css";
 
 const PasswordVisibilityButton = ({
   displayPassword,

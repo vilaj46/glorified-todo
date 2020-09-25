@@ -6,7 +6,7 @@ const api = {
       password: "georgia46",
     },
   ],
-  post: (username, password) => {
+  login: (username, password) => {
     for (let i = 0; i < api.users.length; i++) {
       const potentialUser = api.users[i];
       if (username === potentialUser.username) {
@@ -23,6 +23,17 @@ const api = {
     } else {
       return 406;
     }
+  },
+  signup: (username, password) => {
+    for (let i = 0; i < api.users.length; i++) {
+      const potentialUser = api.users[i];
+      if (username === potentialUser.username) {
+        return 406;
+      }
+    }
+
+    api.users.push({ username, password });
+    return api.jwt;
   },
 };
 

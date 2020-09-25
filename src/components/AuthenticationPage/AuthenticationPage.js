@@ -5,9 +5,11 @@ import Form from "react-bootstrap/Form";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-import styles from "./LoginPage.module.css";
+import styles from "./AuthenticationPage.module.css";
 
-import api from "../../api.js";
+// Helper Functions
+import login from "./funcs/login.js";
+import signup from "./funcs/signup.js";
 
 // Helper Components
 import LoginButton from "./helpers/LoginButton";
@@ -17,7 +19,7 @@ import UsernameErrorSVG from "./helpers/UsernameErrorSVG";
 import PasswordErrorSVG from "./helpers/PasswordErrorSVG";
 import PasswordVisibilityButton from "./helpers/PasswordVisibilityButton";
 
-const LoginPage = ({ setToken }) => {
+const AuthenticationPage = ({ setToken, page }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,77 +31,47 @@ const LoginPage = ({ setToken }) => {
   const [usernameMessage, setUsernameMessage] = useState(0);
   const [passwordMessage, setPasswordMessage] = useState(0);
 
+  const [lastClicked, setLastClicked] = useState(undefined);
+  const [prevPage, setPrevPage] = useState(page);
+
   const history = useHistory();
+
+  // Resets Form if we switch between the login / signup page.
+  if (prevPage !== page) {
+    setPrevPage(page);
+    setUsername("");
+    setPassword("");
+    setUsernameError(false);
+    setPasswordError(false);
+    setDisplayPassword(false);
+    setUsernameMessage(0);
+    setPasswordMessage(0);
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
-    const response = api.post(username, password);
 
-    if (username.trim().length === 0) {
-      // Username value is empty.
-      setUsernameError(true);
-      setPasswordError(false);
-      setUsernameMessage(1);
-      emphasizeUserErrorMessage(500);
-    } else if (password.trim().length === 0) {
-      // Password value is empty.
-      setPasswordError(true);
-      setUsernameError(false);
-      setPasswordMessage(1);
-      emphasizePassErrorMessage(500);
-    } else if (response === 404) {
-      // Username not found.
-      setUsernameError(true);
-      setPasswordError(false);
-      setUsernameMessage(2);
-      emphasizeUserErrorMessage(500);
-    } else if (response === 406) {
-      // Incorrect password.
-      setPasswordError(true);
-      setUsernameError(false);
-      setPasswordMessage(2);
-      emphasizePassErrorMessage(500);
+    const credentials = { username, password };
+    const state = { usernameMessage, passwordMessage, lastClicked, history };
+    const actions = {
+      setUsernameError,
+      setPasswordError,
+      setToken,
+      setUsernameMessage,
+      setPasswordMessage,
+      lastClicked,
+      setLastClicked,
+    };
+
+    if (page === "login") {
+      login(credentials, actions, state);
     } else {
-      // Successful login.
-      setToken({ username, response });
-      setUsernameError(false);
-      setPasswordError(false);
-      history.push("/profile");
+      signup(credentials, actions, state);
     }
   };
 
   const togglePWVisibility = (bool) => {
     setDisplayPassword(bool);
-  };
-
-  let lastClicked;
-  const emphasizeUserErrorMessage = (time) => {
-    if (Date.now() - time < lastClicked) return;
-    lastClicked = Date.now();
-    const prevMessage = usernameMessage;
-    if (usernameMessage > 0 && prevMessage === usernameMessage) {
-      const element = document.getElementById("usernameId");
-      const passwordId = document.getElementById("passwordId");
-      passwordId.classList.remove("bold");
-      element.classList.add(styles.bold);
-      setTimeout(() => {
-        element.classList.remove(styles.bold);
-      }, time);
-    }
-  };
-
-  const emphasizePassErrorMessage = (time) => {
-    if (Date.now() - time < lastClicked) return;
-    lastClicked = Date.now();
-    const prevMessage = passwordMessage;
-    const usernameId = document.getElementById("usernameId");
-    if (passwordMessage > 0 && prevMessage === passwordMessage) {
-      const element = document.getElementById("passwordId");
-      usernameId.classList.remove("bold");
-      element.classList.add(styles.bold);
-      setTimeout(() => {
-        element.classList.remove(styles.bold);
-      }, time);
-    }
   };
 
   return (
@@ -109,6 +81,7 @@ const LoginPage = ({ setToken }) => {
           <Form.Control
             type="email"
             placeholder="Enter email"
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
             className={usernameError ? styles.error : ""}
           />
@@ -137,14 +110,15 @@ const LoginPage = ({ setToken }) => {
             passwordMessage={passwordMessage}
           />
         </Form.Group>
-        <LoginButton />
+        <LoginButton page={page} />
       </Form>
     </Jumbotron>
   );
 };
 
-LoginPage.propTypes = {
+AuthenticationPage.propTypes = {
   setToken: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
 };
 
-export default LoginPage;
+export default AuthenticationPage;

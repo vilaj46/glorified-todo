@@ -23,6 +23,18 @@
   text-align: center;
 }
 
+.signupButton {
+  width: 100%;
+  text-align: center;
+  background-color: #42b72a;
+  border-color: #42b72a;
+}
+
+.signupButton:hover {
+  background-color: #349121;
+  border-color: #349121;
+}
+
 .relative {
   position: relative;
 }

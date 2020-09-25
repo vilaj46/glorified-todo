@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import styles from "../LoginPage.module.css";
+import styles from "../AuthenticationPage.module.css";
 
 import authProblem from "../../../svgs/auth_problem.svg";
 

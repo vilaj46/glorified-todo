@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 
-import styles from "../LoginPage.module.css";
+import styles from "../AuthenticationPage.module.css";
 
 const PasswordText = ({ passwordError, passwordMessage }) => {
   const messages = [

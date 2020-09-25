@@ -18,7 +18,7 @@ const TodoItem = ({ item, index, completeTodo, removeTodo, swapTodoItems }) => {
    *
    * @param {Object} e - Event object.
    *
-   * We need to stop the bubbling up because it was just triggering
+   * We need to stop bubbling up because it was just triggering
    * the complete item action.
    */
   const removeHelper = (e) => {
@@ -27,14 +27,14 @@ const TodoItem = ({ item, index, completeTodo, removeTodo, swapTodoItems }) => {
   };
 
   const [, drag] = useDrag({
-    item: { type: DragTypes.TodoItem, data: { ...item, index } },
+    item: { type: DragTypes.TODO_ITEM, data: { ...item, index } },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   });
 
   const [, drop] = useDrop({
-    accept: DragTypes.TodoItem,
+    accept: DragTypes.TODO_ITEM,
     drop: (itemBeingDragged) => {
       swapTodoItems(itemBeingDragged.data, { ...item, index });
     },

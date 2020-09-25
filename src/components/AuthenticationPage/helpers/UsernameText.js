@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 
-import styles from "../LoginPage.module.css";
+import styles from "../AuthenticationPage.module.css";
 
 const UsernameText = ({ usernameError, usernameMessage }) => {
   const messages = [
@@ -11,8 +12,13 @@ const UsernameText = ({ usernameError, usernameMessage }) => {
       Email cannot be blank.
     </p>,
     <p className={styles.textError} id="usernameId">
-      The email you've entered doesn't match any account.{" "}
-      <span className={styles.boldError}>Sign up for an account.</span>
+      The email you've entered doesn't match any account.
+      <Link to="signup" className={styles.boldError}>
+        <span>Sign up for an account.</span>
+      </Link>
+    </p>,
+    <p className={styles.textError} id="usernameId">
+      There is an account already associated with that email.
     </p>,
   ];
 

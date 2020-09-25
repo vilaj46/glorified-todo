@@ -5,10 +5,9 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import styles from "./App.module.css";
 
 // Pages
-import LoginPage from "../LoginPage/LoginPage";
-import SignupPage from "../SignupPage/SignupPage";
-import ProfilePage from "../ProfilePage/ProfilePage";
 import TodoItems from "../TodoItems/TodoItems";
+import ProfilePage from "../ProfilePage/ProfilePage";
+import AuthenticationPage from "../AuthenticationPage/AuthenticationPage";
 
 import Header from "../Header/Header";
 import AddTodoForm from "../AddTodoForm/AddTodoForm";
@@ -52,10 +51,16 @@ const App = () => {
           {isAuthenticated ? (
             <Redirect to="/profile" />
           ) : (
-            <LoginPage setToken={setToken} />
+            <AuthenticationPage setToken={setToken} page="login" />
           )}
         </Route>
-        <Route path="/signup" exact component={SignupPage} />
+        <Route path="/signup" exact>
+          {isAuthenticated ? (
+            <Redirect to="/profile" />
+          ) : (
+            <AuthenticationPage setToken={setToken} page="signup" />
+          )}
+        </Route>
         <Route path="/profile" exact>
           {isAuthenticated ? <ProfilePage /> : <Redirect to="/login" />}
         </Route>
