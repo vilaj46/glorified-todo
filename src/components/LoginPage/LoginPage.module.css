@@ -11,6 +11,7 @@
 
 .textError {
   color: #f02849;
+  transition: 200ms;
 }
 
 .boldError {
@@ -59,6 +60,5 @@
 }
 
 .bold {
-  font-weight: 600;
   transform: translateX(-50px);
 }

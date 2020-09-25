@@ -35,33 +35,29 @@ const LoginPage = ({ setToken }) => {
     const response = api.post(username, password);
 
     if (username.trim().length === 0) {
-      const prevMessage = usernameMessage;
       // Username value is empty.
       setUsernameError(true);
       setPasswordError(false);
       setUsernameMessage(1);
-      if (usernameMessage > 0 && prevMessage === usernameMessage) {
-        const element = document.querySelector(`.${styles.textError}`);
-        element.classList.toggle(styles.bold);
-        setTimeout(() => {
-          element.classList.toggle(styles.bold);
-        }, 500);
-      }
+      emphasizeUserErrorMessage();
     } else if (password.trim().length === 0) {
       // Password value is empty.
       setPasswordError(true);
       setUsernameError(false);
       setPasswordMessage(1);
+      emphasizePassErrorMessage();
     } else if (response === 404) {
       // Username not found.
       setUsernameError(true);
       setPasswordError(false);
       setUsernameMessage(2);
+      emphasizeUserErrorMessage();
     } else if (response === 406) {
       // Incorrect password.
       setPasswordError(true);
       setUsernameError(false);
       setPasswordMessage(2);
+      emphasizePassErrorMessage();
     } else {
       // Successful login.
       setToken({ username, response });
@@ -73,6 +69,37 @@ const LoginPage = ({ setToken }) => {
 
   const togglePWVisibility = (bool) => {
     setDisplayPassword(bool);
+  };
+
+  let lastClicked;
+  const emphasizeUserErrorMessage = () => {
+    if (Date.now() - 500 < lastClicked) return;
+    lastClicked = Date.now();
+    const prevMessage = usernameMessage;
+    if (usernameMessage > 0 && prevMessage === usernameMessage) {
+      const element = document.getElementById("usernameId");
+      const passwordId = document.getElementById("passwordId");
+      passwordId.classList.remove("bold");
+      element.classList.add(styles.bold);
+      setTimeout(() => {
+        element.classList.remove(styles.bold);
+      }, 500);
+    }
+  };
+
+  const emphasizePassErrorMessage = () => {
+    if (Date.now() - 500 < lastClicked) return;
+    lastClicked = Date.now();
+    const prevMessage = passwordMessage;
+    const usernameId = document.getElementById("usernameId");
+    if (passwordMessage > 0 && prevMessage === passwordMessage) {
+      const element = document.getElementById("passwordId");
+      usernameId.classList.remove("bold");
+      element.classList.add(styles.bold);
+      setTimeout(() => {
+        element.classList.remove(styles.bold);
+      }, 500);
+    }
   };
 
   return (
@@ -97,6 +124,7 @@ const LoginPage = ({ setToken }) => {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             className={passwordError ? styles.error : ""}
+            autoComplete="on"
           />
           <PasswordVisibilityButton
             displayPassword={displayPassword}
