@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export default () => {
-  // { username, token }
   const [authentication, setAuthentication] = useState({
     username: "",
     token: "",

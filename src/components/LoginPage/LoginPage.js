@@ -39,31 +39,31 @@ const LoginPage = ({ setToken }) => {
       setUsernameError(true);
       setPasswordError(false);
       setUsernameMessage(1);
-      emphasizeUserErrorMessage();
+      emphasizeUserErrorMessage(500);
     } else if (password.trim().length === 0) {
       // Password value is empty.
       setPasswordError(true);
       setUsernameError(false);
       setPasswordMessage(1);
-      emphasizePassErrorMessage();
+      emphasizePassErrorMessage(500);
     } else if (response === 404) {
       // Username not found.
       setUsernameError(true);
       setPasswordError(false);
       setUsernameMessage(2);
-      emphasizeUserErrorMessage();
+      emphasizeUserErrorMessage(500);
     } else if (response === 406) {
       // Incorrect password.
       setPasswordError(true);
       setUsernameError(false);
       setPasswordMessage(2);
-      emphasizePassErrorMessage();
+      emphasizePassErrorMessage(500);
     } else {
       // Successful login.
       setToken({ username, response });
-      history.push("/profile");
       setUsernameError(false);
       setPasswordError(false);
+      history.push("/profile");
     }
   };
 
@@ -72,8 +72,8 @@ const LoginPage = ({ setToken }) => {
   };
 
   let lastClicked;
-  const emphasizeUserErrorMessage = () => {
-    if (Date.now() - 500 < lastClicked) return;
+  const emphasizeUserErrorMessage = (time) => {
+    if (Date.now() - time < lastClicked) return;
     lastClicked = Date.now();
     const prevMessage = usernameMessage;
     if (usernameMessage > 0 && prevMessage === usernameMessage) {
@@ -83,12 +83,12 @@ const LoginPage = ({ setToken }) => {
       element.classList.add(styles.bold);
       setTimeout(() => {
         element.classList.remove(styles.bold);
-      }, 500);
+      }, time);
     }
   };
 
-  const emphasizePassErrorMessage = () => {
-    if (Date.now() - 500 < lastClicked) return;
+  const emphasizePassErrorMessage = (time) => {
+    if (Date.now() - time < lastClicked) return;
     lastClicked = Date.now();
     const prevMessage = passwordMessage;
     const usernameId = document.getElementById("usernameId");
@@ -98,7 +98,7 @@ const LoginPage = ({ setToken }) => {
       element.classList.add(styles.bold);
       setTimeout(() => {
         element.classList.remove(styles.bold);
-      }, 500);
+      }, time);
     }
   };
 

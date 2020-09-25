@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 
 import styles from "../App/App.module.css";
 
-const Header = ({ authentication, setToken, isAuthenticated }) => {
-  // const isAuthenticated =
-  //   authentication.username.length > 0 && authentication.token.length > 0;
+// Helper Components
+import SignProfileButton from "./helpers/SignProfileButton";
+import LogButton from "./helpers/LogButton";
 
+const Header = ({ setToken, isAuthenticated }) => {
   return (
     <header className={styles.header}>
       <div className={styles.linksContainer}>
@@ -24,41 +25,6 @@ const Header = ({ authentication, setToken, isAuthenticated }) => {
       <h1>My Glorified To Do List</h1>
     </header>
   );
-};
-
-const SignProfileButton = ({ isAuthenticated }) => {
-  if (isAuthenticated) {
-    return (
-      <Link to="/profile">
-        <Button className={`${styles.button} ${styles.link}`}>Profile</Button>
-      </Link>
-    );
-  } else {
-    return (
-      <Link className={styles.link} to="/signup">
-        <Button className={styles.button}>Signup</Button>
-      </Link>
-    );
-  }
-};
-
-const LogButton = ({ isAuthenticated, setToken }) => {
-  if (isAuthenticated) {
-    return (
-      <Button
-        className={`${styles.button} ${styles.link}`}
-        onClick={() => setToken({ username: "", response: "" })}
-      >
-        Logout
-      </Button>
-    );
-  } else {
-    return (
-      <Link className={styles.link} to="/login">
-        <Button className={styles.button}>Login</Button>
-      </Link>
-    );
-  }
 };
 
 Header.propTypes = {

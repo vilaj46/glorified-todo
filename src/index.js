@@ -12,10 +12,11 @@ import App from "./components/App/App";
 // Testing
 
 // Login / Authentication.
-// If we have an invalid username and we type in another bad username, we have to show we are looking for it. Not just keep the same message?
 // Signup Page
 // Profile Page / Icon should be added in.
 // List of items TodoItems for edit.
+// CSS Scaling.
+
 // Ability to change password.
 // Verify account.
 

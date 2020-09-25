@@ -9,6 +9,19 @@ const AddTodoForm = ({ addTodo }) => {
   const [value, setValue] = useState("");
   const [showWarning, setShowWarning] = useState(false);
 
+  /**
+   * onSubmit
+   *
+   * @param {Object} e - Event object.
+   *
+   * If we submit the form or click the 'Add' button.
+   * Triggers the addTodo function from our custom hook.
+   * If didAdd is returned true it was a success and we can set our
+   * form text to '' and remove the warning if it was there.
+   *
+   * If we fail to add the new todo we just show the warning and keep the text.
+   * The only way to fail will be from a blank form.
+   */
   const onSubmit = (e) => {
     e.preventDefault();
     const didAdd = addTodo({
@@ -20,7 +33,6 @@ const AddTodoForm = ({ addTodo }) => {
       setValue("");
       setShowWarning(false);
     } else {
-      console.log(didAdd);
       setShowWarning(true);
     }
   };
