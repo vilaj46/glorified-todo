@@ -13,13 +13,13 @@ const LogButton = ({ isAuthenticated, setToken }) => {
         className={`${styles.button} ${styles.link}`}
         onClick={() => setToken({ username: "", response: "" })}
       >
-        Logout
+        Log Out
       </Button>
     );
   } else {
     return (
       <Link className={styles.link} to="/login">
-        <Button className={styles.button}>Login</Button>
+        <Button className={styles.button}>Log In</Button>
       </Link>
     );
   }

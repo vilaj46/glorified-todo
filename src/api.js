@@ -1,17 +1,29 @@
+import happy from "./svgs/happy.png";
+import unhappy from "./svgs/unhappy.png";
+
 const api = {
   jwt: "12345",
   users: [
     {
       username: "vilaj46@gmail.com",
       password: "georgia46",
+      profilePic: unhappy,
     },
   ],
   login: (username, password) => {
     for (let i = 0; i < api.users.length; i++) {
       const potentialUser = api.users[i];
       if (username === potentialUser.username) {
-        const response = api.checkPW(password, potentialUser.password);
-        return response;
+        const isValidPW = api.checkPW(password, potentialUser.password);
+        if (isValidPW) {
+          return {
+            username,
+            jwt: api.jwt,
+            profilePic: potentialUser.profilePic,
+          };
+        } else {
+          return 406;
+        }
       }
     }
 
@@ -19,9 +31,9 @@ const api = {
   },
   checkPW: (currentPW, actualPW) => {
     if (currentPW === actualPW) {
-      return api.jwt;
+      return true;
     } else {
-      return 406;
+      return false;
     }
   },
   signup: (username, password) => {
@@ -31,9 +43,9 @@ const api = {
         return 406;
       }
     }
-
-    api.users.push({ username, password });
-    return api.jwt;
+    const data = { username, jwt: api.jwt, profilePic: happy };
+    api.users.push({ ...data, password });
+    return data;
   },
 };
 

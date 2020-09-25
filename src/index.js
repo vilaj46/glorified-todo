@@ -10,15 +10,23 @@ import App from "./components/App/App";
 // https://www.w3schools.com/howto/howto_js_todolist.asp
 
 // Testing
+// Spacing on larger screens.
+
+// 404 Page
 
 // Login / Authentication.
-// Signup Page
-// Profile Page / Icon should be added in.
+// Profile Page
 // List of items TodoItems for edit.
-// CSS Scaling.
-
-// Ability to change password.
+// Ability to change email/password.
 // Verify account.
+// Delete account.
+// Model off github.
+// Add a bio.
+// Company.
+// Location.
+// Email.
+// Website.
+// Twitter username.
 
 // On the deploy file, redirect to the '/' instead of having http://vilaj46.github.io/glorified-todo?
 

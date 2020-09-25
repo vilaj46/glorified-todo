@@ -16,6 +16,12 @@
 
 .boldError {
   font-weight: 600;
+  color: #f02849;
+}
+
+.boldError:hover {
+  font-weight: 600;
+  color: #f02849;
 }
 
 .loginButton {
@@ -30,7 +36,9 @@
   border-color: #42b72a;
 }
 
-.signupButton:hover {
+.signupButton:hover,
+.signupButton:active,
+.signupButton:focus {
   background-color: #349121;
   border-color: #349121;
 }

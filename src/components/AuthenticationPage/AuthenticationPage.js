@@ -95,6 +95,7 @@ const AuthenticationPage = ({ setToken, page }) => {
           <Form.Control
             type={displayPassword ? "text" : "password"}
             placeholder="Password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={passwordError ? styles.error : ""}
             autoComplete="on"

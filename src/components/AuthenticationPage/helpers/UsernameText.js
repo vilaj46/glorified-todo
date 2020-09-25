@@ -12,7 +12,7 @@ const UsernameText = ({ usernameError, usernameMessage }) => {
       Email cannot be blank.
     </p>,
     <p className={styles.textError} id="usernameId">
-      The email you've entered doesn't match any account.
+      The email you've entered doesn't match any account.&nbsp;
       <Link to="signup" className={styles.boldError}>
         <span>Sign up for an account.</span>
       </Link>

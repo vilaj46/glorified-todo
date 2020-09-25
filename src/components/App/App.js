@@ -25,46 +25,48 @@ const App = () => {
 
   return (
     <Jumbotron>
-      <div className={styles.top}>
-        <Header
-          authentication={authentication}
-          setToken={setToken}
-          isAuthenticated={isAuthenticated}
-        />
-        <Route
-          path="/"
-          exact
-          render={() => <AddTodoForm addTodo={addTodo} />}
-        />
-      </div>
-
-      <Switch>
-        <Route path="/" exact>
-          <TodoItems
-            todos={todos}
-            completeTodo={completeTodo}
-            removeTodo={removeTodo}
-            swapTodoItems={swapTodoItems}
+      <div className={styles.width}>
+        <div className={styles.top}>
+          <Header
+            authentication={authentication}
+            setToken={setToken}
+            isAuthenticated={isAuthenticated}
           />
-        </Route>
-        <Route path="/login" exact>
-          {isAuthenticated ? (
-            <Redirect to="/profile" />
-          ) : (
-            <AuthenticationPage setToken={setToken} page="login" />
-          )}
-        </Route>
-        <Route path="/signup" exact>
-          {isAuthenticated ? (
-            <Redirect to="/profile" />
-          ) : (
-            <AuthenticationPage setToken={setToken} page="signup" />
-          )}
-        </Route>
-        <Route path="/profile" exact>
-          {isAuthenticated ? <ProfilePage /> : <Redirect to="/login" />}
-        </Route>
-      </Switch>
+          <Route
+            path="/"
+            exact
+            render={() => <AddTodoForm addTodo={addTodo} />}
+          />
+        </div>
+
+        <Switch>
+          <Route path="/" exact>
+            <TodoItems
+              todos={todos}
+              completeTodo={completeTodo}
+              removeTodo={removeTodo}
+              swapTodoItems={swapTodoItems}
+            />
+          </Route>
+          <Route path="/login" exact>
+            {isAuthenticated ? (
+              <Redirect to="/profile" />
+            ) : (
+              <AuthenticationPage setToken={setToken} page="login" />
+            )}
+          </Route>
+          <Route path="/signup" exact>
+            {isAuthenticated ? (
+              <Redirect to="/profile" />
+            ) : (
+              <AuthenticationPage setToken={setToken} page="signup" />
+            )}
+          </Route>
+          <Route path="/profile" exact>
+            {isAuthenticated ? <ProfilePage /> : <Redirect to="/login" />}
+          </Route>
+        </Switch>
+      </div>
     </Jumbotron>
   );
 };

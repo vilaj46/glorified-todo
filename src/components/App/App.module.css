@@ -1,21 +1,54 @@
 .top {
   background-color: #f44336;
   padding: 50px 0;
+  position: relative;
 }
 
 .header h1 {
   font-size: 2.5rem;
   text-align: center;
   color: #ffffff;
-  margin-bottom: 25px;
+  margin: 25px 0;
 }
 
-.linksContainer {
+.linksContainer,
+.profileContainer {
   display: flex;
-  justify-content: flex-end;
+  width: 75%;
+  margin: 0 auto;
 }
 
-.link {
-  margin-left: 14px;
-  margin-right: 14px;
+.profile {
+  margin-left: auto;
+  position: absolute;
+  right: 0;
+  top: 17px;
+}
+
+.button {
+  margin-right: 5px;
+}
+
+.nav {
+  display: flex;
+}
+
+.items {
+  margin-left: 5px;
+}
+
+.profileText {
+  margin: 0 auto;
+}
+
+.profilePic {
+  display: block;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 1280px) {
+  .width {
+    width: 60%;
+    margin: 0 auto;
+  }
 }

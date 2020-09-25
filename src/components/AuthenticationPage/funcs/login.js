@@ -69,7 +69,7 @@ const login = (credentials, actions, state) => {
     );
   } else {
     // Successful login.
-    actions.setToken({ username: credentials.username, response });
+    actions.setToken(response);
     actions.setUsernameError(false);
     actions.setPasswordError(false);
     state.history.push("/profile");

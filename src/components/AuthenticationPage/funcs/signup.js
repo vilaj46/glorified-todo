@@ -44,7 +44,6 @@ const signup = (credentials, actions, state) => {
   }
 
   const response = api.signup(credentials.username, credentials.password);
-
   if (response === 406) {
     // Username in use.
     actions.setUsernameError(true);
@@ -58,7 +57,7 @@ const signup = (credentials, actions, state) => {
     );
   } else {
     // Successful login.
-    actions.setToken({ username: credentials.username, response });
+    actions.setToken(response);
     actions.setUsernameError(false);
     actions.setPasswordError(false);
     state.history.push("/profile");
