@@ -35,14 +35,18 @@ const LoginPage = ({ setToken }) => {
     const response = api.post(username, password);
 
     if (username.trim().length === 0) {
-      console.log("submit");
+      const prevMessage = usernameMessage;
       // Username value is empty.
       setUsernameError(true);
       setPasswordError(false);
-      setUsernameMessage(3);
-      setTimeout(() => {
-        setUsernameMessage(1);
-      }, 50);
+      setUsernameMessage(1);
+      if (usernameMessage > 0 && prevMessage === usernameMessage) {
+        const element = document.querySelector(`.${styles.textError}`);
+        element.classList.toggle(styles.bold);
+        setTimeout(() => {
+          element.classList.toggle(styles.bold);
+        }, 500);
+      }
     } else if (password.trim().length === 0) {
       // Password value is empty.
       setPasswordError(true);
