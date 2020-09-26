@@ -8,6 +8,12 @@ const api = {
       username: "vilaj46@gmail.com",
       password: "georgia46",
       profilePic: unhappy,
+      bio: "",
+      company: "",
+      location: "",
+      email: "",
+      website: "",
+      twitter: "",
     },
   ],
   login: (username, password) => {
@@ -17,9 +23,10 @@ const api = {
         const isValidPW = api.checkPW(password, potentialUser.password);
         if (isValidPW) {
           return {
-            username,
+            // username,
+            ...potentialUser,
             jwt: api.jwt,
-            profilePic: potentialUser.profilePic,
+            // profilePic: potentialUser.profilePic,
           };
         } else {
           return 406;
@@ -46,6 +53,16 @@ const api = {
     const data = { username, jwt: api.jwt, profilePic: happy };
     api.users.push({ ...data, password });
     return data;
+  },
+  changeBio: (username, newBio) => {
+    for (let i = 0; i < api.users.length; i++) {
+      const potentialUser = api.users[i];
+      if (username === potentialUser.username) {
+        api.users[i].bio = newBio;
+        return 200;
+      }
+      return 404;
+    }
   },
 };
 

@@ -18,7 +18,7 @@ import useAuthentication from "./useAuthentication";
 
 const App = () => {
   const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
-  const [authentication, setToken] = useAuthentication();
+  const [authentication, setToken, setKey] = useAuthentication();
 
   const isAuthenticated =
     authentication.username.length > 0 && authentication.token.length > 0;
@@ -63,7 +63,11 @@ const App = () => {
             )}
           </Route>
           <Route path="/profile" exact>
-            {isAuthenticated ? <ProfilePage /> : <Redirect to="/login" />}
+            {isAuthenticated ? (
+              <ProfilePage authentication={authentication} setKey={setKey} />
+            ) : (
+              <Redirect to="/login" />
+            )}
           </Route>
         </Switch>
       </div>

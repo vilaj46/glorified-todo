@@ -19,8 +19,21 @@ export default () => {
       username: data.username || "",
       token: data.jwt || "",
       profilePic: data.profilePic || "",
+      bio: data.bio || "",
+      company: data.company || "",
+      location: data.location || "",
+      email: data.email || "",
+      website: data.website || "",
+      twitter: data.twitter || "",
     });
   };
 
-  return [authentication, setToken];
+  const setKey = (key, value) => {
+    setAuthentication({
+      ...authentication,
+      [key]: value,
+    });
+  };
+
+  return [authentication, setToken, setKey];
 };

@@ -20,8 +20,8 @@ import PasswordErrorSVG from "./helpers/PasswordErrorSVG";
 import PasswordVisibilityButton from "./helpers/PasswordVisibilityButton";
 
 const AuthenticationPage = ({ setToken, page }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("vilaj46@gmail.com");
+  const [password, setPassword] = useState("georgia46");
 
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
