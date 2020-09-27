@@ -13,12 +13,12 @@ import Header from "../Header/Header";
 import AddTodoForm from "../AddTodoForm/AddTodoForm";
 
 // Hooks
-import useTodos from "./useTodos";
-import useAuthentication from "./useAuthentication";
+import useTodos from "../hooks/useTodos";
+import useAuthentication from "../hooks/useAuthentication";
 
 const App = () => {
   const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
-  const [authentication, setToken, setKey] = useAuthentication();
+  const [authentication, setToken, setProfileKey] = useAuthentication();
 
   const isAuthenticated =
     authentication.username.length > 0 && authentication.token.length > 0;
@@ -64,7 +64,10 @@ const App = () => {
           </Route>
           <Route path="/profile" exact>
             {isAuthenticated ? (
-              <ProfilePage authentication={authentication} setKey={setKey} />
+              <ProfilePage
+                authentication={authentication}
+                setProfileKey={setProfileKey}
+              />
             ) : (
               <Redirect to="/login" />
             )}

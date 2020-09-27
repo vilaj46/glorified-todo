@@ -7,14 +7,14 @@ import api from "../../../../api.js";
 
 import envelope from "../../../../svgs/envelope.svg";
 
-const EmailInput = ({ username, email, setKey }) => {
+const EmailInput = ({ username, email, setProfileKey }) => {
   const [emailText, setEmailText] = useState(email);
 
   const onChange = (e) => {
     if (e.target.value.trim().length > 0) {
       setEmailText(e.target.value);
       api.changeKey(username, "email", e.target.value);
-      setKey("email", e.target.value);
+      setProfileKey("email", e.target.value);
     }
   };
 
@@ -38,7 +38,7 @@ const EmailInput = ({ username, email, setKey }) => {
 EmailInput.propTypes = {
   username: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  setKey: PropTypes.func.isRequired,
+  setProfileKey: PropTypes.func.isRequired,
 };
 
 export default EmailInput;

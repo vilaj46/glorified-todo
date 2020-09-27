@@ -1,8 +1,48 @@
-/* .biography {
-  border: 2px solid red;
-} */
-
 .username {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+}
+
+.bioStringInput {
+  height: 34px !important;
+}
+
+.bioIconContainer:hover {
+  cursor: pointer;
+}
+
+.profilePic {
+  display: block;
+  height: 192px;
+  width: 192px;
+  margin: 0 auto;
+}
+
+.save {
+  border-color: #40b329;
+  background-color: #40b329;
+  color: white;
+}
+
+.save:hover,
+.save:active,
+.save:focus {
+  background-color: #349121;
+  border-color: #349121;
+}
+
+.cancel {
+  color: #6b6c6e;
+  background-color: #ffffff;
+  border-color: #ced4da;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.cancel:hover,
+.cancel:active,
+.cancel:focus {
+  color: #6b6c6e;
+  background-color: #ffffff;
+  border-color: #ced4da;
 }

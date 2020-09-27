@@ -12,15 +12,10 @@ import App from "./components/App/App";
 // Testing
 // Spacing on larger screens.
 
-// Combine the Biography string inputs into one file.
-// Email dropdown input.
-// Add hover over the input images.
-// Get a new proper image.
-// Check the spacing on the input images. ( the padding seems off )
 // Figure out why logging out does not keep bio values.
 // Save button / cancel button. Which means these will not be onChange automatically submit the data.
-// Make everything under one form.
 // Rename authentication hook and functions.
+// Email dropdown input.
 
 // Change the email into an account. We should have an account name and email associated to it.
 

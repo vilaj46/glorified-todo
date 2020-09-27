@@ -1,5 +1,4 @@
-import happy from "./svgs/happy.png";
-import unhappy from "./svgs/unhappy.png";
+import avatar from "./svgs/avatar.svg";
 
 const api = {
   jwt: "12345",
@@ -7,7 +6,7 @@ const api = {
     {
       username: "vilaj46@gmail.com",
       password: "georgia46",
-      profilePic: unhappy,
+      profilePic: avatar,
       bio: "",
       company: "",
       location: "",
@@ -50,20 +49,31 @@ const api = {
         return 406;
       }
     }
-    const data = { username, jwt: api.jwt, profilePic: happy };
+    const data = { username, jwt: api.jwt, profilePic: avatar };
     api.users.push({ ...data, password });
     return data;
   },
-  changeKey: (username, key, value) => {
+  updateProfile: (username, values) => {
     for (let i = 0; i < api.users.length; i++) {
       const potentialUser = api.users[i];
       if (username === potentialUser.username) {
-        api.users[i].key = value;
+        // api.users[i].key = value;
+        api.users[i] = { ...potentialUser, ...values };
         return 200;
       }
       return 404;
     }
   },
+  // changeKey: (username, key, value) => {
+  // for (let i = 0; i < api.users.length; i++) {
+  //   const potentialUser = api.users[i];
+  //   if (username === potentialUser.username) {
+  //     api.users[i].key = value;
+  //     return 200;
+  //   }
+  //   return 404;
+  // }
+  // },
 };
 
 export default api;

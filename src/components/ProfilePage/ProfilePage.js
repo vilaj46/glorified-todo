@@ -5,10 +5,13 @@ import styles from "./ProfilePage.module.css";
 
 import Biography from "./Biography/Biography";
 
-const ProfilePage = ({ authentication, setKey }) => {
+const ProfilePage = ({ authentication, setProfileKey }) => {
   return (
     <div className={styles.profilePage}>
-      <Biography authentication={authentication} setKey={setKey} />
+      <Biography
+        authentication={authentication}
+        setProfileKey={setProfileKey}
+      />
     </div>
   );
 };
@@ -19,7 +22,7 @@ ProfilePage.propTypes = {
     token: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
   }).isRequired,
-  setKey: PropTypes.func.isRequired,
+  setProfileKey: PropTypes.func.isRequired,
 };
 
 export default ProfilePage;
