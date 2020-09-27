@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
-
 import styles from "./Biography.module.css";
 
 // Helper Components
+import EmailInput from "./helpers/EmailInput";
 import BioTextArea from "./helpers/BioTextArea";
+import CompanyInput from "./helpers/CompanyInput";
+import LocationInput from "./helpers/LocationInput";
+import WebsiteInput from "./helpers/WebsiteInput";
+import BioStringInput from "./helpers/BioStringInput";
 
 const Biography = ({ authentication, setKey }) => {
   return (
@@ -18,59 +20,37 @@ const Biography = ({ authentication, setKey }) => {
         height="96"
         alt="Profile Pic"
       />
-      <p>{authentication.username}</p>
+      <p className={styles.username}>{authentication.username}</p>
       <BioTextArea
         username={authentication.username}
         bio={authentication.bio}
         setKey={setKey}
       />
-      <InputGroup size="sm" className="mb-3">
-        <InputGroup.Prepend>
-          <InputGroup.Text id="inputGroup-sizing-sm">Company</InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl
-          aria-label="Small"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-      </InputGroup>
-      <InputGroup size="sm" className="mb-3">
-        <InputGroup.Prepend>
-          <InputGroup.Text id="inputGroup-sizing-sm">Location</InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl
-          aria-label="Small"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-      </InputGroup>
-
-      <InputGroup size="sm" className="mb-3">
-        <InputGroup.Prepend>
-          <InputGroup.Text id="inputGroup-sizing-sm">Email</InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl
-          aria-label="Small"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-      </InputGroup>
-      <InputGroup size="sm" className="mb-3">
-        <InputGroup.Prepend>
-          <InputGroup.Text id="inputGroup-sizing-sm">Website</InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl
-          aria-label="Small"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-      </InputGroup>
-
-      <InputGroup size="sm" className="mb-3">
-        <InputGroup.Prepend>
-          <InputGroup.Text id="inputGroup-sizing-sm">Twitter</InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl
-          aria-label="Small"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-      </InputGroup>
+      <CompanyInput
+        username={authentication.username}
+        company={authentication.company}
+        setKey={setKey}
+      />
+      <LocationInput
+        username={authentication.username}
+        location={authentication.location}
+        setKey={setKey}
+      />
+      <EmailInput
+        username={authentication.username}
+        email={authentication.email}
+        setKey={setKey}
+      />
+      <WebsiteInput
+        username={authentication.username}
+        website={authentication.website}
+        setKey={setKey}
+      />
+      <BioStringInput
+        localKey="twitter"
+        keyValue={authentication.twitter}
+        setKey={setKey}
+      />
     </div>
   );
 };

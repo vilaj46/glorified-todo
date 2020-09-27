@@ -10,7 +10,7 @@ const BioTextArea = ({ username, bio, setKey }) => {
   const onChange = (e) => {
     if (e.target.value.trim().length > 0) {
       setBioText(e.target.value);
-      api.changeBio(username, e.target.value);
+      api.changeKey(username, "company", e.target.value);
       setKey("bio", e.target.value);
     }
   };

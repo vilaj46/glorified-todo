@@ -1,3 +1,8 @@
-.biography {
+/* .biography {
   border: 2px solid red;
+} */
+
+.username {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }

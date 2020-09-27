@@ -54,11 +54,11 @@ const api = {
     api.users.push({ ...data, password });
     return data;
   },
-  changeBio: (username, newBio) => {
+  changeKey: (username, key, value) => {
     for (let i = 0; i < api.users.length; i++) {
       const potentialUser = api.users[i];
       if (username === potentialUser.username) {
-        api.users[i].bio = newBio;
+        api.users[i].key = value;
         return 200;
       }
       return 404;
