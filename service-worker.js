@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/glorified-todo/precache-manifest.df8258caf00de3401a3a93045d7f7069.js"
+  "/glorified-todo/precache-manifest.17df407c8a3d60a6967c18df7add9d32.js"
 );
 
 self.addEventListener('message', (event) => {

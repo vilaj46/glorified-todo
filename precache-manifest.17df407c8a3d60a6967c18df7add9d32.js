@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d4f66d83970220dea7472e048810e217",
+    "revision": "c7a7df563987ae720719a2aae0df28df",
     "url": "/glorified-todo/index.html"
   },
   {
-    "revision": "1fb6bf095b3fced5155e",
+    "revision": "de9ff3cc654f5478e9a5",
     "url": "/glorified-todo/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "1e56f71944543951545b",
-    "url": "/glorified-todo/static/css/main.343c9ba7.chunk.css"
+    "revision": "7d29bd4aff34f69a41c3",
+    "url": "/glorified-todo/static/css/main.e5e01661.chunk.css"
   },
   {
-    "revision": "1fb6bf095b3fced5155e",
-    "url": "/glorified-todo/static/js/2.95fefdcf.chunk.js"
+    "revision": "de9ff3cc654f5478e9a5",
+    "url": "/glorified-todo/static/js/2.6f0e81c5.chunk.js"
   },
   {
     "revision": "3453b8997016469371284a28c0e873e2",
-    "url": "/glorified-todo/static/js/2.95fefdcf.chunk.js.LICENSE.txt"
+    "url": "/glorified-todo/static/js/2.6f0e81c5.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1e56f71944543951545b",
-    "url": "/glorified-todo/static/js/main.7bf41010.chunk.js"
+    "revision": "7d29bd4aff34f69a41c3",
+    "url": "/glorified-todo/static/js/main.97abc03c.chunk.js"
   },
   {
     "revision": "e61405ad4a564c75c5b4",
@@ -30,6 +30,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "2a5a1bfc5db5da74eeb9164fcad7300a",
     "url": "/glorified-todo/static/media/auth_problem.2a5a1bfc.svg"
+  },
+  {
+    "revision": "4894c98f8b47ff474da85a457c38bbd5",
+    "url": "/glorified-todo/static/media/avatar.4894c98f.svg"
   },
   {
     "revision": "7812c5ab20f2dc676e4c5213aa98b7c9",
