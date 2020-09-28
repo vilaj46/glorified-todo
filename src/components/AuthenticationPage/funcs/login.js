@@ -4,8 +4,8 @@ import emphasize from "./emphasize.js";
 /**
  * login
  *
- * @param {Object} credentials - username, password
- * @param {Object} actions - setUsernameError, setPasswordError, setUsernameMessage, setPasswordMessage, lastClicked, setLastClicked, setToken
+ * @param {Object} credentials - username, email, password
+ * @param {Object} actions - setUsernameError, setEmailError, setPasswordError, setUsernameMessage, setEmailMessage, setPasswordMessage, lastClicked, setLastClicked, setToken
  * @param {Object} state - usernameMessage, passwordMessage, lastClicked, history
  *
  * Checks if the username or password are blank. If they are display the message.

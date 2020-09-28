@@ -16,13 +16,15 @@ const api = {
   jwt: "12345",
   users: [
     {
-      username: "vilaj46@gmail.com",
+      username: "vilaj46",
       password: "georgia46",
       profilePic: avatar,
       bio: "",
       company: "",
       location: "",
-      email: "",
+      email: "vilaj46@gmail.com",
+      visibleEmail: "",
+      visibleEmails: ["vilaj46@gmail.com"],
       website: "",
       twitter: "",
     },
@@ -52,11 +54,13 @@ const api = {
       return false;
     }
   },
-  signup: (username, password) => {
+  signup: (username, email, password) => {
     for (let i = 0; i < api.users.length; i++) {
       const potentialUser = api.users[i];
       if (username === potentialUser.username) {
-        return 406;
+        return [406, "username"];
+      } else if (email === potentialUser.email) {
+        return [406, "email"];
       }
     }
     const newUser = User(username, password);
@@ -67,7 +71,7 @@ const api = {
       }
     });
     api.users.push(newUser);
-    return newUserToJson;
+    return [newUserToJson];
   },
   updateProfile: (username, values) => {
     for (let i = 0; i < api.users.length; i++) {

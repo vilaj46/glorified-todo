@@ -12,12 +12,6 @@ import App from "./components/App/App";
 // Testing
 // Spacing on larger screens.
 
-// Save button / cancel button. Make it open and close the drop down.
-// Rename authentication hook and functions.
-// Email dropdown input.
-
-// Change the email into an account. We should have an account name and email associated to it.
-
 // 404 Page
 // Login / Authentication.
 // Profile Page
@@ -25,13 +19,6 @@ import App from "./components/App/App";
 // Ability to change email/password.
 // Verify account.
 // Delete account.
-// Model off github.
-// Add a bio.
-// Company.
-// Location.
-// Email.
-// Website.
-// Twitter username.
 
 // On the deploy file, redirect to the '/' instead of having http://vilaj46.github.io/glorified-todo?
 

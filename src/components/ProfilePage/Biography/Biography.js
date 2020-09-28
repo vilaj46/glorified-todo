@@ -21,20 +21,26 @@ const Biography = ({
   displayBioInputs,
   setDisplayBioInputs,
 }) => {
+  // Current state of our profile from the backend.
   const [bioText, setBioText] = useState(authentication.bio);
   const [companyText, setCompanyText] = useState(authentication.company);
   const [locationText, setLocationText] = useState(authentication.location);
+  const [emailText, setEmailText] = useState(authentication.visibleEmail);
   const [websiteText, setWebsiteText] = useState(authentication.website);
   const [twitterText, setTwitterText] = useState(authentication.twitter);
 
+  // Data we have to send if we click save.
   const data = {
     bio: bioText,
+    visibleEmail: emailText,
     company: companyText,
     location: locationText,
     website: websiteText,
     twitter: twitterText,
   };
 
+  // The current state of our hook and the respected setter.
+  // If we click cancel we won't change a thing.
   const hooks = [
     { value: authentication.bio, action: setBioText },
     { value: authentication.company, action: setCompanyText },
@@ -68,9 +74,9 @@ const Biography = ({
             setProfileKey={setLocationText}
           />
           <EmailInput
-            username={authentication.username}
-            email={authentication.email}
-            setProfileKey={setProfileKey}
+            email={emailText}
+            visibleEmails={authentication.visibleEmails}
+            setEmailText={setEmailText}
           />
           <BioStringInput
             localKey="Website"

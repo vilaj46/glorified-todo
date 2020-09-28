@@ -57,3 +57,50 @@
   border-color: #ced4da;
   color: #6b6c6e;
 }
+
+.envelope {
+  max-width: 42px;
+  min-width: 42px;
+  border: 1px solid #ced4da;
+}
+
+.envelope:hover {
+  cursor: pointer;
+}
+
+.envelope span {
+  border: none;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.envelope img {
+  display: block;
+  margin: auto;
+}
+
+.dropdown {
+  min-width: 188px;
+  max-width: 188px;
+}
+
+.dropdown > button {
+  border-color: #ced4da;
+  min-width: 188px;
+  max-width: 188px;
+  text-align: left;
+}
+
+.blankEmail {
+  color: #ffffff;
+}
+
+.blankEmail:hover {
+  color: #007bff;
+  background-color: #007bff;
+}
+
+.choice:hover {
+  color: #ffffff;
+  background-color: #007bff;
+}

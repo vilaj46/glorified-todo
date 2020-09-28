@@ -7,9 +7,11 @@ import styles from "../AuthenticationPage.module.css";
 
 const UsernameText = ({ usernameError, usernameMessage }) => {
   const messages = [
-    <p id="usernameId">We'll never share your email with anyone else.</p>,
+    <p id="usernameId" className={styles.blankUsernameMessage}>
+      We'll never share your email with anyone else.
+    </p>,
     <p className={styles.textError} id="usernameId">
-      Email cannot be blank.
+      Username cannot be blank.
     </p>,
     <p className={styles.textError} id="usernameId">
       The email you've entered doesn't match any account.&nbsp;
@@ -18,7 +20,7 @@ const UsernameText = ({ usernameError, usernameMessage }) => {
       </Link>
     </p>,
     <p className={styles.textError} id="usernameId">
-      There is an account already associated with that email.
+      That username is already taken.
     </p>,
   ];
 

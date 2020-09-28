@@ -82,3 +82,7 @@
 .bold {
   transform: translateX(-50px);
 }
+
+.blankUsernameMessage {
+  opacity: 0;
+}

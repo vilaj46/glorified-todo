@@ -38,7 +38,6 @@ const App = () => {
             render={() => <AddTodoForm addTodo={addTodo} />}
           />
         </div>
-
         <Switch>
           <Route path="/" exact>
             <TodoItems

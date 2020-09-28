@@ -1,44 +1,55 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
-
-import api from "../../../../api.js";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 import envelope from "../../../../svgs/envelope.svg";
 
-const EmailInput = ({ username, email, setProfileKey }) => {
-  const [emailText, setEmailText] = useState(email);
+import styles from "../Biography.module.css";
 
-  const onChange = (e) => {
-    if (e.target.value.trim().length > 0) {
-      setEmailText(e.target.value);
-      api.changeKey(username, "email", e.target.value);
-      setProfileKey("email", e.target.value);
-    }
-  };
-
+const EmailInput = ({ email, visibleEmails, setEmailText }) => {
   return (
-    <InputGroup size="sm" className="mb-3">
-      <InputGroup.Prepend>
+    <InputGroup className="mb-3">
+      <InputGroup.Prepend className={styles.envelope}>
         <InputGroup.Text id="inputGroup-sizing-sm">
-          <img src={envelope} alt="Email" />
+          <img src={envelope} alt="Email" title="Email" />
         </InputGroup.Text>
       </InputGroup.Prepend>
-      <FormControl
-        aria-label="Small"
-        aria-describedby="inputGroup-sizing-sm"
-        onChange={(e) => onChange(e)}
-        value={emailText}
-      />
+      <DropdownButton
+        as={InputGroup.Prepend}
+        variant="outline-secondary"
+        title={email || " "}
+        className={styles.dropdown}
+      >
+        <Dropdown.Item
+          href="#"
+          className={styles.blankEmail}
+          onClick={() => setEmailText(" ")}
+        >
+          Leave Blank
+        </Dropdown.Item>
+        {visibleEmails.map((email) => {
+          return (
+            <Dropdown.Item
+              href="#"
+              className={styles.choice}
+              onClick={() => setEmailText(email)}
+              key={email}
+            >
+              {email}
+            </Dropdown.Item>
+          );
+        })}
+      </DropdownButton>
     </InputGroup>
   );
 };
 
 EmailInput.propTypes = {
-  username: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  setProfileKey: PropTypes.func.isRequired,
+  visibleEmails: PropTypes.array.isRequired,
+  setEmailText: PropTypes.func.isRequired,
 };
 
 export default EmailInput;

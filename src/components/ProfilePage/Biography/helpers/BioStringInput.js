@@ -29,10 +29,6 @@ const BioStringInput = ({ localKey, keyValue, setProfileKey }) => {
       break;
   }
 
-  const onChange = (e) => {
-    setProfileKey(e.target.value);
-  };
-
   return (
     <InputGroup size="sm" className="mb-3">
       <InputGroup.Prepend>
@@ -46,7 +42,7 @@ const BioStringInput = ({ localKey, keyValue, setProfileKey }) => {
       <FormControl
         aria-label="Small"
         aria-describedby="inputGroup-sizing-sm"
-        onChange={(e) => onChange(e)}
+        onChange={(e) => setProfileKey(e.target.value)}
         value={keyValue}
         className={styles.bioStringInput}
         placeholder={localKey}

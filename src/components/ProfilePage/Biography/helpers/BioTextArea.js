@@ -3,10 +3,6 @@ import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 
 const BioTextArea = ({ bio, setBioText }) => {
-  const onChange = (e) => {
-    setBioText(e.target.value);
-  };
-
   return (
     <Form.Group controlId="exampleForm.ControlTextarea1">
       <Form.Control
@@ -14,7 +10,7 @@ const BioTextArea = ({ bio, setBioText }) => {
         rows={3}
         placeholder="Add a bio"
         value={bio}
-        onChange={(e) => onChange(e)}
+        onChange={(e) => setBioText(e.target.value)}
       />
     </Form.Group>
   );

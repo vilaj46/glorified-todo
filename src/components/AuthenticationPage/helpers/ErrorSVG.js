@@ -5,9 +5,9 @@ import styles from "../AuthenticationPage.module.css";
 
 import authProblem from "../../../svgs/auth_problem.svg";
 
-const UsernameErrorSVG = ({ usernameError }) => {
+const ErrorSVG = ({ error }) => {
   return (
-    usernameError && (
+    error && (
       <img
         src={authProblem}
         alt="Authentication Problem"
@@ -17,8 +17,8 @@ const UsernameErrorSVG = ({ usernameError }) => {
   );
 };
 
-UsernameErrorSVG.propTypes = {
-  usernameError: PropTypes.bool.isRequired,
+ErrorSVG.propTypes = {
+  error: PropTypes.bool.isRequired,
 };
 
-export default UsernameErrorSVG;
+export default ErrorSVG;

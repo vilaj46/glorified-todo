@@ -11,6 +11,8 @@ export default () => {
     email: "",
     website: "",
     twitter: "",
+    visibleEmail: "",
+    visibleEmails: [],
   });
 
   /**
@@ -31,6 +33,8 @@ export default () => {
       email: data.email || "",
       website: data.website || "",
       twitter: data.twitter || "",
+      visibleEmail: data.visibleEmail || "",
+      visibleEmails: data.visibleEmails || [],
     });
   };
 

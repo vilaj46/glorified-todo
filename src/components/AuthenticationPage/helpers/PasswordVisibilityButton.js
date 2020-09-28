@@ -9,13 +9,13 @@ import styles from "../AuthenticationPage.module.css";
 const PasswordVisibilityButton = ({
   displayPassword,
   passwordError,
-  togglePWVisibility,
+  setDisplayPassword,
 }) => {
   return displayPassword ? (
     <button
       type="button"
       className={passwordError ? styles.showPW1 : styles.showPW2}
-      onClick={() => togglePWVisibility(false)}
+      onClick={() => setDisplayPassword(false)}
     >
       <img src={hidePassword} alt="Password Vision" />
     </button>
@@ -23,7 +23,7 @@ const PasswordVisibilityButton = ({
     <button
       type="button"
       className={passwordError ? styles.showPW1 : styles.showPW2}
-      onClick={() => togglePWVisibility(true)}
+      onClick={() => setDisplayPassword(true)}
     >
       <img src={showPassword} alt="Password Vision" />
     </button>
@@ -33,7 +33,7 @@ const PasswordVisibilityButton = ({
 PasswordVisibilityButton.propTypes = {
   displayPassword: PropTypes.bool.isRequired,
   passwordError: PropTypes.bool.isRequired,
-  togglePWVisibility: PropTypes.func.isRequired,
+  setDisplayPassword: PropTypes.func.isRequired,
 };
 
 export default PasswordVisibilityButton;
