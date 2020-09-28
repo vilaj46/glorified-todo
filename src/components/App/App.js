@@ -24,7 +24,7 @@ const App = () => {
     authentication.username.length > 0 && authentication.token.length > 0;
 
   return (
-    <Jumbotron>
+    <Jumbotron className={styles.fixedPadding}>
       <div className={styles.width}>
         <div className={styles.top}>
           <Header

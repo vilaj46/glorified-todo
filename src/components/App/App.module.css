@@ -1,3 +1,7 @@
+.fixedPadding {
+  padding: 2rem 1rem;
+}
+
 .top {
   background-color: #f44336;
   padding: 50px 0;

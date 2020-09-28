@@ -41,8 +41,19 @@
 
 .cancel:hover,
 .cancel:active,
-.cancel:focus {
+.cancel:focus,
+.editButton:hover,
+.editButton:active,
+.editButton:focus {
   color: #6b6c6e;
   background-color: #ffffff;
   border-color: #ced4da;
+}
+
+.editButton {
+  display: block;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-color: #ced4da;
+  color: #6b6c6e;
 }

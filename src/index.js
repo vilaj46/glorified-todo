@@ -12,8 +12,7 @@ import App from "./components/App/App";
 // Testing
 // Spacing on larger screens.
 
-// Figure out why logging out does not keep bio values.
-// Save button / cancel button. Which means these will not be onChange automatically submit the data.
+// Save button / cancel button. Make it open and close the drop down.
 // Rename authentication hook and functions.
 // Email dropdown input.
 

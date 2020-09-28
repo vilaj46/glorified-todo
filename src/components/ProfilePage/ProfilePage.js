@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import styles from "./ProfilePage.module.css";
@@ -6,11 +6,14 @@ import styles from "./ProfilePage.module.css";
 import Biography from "./Biography/Biography";
 
 const ProfilePage = ({ authentication, setProfileKey }) => {
+  const [displayBioInputs, setDisplayBioInputs] = useState(false);
   return (
     <div className={styles.profilePage}>
       <Biography
         authentication={authentication}
         setProfileKey={setProfileKey}
+        displayBioInputs={displayBioInputs}
+        setDisplayBioInputs={setDisplayBioInputs}
       />
     </div>
   );

@@ -1,5 +1,17 @@
 import avatar from "./svgs/avatar.svg";
 
+const User = (username, password) => ({
+  username: username,
+  password: password,
+  profilePic: avatar,
+  bio: "",
+  company: "",
+  location: "",
+  email: "",
+  website: "",
+  twitter: "",
+});
+
 const api = {
   jwt: "12345",
   users: [
@@ -22,10 +34,8 @@ const api = {
         const isValidPW = api.checkPW(password, potentialUser.password);
         if (isValidPW) {
           return {
-            // username,
             ...potentialUser,
             jwt: api.jwt,
-            // profilePic: potentialUser.profilePic,
           };
         } else {
           return 406;
@@ -49,31 +59,26 @@ const api = {
         return 406;
       }
     }
-    const data = { username, jwt: api.jwt, profilePic: avatar };
-    api.users.push({ ...data, password });
-    return data;
+    const newUser = User(username, password);
+    const newUserToJson = { jwt: "12345" };
+    Object.keys(newUser).forEach((k) => {
+      if (k !== "password") {
+        newUserToJson[k] = newUser[k];
+      }
+    });
+    api.users.push(newUser);
+    return newUserToJson;
   },
   updateProfile: (username, values) => {
     for (let i = 0; i < api.users.length; i++) {
       const potentialUser = api.users[i];
       if (username === potentialUser.username) {
-        // api.users[i].key = value;
         api.users[i] = { ...potentialUser, ...values };
         return 200;
       }
-      return 404;
     }
+    return 404;
   },
-  // changeKey: (username, key, value) => {
-  // for (let i = 0; i < api.users.length; i++) {
-  //   const potentialUser = api.users[i];
-  //   if (username === potentialUser.username) {
-  //     api.users[i].key = value;
-  //     return 200;
-  //   }
-  //   return 404;
-  // }
-  // },
 };
 
 export default api;
