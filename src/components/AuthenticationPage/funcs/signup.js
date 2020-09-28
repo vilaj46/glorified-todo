@@ -1,5 +1,6 @@
 import emphasize from "./emphasize";
 import api from "../../../api.js";
+import api2 from "../../../api2.js";
 
 /**
  * signup
@@ -63,6 +64,7 @@ const signup = (credentials, actions, state) => {
     credentials.email,
     credentials.password
   );
+  const response2 = api2.signup(credentials);
   if (response.includes(406) && response.includes("username")) {
     // Username in use.
     actions.setUsernameError(true);
