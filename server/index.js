@@ -1,5 +1,6 @@
 import express from "express";
-import MongoDB from "mongodb";
+// import MongoDB from "mongodb";
+import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
 import signup from "./routes/signup.js";
@@ -13,14 +14,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // MongoDB setup.
-const options = { useUnifiedTopology: true };
-const mongoClient = new MongoDB.MongoClient(
-  "mongodb://127.0.0.1:27017",
-  options
-);
-mongoClient.connect((err, db) => {
-  console.log("Connected to database!");
-}, options);
+const options = { useUnifiedTopology: true, useNewUrlParser: true };
+mongoose
+  .connect("mongodb://127.0.0.1:27017/glorified-todo", options)
+  .then(() => {
+    console.log("Connected to MongoDB.");
+  });
 
 // Routes
 app.get("/", (req, res) => {
