@@ -1,15 +1,18 @@
 import express from "express";
-// import MongoDB from "mongodb";
+import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
+// Authentication Routes
 import signup from "./routes/signup.js";
+import login from "./routes/login.js";
 
 // Figure out how to get form data.
 // Setup mongoose and create a User Schema.
 
 // App setup.
 const app = express();
+dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -26,7 +29,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+// Authentication Routes
 app.use("/signup", signup);
+app.use("/login", login);
 
 const port = 8080;
 app.listen(process.env.PORT || port, () => {

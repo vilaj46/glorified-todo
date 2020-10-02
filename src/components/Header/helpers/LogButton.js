@@ -11,7 +11,7 @@ const LogButton = ({ isAuthenticated, setToken }) => {
     return (
       <Button
         className={`${styles.button} ${styles.link}`}
-        onClick={() => setToken({ username: "", response: "" })}
+        onClick={() => setToken()}
       >
         Log Out
       </Button>

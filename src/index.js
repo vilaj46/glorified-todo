@@ -12,6 +12,10 @@ import App from "./components/App/App";
 // Testing
 // Spacing on larger screens.
 
+// Clean up infrastructure.
+// Documentation of our api.
+// See if we can combine Some of the login / signup aesthetic functions.
+
 // 404 Page
 // Login / Authentication.
 // Profile Page

@@ -1,4 +1,4 @@
-import api from "../../../api.js";
+import api from "../../../api/index.js";
 import emphasize from "./emphasize.js";
 
 /**
@@ -16,7 +16,7 @@ import emphasize from "./emphasize.js";
  * Set the appropriate messages and emphasizes based off our response.
  *
  */
-const login = (credentials, actions, state) => {
+const login = async (credentials, actions, state) => {
   if (credentials.username.trim().length === 0) {
     // Username value is empty.
     actions.setUsernameError(true);
@@ -43,36 +43,42 @@ const login = (credentials, actions, state) => {
     return;
   }
 
-  const response = api.login(credentials.username, credentials.password);
+  const response = await api.login({
+    username: credentials.username,
+    password: credentials.password,
+  });
 
-  if (response === 404) {
-    // Username not found.
-    actions.setUsernameError(true);
-    actions.setPasswordError(false);
-    actions.setUsernameMessage(2);
-    emphasize.userErrorMessage(
-      500,
-      actions.setLastClicked,
-      state.usernameMessage,
-      state.lastClicked
-    );
-  } else if (response === 406) {
-    // Incorrect credentials.password.
-    actions.setPasswordError(true);
-    actions.setUsernameError(false);
-    actions.setPasswordMessage(2);
-    emphasize.passErrorMessage(
-      500,
-      actions.setLastClicked,
-      state.passwordMessage,
-      state.lastClicked
-    );
-  } else {
+  if (response.status === 200) {
     // Successful login.
-    actions.setToken(response);
     actions.setUsernameError(false);
     actions.setPasswordError(false);
+    actions.setToken(response.token);
     state.history.push("/profile");
+    return;
+  } else if (response.status === 406) {
+    if (response.data === "Username not found.") {
+      // Username was not found.
+      actions.setUsernameError(true);
+      actions.setPasswordError(false);
+      actions.setUsernameMessage(2);
+      emphasize.userErrorMessage(
+        500,
+        actions.setLastClicked,
+        state.usernameMessage,
+        state.lastClicked
+      );
+    } else {
+      // Incorrect password.
+      actions.setPasswordError(true);
+      actions.setUsernameError(false);
+      actions.setPasswordMessage(2);
+      emphasize.passErrorMessage(
+        500,
+        actions.setLastClicked,
+        state.passwordMessage,
+        state.lastClicked
+      );
+    }
   }
 };
 

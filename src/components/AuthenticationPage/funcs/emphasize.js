@@ -28,7 +28,9 @@ const emphasizeUserErrorMessage = (
     const emailId = document.getElementById("emailId");
     const passwordId = document.getElementById("passwordId");
     passwordId.classList.remove("bold");
-    emailId.classList.remove("bold");
+    if (emailId) {
+      emailId.classList.remove("bold");
+    }
     element.classList.add(styles.bold);
     setTimeout(() => {
       element.classList.remove(styles.bold);
@@ -64,7 +66,9 @@ const emphasizePassErrorMessage = (
   if (passwordMessage > 0 && prevMessage === passwordMessage) {
     const element = document.getElementById("passwordId");
     usernameId.classList.remove("bold");
-    emailId.classList.remove("bold");
+    if (emailId) {
+      emailId.classList.remove("bold");
+    }
     element.classList.add(styles.bold);
     setTimeout(() => {
       element.classList.remove(styles.bold);
