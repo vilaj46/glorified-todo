@@ -26,7 +26,7 @@ userSchema.methods.createAuthObject = function () {
 
 userSchema.methods.createJWT = function () {
   const data = this.createAuthObject();
-  return jwt.sign(data, process.env.SECRET_KEY);
+  return jwt.sign(data, process.env.SECRET_KEY, { expiresIn: "10000" });
 };
 
 userSchema.methods.checkPassword = function (potentialPassword) {

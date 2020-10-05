@@ -12,11 +12,7 @@ import App from "./components/App/App";
 // Testing
 // Spacing on larger screens.
 
-// Clean up infrastructure.
-// Documentation of our api.
-// See if we can combine Some of the login / signup aesthetic functions.
-
-// 404 Page
+// Fix icon in the header. No white background.
 // Login / Authentication.
 // Profile Page
 // List of items TodoItems for edit.

@@ -22,12 +22,22 @@ const Biography = ({
   setDisplayBioInputs,
 }) => {
   // Current state of our profile from the backend.
-  const [bioText, setBioText] = useState(authentication.bio);
-  const [companyText, setCompanyText] = useState(authentication.company);
-  const [locationText, setLocationText] = useState(authentication.location);
-  const [emailText, setEmailText] = useState(authentication.visibleEmail);
-  const [websiteText, setWebsiteText] = useState(authentication.website);
-  const [twitterText, setTwitterText] = useState(authentication.twitter);
+  const [bioText, setBioText] = useState(authentication.profile.bio);
+  const [companyText, setCompanyText] = useState(
+    authentication.profile.company
+  );
+  const [locationText, setLocationText] = useState(
+    authentication.profile.location
+  );
+  const [emailText, setEmailText] = useState(
+    authentication.profile.visibleEmail
+  );
+  const [websiteText, setWebsiteText] = useState(
+    authentication.profile.website
+  );
+  const [twitterText, setTwitterText] = useState(
+    authentication.profile.twitter
+  );
 
   // Data we have to send if we click save.
   const data = {
@@ -75,7 +85,7 @@ const Biography = ({
           />
           <EmailInput
             email={emailText}
-            visibleEmails={authentication.visibleEmails}
+            visibleEmails={authentication.profile.emails}
             setEmailText={setEmailText}
           />
           <BioStringInput

@@ -15,11 +15,16 @@ export default () => {
    */
   const setToken = (token = null) => {
     if (token === null) {
-      setAuthentication(defaultValues);
-      return;
+      const potentialToken = localStorage.getItem("token");
+      if (potentialToken) {
+        localStorage.removeItem("token");
+      }
+      setAuthentication({ ...defaultValues, hey: "hey" });
+    } else {
+      const decoded = jwt_decode(token);
+      setAuthentication({ ...decoded, token, profilePic: avatar });
+      localStorage.setItem("token", token);
     }
-    const decoded = jwt_decode(token);
-    setAuthentication({ ...decoded, token, profilePic: avatar });
   };
 
   /**
@@ -53,6 +58,7 @@ export default () => {
 const defaultValues = {
   email: "",
   iat: 0,
+  exp: 0,
   username: "",
   token: "",
   profile: {

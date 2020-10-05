@@ -53,7 +53,7 @@ const BioStringInput = ({ localKey, keyValue, setProfileKey }) => {
 
 BioStringInput.propTypes = {
   localKey: PropTypes.string.isRequired,
-  keyValue: PropTypes.string.isRequired,
+  keyValue: PropTypes.string, // Will be blank if we don't input anything.
   setProfileKey: PropTypes.func.isRequired,
 };
 

@@ -1,5 +1,17 @@
 import axios from "axios";
 
+/**
+ * login
+ *
+ * @param {Object} credentials - username and password.
+ *
+ * Api call to our login route.
+ *
+ * If we are successful, just return the token.
+ *
+ * If we get an error check what the error is for and return that.
+ * The message is then displayed on our Authentication Page.
+ */
 const login = async (credentials) => {
   return await axios
     .post("/login", credentials)
@@ -27,7 +39,7 @@ const login = async (credentials) => {
           };
         }
       } else {
-        // Something went wrong.
+        // Something went wrong, we don't specify.
         return {
           status: 400,
           data: "Something went wrong",
