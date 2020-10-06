@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 // Authentication Routes
 import signup from "./routes/signup.js";
 import login from "./routes/login.js";
+import updateProfile from "./routes/updateProfile.js";
 
 // Figure out how to get form data.
 // Setup mongoose and create a User Schema.
@@ -23,6 +24,7 @@ mongoose
   .then(() => {
     console.log("Connected to MongoDB.");
   });
+mongoose.set("useFindAndModify", false);
 
 // Routes
 app.get("/", (req, res) => {
@@ -32,6 +34,7 @@ app.get("/", (req, res) => {
 // Authentication Routes
 app.use("/signup", signup);
 app.use("/login", login);
+app.use("/users/:id", updateProfile);
 
 const port = 8080;
 app.listen(process.env.PORT || port, () => {

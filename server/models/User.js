@@ -13,20 +13,27 @@ const userSchema = new mongoose.Schema({
     emails: Array,
     website: String,
     twitter: String,
+    company: String,
   },
 });
 
-userSchema.methods.createAuthObject = function () {
+userSchema.methods.createAuthObject = async function () {
+  const profile = await this.createProfileJWT();
   return {
     username: this.username,
     email: this.email,
-    profile: this.profile,
+    id: this._id,
+    profile,
   };
 };
 
-userSchema.methods.createJWT = function () {
-  const data = this.createAuthObject();
-  return jwt.sign(data, process.env.SECRET_KEY, { expiresIn: "10000" });
+userSchema.methods.createProfileJWT = function () {
+  return jwt.sign({ ...this.profile }, process.env.SECRET_KEY);
+};
+
+userSchema.methods.createJWT = async function () {
+  const data = await this.createAuthObject();
+  return jwt.sign(data, process.env.SECRET_KEY, { expiresIn: "10s" });
 };
 
 userSchema.methods.checkPassword = function (potentialPassword) {

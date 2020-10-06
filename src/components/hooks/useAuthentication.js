@@ -19,10 +19,16 @@ export default () => {
       if (potentialToken) {
         localStorage.removeItem("token");
       }
-      setAuthentication({ ...defaultValues, hey: "hey" });
+      setAuthentication({ ...defaultValues });
     } else {
       const decoded = jwt_decode(token);
-      setAuthentication({ ...decoded, token, profilePic: avatar });
+
+      setAuthentication({
+        ...authentication,
+        ...decoded,
+        token,
+        profilePic: avatar,
+      });
       localStorage.setItem("token", token);
     }
   };

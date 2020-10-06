@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useHistory } from "react-router-dom";
 
 import styles from "./Biography.module.css";
 
@@ -17,27 +18,18 @@ import cancel from "./funcs/cancel";
 
 const Biography = ({
   authentication,
+  profile,
   setProfileKey,
   displayBioInputs,
   setDisplayBioInputs,
 }) => {
   // Current state of our profile from the backend.
-  const [bioText, setBioText] = useState(authentication.profile.bio);
-  const [companyText, setCompanyText] = useState(
-    authentication.profile.company
-  );
-  const [locationText, setLocationText] = useState(
-    authentication.profile.location
-  );
-  const [emailText, setEmailText] = useState(
-    authentication.profile.visibleEmail
-  );
-  const [websiteText, setWebsiteText] = useState(
-    authentication.profile.website
-  );
-  const [twitterText, setTwitterText] = useState(
-    authentication.profile.twitter
-  );
+  const [bioText, setBioText] = useState(profile.bio);
+  const [companyText, setCompanyText] = useState(profile.company);
+  const [locationText, setLocationText] = useState(profile.location);
+  const [emailText, setEmailText] = useState(profile.visibleEmail);
+  const [websiteText, setWebsiteText] = useState(profile.website);
+  const [twitterText, setTwitterText] = useState(profile.twitter);
 
   // Data we have to send if we click save.
   const data = {
@@ -52,12 +44,15 @@ const Biography = ({
   // The current state of our hook and the respected setter.
   // If we click cancel we won't change a thing.
   const hooks = [
-    { value: authentication.bio, action: setBioText },
-    { value: authentication.company, action: setCompanyText },
-    { value: authentication.location, action: setLocationText },
-    { value: authentication.website, action: setWebsiteText },
-    { value: authentication.twitter, action: setTwitterText },
+    { value: profile.bio, action: setBioText },
+    { value: profile.company, action: setCompanyText },
+    { value: profile.location, action: setLocationText },
+    { value: profile.visibleEmail, action: setEmailText },
+    { value: profile.website, action: setWebsiteText },
+    { value: profile.twitter, action: setTwitterText },
   ];
+
+  const history = useHistory();
 
   return (
     <Form style={{ minWidth: "229px", maxWidth: "229px" }}>
@@ -85,7 +80,7 @@ const Biography = ({
           />
           <EmailInput
             email={emailText}
-            visibleEmails={authentication.profile.emails}
+            visibleEmails={profile.emails}
             setEmailText={setEmailText}
           />
           <BioStringInput
@@ -103,10 +98,12 @@ const Biography = ({
             className={styles.save}
             onClick={() =>
               save(
-                authentication.username,
+                authentication.id,
+                authentication.token,
                 data,
                 setProfileKey,
-                setDisplayBioInputs
+                setDisplayBioInputs,
+                history
               )
             }
           >
@@ -131,6 +128,14 @@ Biography.propTypes = {
     token: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
   }).isRequired,
+  profile: PropTypes.shape({
+    bio: PropTypes.string.isRequired,
+    emails: PropTypes.array.isRequired,
+    location: PropTypes.string.isRequired,
+    twitter: PropTypes.string.isRequired,
+    website: PropTypes.string.isRequired,
+    visibleEmail: PropTypes.string.isRequired,
+  }),
   setProfileKey: PropTypes.func.isRequired,
   displayBioInputs: PropTypes.bool.isRequired,
   setDisplayBioInputs: PropTypes.func.isRequired,

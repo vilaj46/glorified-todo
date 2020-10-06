@@ -30,16 +30,17 @@ router.use(async (req, res) => {
             emails: [email],
             website: "",
             twitter: "",
+            company: "",
           },
         });
 
-        newUser.save((err) => {
+        newUser.save(async (err) => {
           if (err) {
             // Internal Server Error.
             return res.status(500).send("Could not save new user.");
           } else {
             // return jwt and data.
-            const token = newUser.createJWT();
+            const token = await newUser.createJWT();
             return res.json(token);
           }
         });

@@ -13,7 +13,7 @@ router.use(async (req, res) => {
   if (foundByUsername !== null) {
     const isValidPassword = await foundByUsername.checkPassword(password);
     if (isValidPassword) {
-      const token = foundByUsername.createJWT();
+      const token = await foundByUsername.createJWT();
       return res.json(token);
     } else {
       return res.status(406).send("password");
