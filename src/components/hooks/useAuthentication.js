@@ -43,19 +43,11 @@ export default () => {
    *
    * If the value as changed we set our new profile.
    */
-  const setProfileKey = (data) => {
-    let newAuthentication = { ...authentication };
-    const authenticationKeys = Object.keys(newAuthentication);
-
-    authenticationKeys.forEach((k) => {
-      const currentAuthValue = authentication[k];
-      const futureAuthValue = data[k] || authentication[k]; // if data[key] is undefined.
-      if (currentAuthValue !== futureAuthValue) {
-        newAuthentication[k] = futureAuthValue;
-      }
-    });
-
-    setAuthentication(newAuthentication);
+  const setProfileKey = (newToken) => {
+    const decoded = jwt_decode(newToken);
+    const { profile } = decoded;
+    localStorage.setItem("token", newToken);
+    setAuthentication({ ...authentication, profile });
   };
 
   return [authentication, setToken, setProfileKey];

@@ -33,7 +33,7 @@ userSchema.methods.createProfileJWT = function () {
 
 userSchema.methods.createJWT = async function () {
   const data = await this.createAuthObject();
-  return jwt.sign(data, process.env.SECRET_KEY, { expiresIn: "10s" });
+  return jwt.sign(data, process.env.SECRET_KEY, { expiresIn: "10h" });
 };
 
 userSchema.methods.checkPassword = function (potentialPassword) {

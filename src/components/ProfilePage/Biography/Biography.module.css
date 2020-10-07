@@ -104,3 +104,8 @@
   color: #ffffff;
   background-color: #007bff;
 }
+
+.error {
+  color: #f02849;
+  text-align: center;
+}

@@ -8,12 +8,13 @@
  *
  * Close the profile afterwards.
  */
-const cancel = (setDisplayBioInputs, hooks) => {
+const cancel = (setDisplayBioInputs, setDisplayError, hooks) => {
   hooks.forEach((hook) => {
     hook.action(hook.value);
   });
 
   setDisplayBioInputs(false);
+  setDisplayError("");
 };
 
 export default cancel;

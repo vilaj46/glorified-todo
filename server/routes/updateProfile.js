@@ -17,9 +17,16 @@ router.use(async (req, res) => {
     const profile = req.body;
 
     User.findByIdAndUpdate(id, { profile }, (err, doc) => {
-      if (err) return 500; // Not sure, something went wrong.
-      return res.sendStatus(200);
-    });
+      if (err) return res.sendStatus(500); // Not sure, something went wrong. Could not find user.
+    })
+      .then(async (updatedDoc) => {
+        const newToken = await updatedDoc.createJWT();
+        return res.status(200).send({ token: newToken });
+      })
+      .catch((err) => {
+        // User not found.
+        return res.sendStatus(500);
+      });
   }
 });
 

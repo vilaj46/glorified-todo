@@ -31,6 +31,8 @@ const Biography = ({
   const [websiteText, setWebsiteText] = useState(profile.website);
   const [twitterText, setTwitterText] = useState(profile.twitter);
 
+  const [displayError, setDisplayError] = useState("");
+
   // Data we have to send if we click save.
   const data = {
     bio: bioText,
@@ -65,6 +67,7 @@ const Biography = ({
       {!displayBioInputs && (
         <EditProfileButton setDisplayBioInputs={setDisplayBioInputs} />
       )}
+      {displayError && <p className={styles.error}>{displayError}</p>}
       {displayBioInputs && (
         <div>
           <BioTextArea bio={bioText} setBioText={setBioText} />
@@ -98,12 +101,12 @@ const Biography = ({
             className={styles.save}
             onClick={() =>
               save(
-                authentication.id,
-                authentication.token,
+                authentication,
                 data,
                 setProfileKey,
                 setDisplayBioInputs,
-                history
+                history,
+                setDisplayError
               )
             }
           >
@@ -112,7 +115,7 @@ const Biography = ({
           <Button
             type="button"
             className={styles.cancel}
-            onClick={() => cancel(setDisplayBioInputs, hooks)}
+            onClick={() => cancel(setDisplayBioInputs, setDisplayError, hooks)}
           >
             Cancel
           </Button>

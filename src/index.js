@@ -12,10 +12,6 @@ import App from "./components/App/App";
 // Testing
 // Spacing on larger screens.
 
-// Finish up the updateProfile with displaying an error message.
-// If we set a profile field and reload it doesnt change the value.
-// Fix icon in the header. No white background.
-// Login / Authentication.
 // Profile Page
 // List of items TodoItems for edit.
 // Ability to change email/password.
