@@ -12,6 +12,11 @@ import App from "./components/App/App";
 // Testing
 // Spacing on larger screens.
 
+// Clean up current code base then add more features.
+
+// Hook todos up to the database.
+// Clean up todos.
+
 // Profile Page
 // List of items TodoItems for edit.
 // Ability to change email/password.

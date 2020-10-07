@@ -18,6 +18,9 @@ import AddTodoForm from "../AddTodoForm/AddTodoForm";
 import useTodos from "../hooks/useTodos";
 import useAuthentication from "../hooks/useAuthentication";
 
+// Helper Functions
+import onLoad from "./funcs/onLoad.js";
+
 const App = () => {
   const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
   const [authentication, setToken, setProfileKey] = useAuthentication();
@@ -25,28 +28,31 @@ const App = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    if (loaded === false) {
-      // Initial loading.
-      const potentialToken = localStorage.getItem("token");
-      if (potentialToken) {
-        const decoded = jwt_decode(potentialToken);
-        if (Date.now() <= decoded.exp * 1000) {
-          setToken(potentialToken);
-        } else {
-          setToken();
-        }
-      }
-      setLoaded(true);
-    } else {
-      // If we are loading, we check for the expiration of our token.
-      const expired =
-        Date.now() >= authentication.exp * 1000 && authentication.exp !== 0;
-      if (expired) {
-        setToken();
-      }
-    }
-  }, [loaded, authentication, setToken]);
+    const loadedHook = { loaded, setLoaded };
+    onLoad(loadedHook, authentication.exp, setToken);
+    // if (loaded === false) {
+    //   // Initial loading.
+    //   const potentialToken = localStorage.getItem("token");
+    //   if (potentialToken) {
+    //     const decoded = jwt_decode(potentialToken);
+    //     if (Date.now() <= decoded.exp * 1000) {
+    //       setToken(potentialToken);
+    //     } else {
+    //       setToken();
+    //     }
+    //   }
+    //   setLoaded(true);
+    // } else {
+    //   // If we are loading, we check for the expiration of our token.
+    //   const expired =
+    //     Date.now() >= authentication.exp * 1000 && authentication.exp !== 0;
+    //   if (expired) {
+    //     setToken();
+    //   }
+    // }
+  }, [loaded, setLoaded, authentication, setToken]);
 
+  // Should check if token has expired.
   const isAuthenticated =
     authentication.username.length > 0 && authentication.token.length > 0;
 

@@ -95,7 +95,9 @@
   color: #ffffff;
 }
 
-.blankEmail:hover {
+.blankEmail:hover,
+.blankEmail:focus,
+.blankEmail:active {
   color: #007bff;
   background-color: #007bff;
 }

@@ -41,6 +41,7 @@ const Biography = ({
     location: locationText,
     website: websiteText,
     twitter: twitterText,
+    emails: profile.emails, // We don't need to change this but we do need to send it to the backend.
   };
 
   // The current state of our hook and the respected setter.
