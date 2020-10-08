@@ -4,15 +4,12 @@ import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
-import styles from "../../App/App.module.css";
+import styles from "../Header.module.css";
 
 const LogButton = ({ isAuthenticated, setToken }) => {
   if (isAuthenticated) {
     return (
-      <Button
-        className={`${styles.button} ${styles.link}`}
-        onClick={() => setToken()}
-      >
+      <Button className={styles.button} onClick={() => setToken()}>
         Log Out
       </Button>
     );

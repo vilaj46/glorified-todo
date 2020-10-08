@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import jwt_decode from "jwt-decode";
 
 import styles from "./App.module.css";
 
@@ -20,6 +19,7 @@ import useAuthentication from "../hooks/useAuthentication";
 
 // Helper Functions
 import onLoad from "./funcs/onLoad.js";
+import isValidToken from "./funcs/isValidToken.js";
 
 const App = () => {
   const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
@@ -30,31 +30,9 @@ const App = () => {
   useEffect(() => {
     const loadedHook = { loaded, setLoaded };
     onLoad(loadedHook, authentication.exp, setToken);
-    // if (loaded === false) {
-    //   // Initial loading.
-    //   const potentialToken = localStorage.getItem("token");
-    //   if (potentialToken) {
-    //     const decoded = jwt_decode(potentialToken);
-    //     if (Date.now() <= decoded.exp * 1000) {
-    //       setToken(potentialToken);
-    //     } else {
-    //       setToken();
-    //     }
-    //   }
-    //   setLoaded(true);
-    // } else {
-    //   // If we are loading, we check for the expiration of our token.
-    //   const expired =
-    //     Date.now() >= authentication.exp * 1000 && authentication.exp !== 0;
-    //   if (expired) {
-    //     setToken();
-    //   }
-    // }
   }, [loaded, setLoaded, authentication, setToken]);
 
-  // Should check if token has expired.
-  const isAuthenticated =
-    authentication.username.length > 0 && authentication.token.length > 0;
+  const isAuthenticated = isValidToken(authentication.token);
 
   return (
     <Jumbotron className={styles.fixedPadding}>

@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-import styles from "../..//App/App.module.css";
+import styles from "../Header.module.css";
 
-const ProfileButton = ({ authentication }) => {
+const ProfileButton = ({ profilePic }) => {
   return (
     <Link className={styles.profile} to="/signup">
       <Button className={styles.button}>
         <img
-          src={authentication.profilePic}
+          src={profilePic}
           alt="Profile"
           className={styles.profilePic}
           width="32"
@@ -23,11 +23,7 @@ const ProfileButton = ({ authentication }) => {
 };
 
 ProfileButton.propTypes = {
-  authentication: PropTypes.shape({
-    profilePic: PropTypes.string.isRequired,
-    token: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-  }).isRequired,
+  profilePic: PropTypes.string.isRequired,
 };
 
 export default ProfileButton;

@@ -2,7 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
-import styles from "../../App/App.module.css";
+import styles from "../Header.module.css";
 
 const SignupButton = () => {
   return (
