@@ -57,6 +57,25 @@ const Biography = ({
 
   const history = useHistory();
 
+  const saveBiography = () => {
+    const actions = {
+      setProfileKey,
+      setDisplayBioInputs,
+      setDisplayError,
+      history,
+    };
+
+    save(authentication, data, actions);
+  };
+
+  const closeBiography = () => {
+    const actions = {
+      setDisplayBioInputs,
+      setDisplayError,
+    };
+    cancel(actions, hooks);
+  };
+
   return (
     <Form style={{ minWidth: "229px", maxWidth: "229px" }}>
       <img
@@ -97,26 +116,13 @@ const Biography = ({
             keyValue={twitterText}
             setProfileKey={setTwitterText}
           />
-          <Button
-            type="button"
-            className={styles.save}
-            onClick={() =>
-              save(
-                authentication,
-                data,
-                setProfileKey,
-                setDisplayBioInputs,
-                history,
-                setDisplayError
-              )
-            }
-          >
+          <Button type="button" className={styles.save} onClick={saveBiography}>
             Save
           </Button>
           <Button
             type="button"
             className={styles.cancel}
-            onClick={() => cancel(setDisplayBioInputs, setDisplayError, hooks)}
+            onClick={closeBiography}
           >
             Cancel
           </Button>

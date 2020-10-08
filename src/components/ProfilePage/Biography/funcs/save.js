@@ -5,21 +5,12 @@ import api from "../../../../api/index.js";
  *
  * @param {String} authentication - Object which is our authentication and id.
  * @param {Object} data - The current state of our profile inputs.
- * @param {Function} setProfileKey - Our main profile hook to apply changes.
- * @param {Function} setDisplayBioInputs - Open / Closes the Profile inputs.
+ * @param {Object} actions - Our hook setters to perform necessary actions.
  *
- * Updates our profile in the backend.
- * Updates our current state on the frontend.
- * Close the inputs.
+ * Uses out profile id given to us from the backend, the current auth token, and our new profile data
+ * and makes an api call to update that information.
  */
-const save = async (
-  authentication,
-  data,
-  setProfileKey,
-  setDisplayBioInputs,
-  history,
-  setDisplayError
-) => {
+const save = async (authentication, data, actions) => {
   const response = await api.updateProfile(
     authentication.id,
     authentication.token,
@@ -27,17 +18,17 @@ const save = async (
   );
 
   if (response.status === 200) {
-    setDisplayError("");
-    setProfileKey(response.token);
-    setDisplayBioInputs(false);
+    actions.setDisplayError("");
+    actions.setProfileKey(response.token);
+    actions.setDisplayBioInputs(false);
   } else if (response.status === 401) {
     // Timed out, push to login page.
-    setDisplayError("");
-    history.push("/login");
+    actions.setDisplayError("");
+    actions.history.push("/login");
   } else {
     // Close and display error message.
-    setDisplayError(response.data);
-    setDisplayBioInputs(false);
+    actions.setDisplayError(response.data);
+    actions.setDisplayBioInputs(false);
   }
 };
 

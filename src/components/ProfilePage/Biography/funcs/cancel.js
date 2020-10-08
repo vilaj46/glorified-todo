@@ -1,20 +1,20 @@
 /**
  * cancel
  *
- * @param {Hook} setDisplayBioInputs - Opens and closes our Biography inputs.
+ * @param {Object} actions - Aesthetic actions for closing the inputs and removing errors.
  * @param {Array} hooks - Array of hooks for the inputs.
  *
  * Iterate over our array and set the values to our currently saved data.
  *
  * Close the profile afterwards.
  */
-const cancel = (setDisplayBioInputs, setDisplayError, hooks) => {
+const cancel = (actions, hooks) => {
   hooks.forEach((hook) => {
     hook.action(hook.value);
   });
 
-  setDisplayBioInputs(false);
-  setDisplayError("");
+  actions.setDisplayBioInputs(false);
+  actions.setDisplayError("");
 };
 
 export default cancel;
