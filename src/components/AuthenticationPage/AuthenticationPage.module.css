@@ -27,6 +27,7 @@
 .loginButton {
   width: 100%;
   text-align: center;
+  margin-top: 10px;
 }
 
 .signupButton {
@@ -34,6 +35,7 @@
   text-align: center;
   background-color: #42b72a;
   border-color: #42b72a;
+  margin-top: 10px;
 }
 
 .signupButton:hover,
@@ -109,4 +111,12 @@
 .overHead {
   width: 25%;
   margin: 0 auto;
+}
+
+.captchaContainer div {
+  margin: 0 auto;
+}
+
+.captchaError {
+  border: 2px solid red;
 }

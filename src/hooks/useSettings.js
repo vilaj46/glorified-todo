@@ -22,5 +22,5 @@ export default () => {
 };
 
 const defaultValues = {
-  method: "token",
+  captcha: false,
 };

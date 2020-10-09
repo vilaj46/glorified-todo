@@ -33,17 +33,17 @@ userSchema.methods.createProfileJWT = function () {
 
 userSchema.methods.createJWT = async function () {
   const data = await this.createAuthObject();
-  return jwt.sign(data, process.env.SECRET_KEY, { expiresIn: "10h" });
+  return jwt.sign(data, process.env.SECRET_KEY, { expiresIn: "24h" });
 };
 
 userSchema.methods.createCookie = async function () {
   const data = await this.createAuthObject();
   const token = jwt.sign(data, process.env.COOKIE_KEY, {
-    expiresIn: "500",
+    expiresIn: "24h",
   });
   return {
     data: token,
-    maxAge: 500,
+    maxAge: 24 * 60 * 60 * 1000,
   };
 };
 

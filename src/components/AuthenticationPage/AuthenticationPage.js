@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
@@ -10,6 +11,7 @@ import styles from "./AuthenticationPage.module.css";
 // Helper Functions
 import login from "./funcs/login.js";
 import signup from "./funcs/signup.js";
+import emphasize from "./funcs/emphasize.js";
 
 // Helper Components
 import LoginButton from "./helpers/LoginButton";
@@ -18,7 +20,7 @@ import EmailText from "./helpers/EmailText";
 import PasswordText from "./helpers/PasswordText";
 import ErrorSVG from "./helpers/ErrorSVG";
 import PasswordVisibilityButton from "./helpers/PasswordVisibilityButton";
-import TokenOrCookie from "./helpers/TokenOrCookie";
+import Settings from "./helpers/Settings";
 
 const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
   // Current state of the inputs.
@@ -52,7 +54,8 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
   // aesthetics and we use the push function if we are successful.
   const [overHeadMessage, setOverHeadMessage] = useState("");
   const [counter, setCounter] = useState(0);
-  const history = useHistory();
+
+  const [captchaValue, setCaptchaValue] = useState(undefined);
 
   // Resets Form if we switch between the login / signup page.
   if (prevPage !== page) {
@@ -69,13 +72,18 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
     setPasswordMessage(0);
     setOverHeadMessage("");
     setCounter(0);
+    setCaptchaValue(undefined);
   }
 
+  // Prevents multiple rerenders.
+  const history = useHistory();
   if (history.location.state && counter === 0) {
     setOverHeadMessage(history.location.state.message);
     setCounter(1);
   }
 
+  // When page is initially loaded, remove the overhead message.
+  // useHistory state was persistent.
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     if (loaded === false && history.location.pathname === "/login") {
@@ -84,11 +92,35 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
     }
   }, [loaded, setLoaded, history]);
 
+  const recaptchaRef = React.createRef();
+
+  function captchaChange(value) {
+    setCaptchaValue(value);
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
 
     // Our current input states.
     const credentials = { username, email, password };
+    let recaptchaValue;
+
+    if (settings.captcha) {
+      recaptchaRef.current.getValue();
+    }
+
+    const toEmphCaptcha = shouldWeDisplayCaptcha(
+      history,
+      credentials,
+      settings
+    );
+
+    if (
+      (recaptchaValue === undefined || recaptchaValue === "") &&
+      toEmphCaptcha
+    ) {
+      emphasize.captchaError(500, setLastClicked, lastClicked);
+    }
 
     // Also our current state not related to credentials.
     const state = {
@@ -111,9 +143,13 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
       setToken,
     };
 
+    if (captchaValue === undefined && settings.captcha) return;
+
     if (page === "login") {
+      // display recaptcha
       login(credentials, actions, state);
     } else {
+      // display recaptcha
       signup(credentials, actions, state);
     }
   };
@@ -173,18 +209,53 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
             passwordMessage={passwordMessage}
           />
         </Form.Group>
+
+        {settings.captcha && (
+          <div className={styles.captchaContainer}>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+              onChange={captchaChange}
+            />
+          </div>
+        )}
         <LoginButton page={page} />
-        <TokenOrCookie settings={settings} setSettingsKey={setSettingsKey} />
+        <Settings settings={settings} setSettingsKey={setSettingsKey} />
       </Form>
     </Jumbotron>
   );
 };
 
+function shouldWeDisplayCaptcha(history, credentials, settings) {
+  const { pathname } = history.location;
+  const { username, email, password } = credentials;
+  const { captcha } = settings;
+
+  if (
+    pathname === "/login" &&
+    username.length > 0 &&
+    password.length > 0 &&
+    captcha
+  ) {
+    return true;
+  } else if (
+    pathname === "/signup" &&
+    username.length > 0 &&
+    email.length > 0 &&
+    password.length > 0 &&
+    captcha
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 AuthenticationPage.propTypes = {
   setToken: PropTypes.func.isRequired,
   page: PropTypes.string.isRequired,
   settings: PropTypes.shape({
-    method: PropTypes.string.isRequired,
+    captcha: PropTypes.bool.isRequired,
   }).isRequired,
   setSettingsKey: PropTypes.func.isRequired,
 };

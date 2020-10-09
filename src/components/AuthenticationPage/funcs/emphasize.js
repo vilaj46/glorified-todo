@@ -112,8 +112,19 @@ const emphasizeEmailErrorMessage = (
   }
 };
 
+const emphasizeCaptchaError = (time, setLastClicked, lastClicked) => {
+  if (Date.now() - time < lastClicked) return;
+
+  const captcha = document.querySelector('[role="presentation"]');
+  captcha.classList.add(styles.captchaError);
+  setTimeout(() => {
+    captcha.classList.remove(styles.captchaError);
+  }, time);
+};
+
 export default {
   userErrorMessage: emphasizeUserErrorMessage,
   passErrorMessage: emphasizePassErrorMessage,
   emailErrorMessage: emphasizeEmailErrorMessage,
+  captchaError: emphasizeCaptchaError,
 };
