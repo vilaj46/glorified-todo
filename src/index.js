@@ -17,7 +17,6 @@ import App from "./components/App/App";
 // Hook todos up to the database.
 // Clean up todos.
 
-// Captcha
 // Other types of authentication
 // Passports
 // Honeypot

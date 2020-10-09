@@ -106,7 +106,7 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
     let recaptchaValue;
 
     if (settings.captcha) {
-      recaptchaRef.current.getValue();
+      recaptchaValue = recaptchaRef.current.getValue();
     }
 
     const toEmphCaptcha = shouldWeDisplayCaptcha(
