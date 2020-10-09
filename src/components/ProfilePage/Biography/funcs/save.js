@@ -21,10 +21,14 @@ const save = async (authentication, data, actions) => {
     actions.setDisplayError("");
     actions.setProfileKey(response.token);
     actions.setDisplayBioInputs(false);
-  } else if (response.status === 401) {
+  } else if (response.status === 401 || response.status === 403) {
     // Timed out, push to login page.
     actions.setDisplayError("");
-    actions.history.push("/login");
+    actions.setToken();
+    actions.history.push("/login", {
+      message: response.data,
+      time: Date.now(),
+    });
   } else {
     // Close and display error message.
     actions.setDisplayError(response.data);

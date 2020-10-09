@@ -6,7 +6,7 @@ import styles from "./ProfilePage.module.css";
 
 import Biography from "./Biography/Biography";
 
-const ProfilePage = ({ authentication, setProfileKey }) => {
+const ProfilePage = ({ authentication, setProfileKey, setToken }) => {
   const decodedProfile = jwt_decode(authentication.profile);
   const [displayBioInputs, setDisplayBioInputs] = useState(false);
   return (
@@ -17,6 +17,7 @@ const ProfilePage = ({ authentication, setProfileKey }) => {
         setProfileKey={setProfileKey}
         displayBioInputs={displayBioInputs}
         setDisplayBioInputs={setDisplayBioInputs}
+        setToken={setToken}
       />
     </div>
   );
@@ -29,6 +30,7 @@ ProfilePage.propTypes = {
     username: PropTypes.string.isRequired,
   }).isRequired,
   setProfileKey: PropTypes.func.isRequired,
+  setToken: PropTypes.func.isRequired,
 };
 
 export default ProfilePage;

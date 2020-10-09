@@ -44,6 +44,7 @@ const App = () => {
       }
     }
 
+    // Sets up our authentication on page load.
     const loadedHook = { loaded, setLoaded };
     onLoad(loadedHook, authentication.exp, setToken);
   }, [
@@ -112,6 +113,7 @@ const App = () => {
                 <ProfilePage
                   authentication={authentication}
                   setProfileKey={setProfileKey}
+                  setToken={setToken}
                 />
               ) : (
                 <Redirect to="/login" />

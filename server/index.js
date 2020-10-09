@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 // Authentication Routes
 import signup from "./routes/authentication/signup.js";
@@ -10,12 +12,15 @@ import updateProfile from "./routes/authentication/updateProfile.js";
 
 // Figure out how to get form data.
 // Setup mongoose and create a User Schema.
+// cd C:\"Program Files"\MongoDB\Server\4.4\bin
 
 // App setup.
 const app = express();
 dotenv.config();
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // MongoDB setup.
 const options = { useUnifiedTopology: true, useNewUrlParser: true };

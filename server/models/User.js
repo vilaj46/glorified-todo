@@ -36,6 +36,17 @@ userSchema.methods.createJWT = async function () {
   return jwt.sign(data, process.env.SECRET_KEY, { expiresIn: "10h" });
 };
 
+userSchema.methods.createCookie = async function () {
+  const data = await this.createAuthObject();
+  const token = jwt.sign(data, process.env.COOKIE_KEY, {
+    expiresIn: "500",
+  });
+  return {
+    data: token,
+    maxAge: 500,
+  };
+};
+
 userSchema.methods.checkPassword = function (potentialPassword) {
   const currentPassword = this.password;
   return bcrypt.compare(potentialPassword, currentPassword);

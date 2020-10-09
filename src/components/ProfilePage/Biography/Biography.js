@@ -22,6 +22,7 @@ const Biography = ({
   setProfileKey,
   displayBioInputs,
   setDisplayBioInputs,
+  setToken,
 }) => {
   // Current state of our profile from the backend.
   const [bioText, setBioText] = useState(profile.bio);
@@ -63,6 +64,7 @@ const Biography = ({
       setDisplayBioInputs,
       setDisplayError,
       history,
+      setToken,
     };
 
     save(authentication, data, actions);
@@ -149,6 +151,7 @@ Biography.propTypes = {
   setProfileKey: PropTypes.func.isRequired,
   displayBioInputs: PropTypes.bool.isRequired,
   setDisplayBioInputs: PropTypes.func.isRequired,
+  setToken: PropTypes.func.isRequired,
 };
 
 export default Biography;

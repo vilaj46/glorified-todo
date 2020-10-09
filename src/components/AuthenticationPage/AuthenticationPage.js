@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 
@@ -50,6 +50,8 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
 
   // React-router-dom hook. Use the location to determine
   // aesthetics and we use the push function if we are successful.
+  const [overHeadMessage, setOverHeadMessage] = useState("");
+  const [counter, setCounter] = useState(0);
   const history = useHistory();
 
   // Resets Form if we switch between the login / signup page.
@@ -65,7 +67,22 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
     setUsernameMessage(0);
     setEmailMessage(0);
     setPasswordMessage(0);
+    setOverHeadMessage("");
+    setCounter(0);
   }
+
+  if (history.location.state && counter === 0) {
+    setOverHeadMessage(history.location.state.message);
+    setCounter(1);
+  }
+
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    if (loaded === false && history.location.pathname === "/login") {
+      setLoaded(true);
+      setOverHeadMessage("");
+    }
+  }, [loaded, setLoaded, history]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -103,6 +120,11 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
 
   return (
     <Jumbotron>
+      {overHeadMessage && (
+        <p className={`${styles.boldError} ${styles.overHead}`}>
+          {overHeadMessage}
+        </p>
+      )}
       <Form className={styles.form} onSubmit={(e) => onSubmit(e)}>
         <Form.Group controlId="formBasic" className={styles.relative}>
           <Form.Control

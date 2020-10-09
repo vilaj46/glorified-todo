@@ -28,11 +28,11 @@ const updateProfile = async (id, token, data) => {
       };
     })
     .catch((err) => {
-      // 401 for Unauthorized, 500 for something went wrong.
-      if (err.response.status === 401) {
+      // 401 for Unauthorized, 500 for something went wrong, 403 session has ended.
+      if (err.response.status === 401 || err.response.status === 403) {
         return {
           status: 401,
-          data: "Your session has timed out.",
+          data: "Please login. Your session has ended.",
         };
       } else {
         return {
