@@ -4,9 +4,9 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
 // Authentication Routes
-import signup from "./routes/signup.js";
-import login from "./routes/login.js";
-import updateProfile from "./routes/updateProfile.js";
+import signup from "./routes/authentication/signup.js";
+import login from "./routes/authentication/login.js";
+import updateProfile from "./routes/authentication/updateProfile.js";
 
 // Figure out how to get form data.
 // Setup mongoose and create a User Schema.

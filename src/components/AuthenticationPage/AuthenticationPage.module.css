@@ -86,3 +86,22 @@
 .blankUsernameMessage {
   opacity: 0;
 }
+
+.tokenCookieContainer {
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+  justify-content: space-evenly;
+}
+
+.check:hover {
+  cursor: pointer;
+}
+
+.check input:hover {
+  cursor: pointer;
+}
+
+.check label:hover {
+  cursor: pointer;
+}

@@ -18,8 +18,9 @@ import EmailText from "./helpers/EmailText";
 import PasswordText from "./helpers/PasswordText";
 import ErrorSVG from "./helpers/ErrorSVG";
 import PasswordVisibilityButton from "./helpers/PasswordVisibilityButton";
+import TokenOrCookie from "./helpers/TokenOrCookie";
 
-const AuthenticationPage = ({ setToken, page }) => {
+const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
   // Current state of the inputs.
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -151,6 +152,7 @@ const AuthenticationPage = ({ setToken, page }) => {
           />
         </Form.Group>
         <LoginButton page={page} />
+        <TokenOrCookie settings={settings} setSettingsKey={setSettingsKey} />
       </Form>
     </Jumbotron>
   );
@@ -159,6 +161,10 @@ const AuthenticationPage = ({ setToken, page }) => {
 AuthenticationPage.propTypes = {
   setToken: PropTypes.func.isRequired,
   page: PropTypes.string.isRequired,
+  settings: PropTypes.shape({
+    method: PropTypes.string.isRequired,
+  }).isRequired,
+  setSettingsKey: PropTypes.func.isRequired,
 };
 
 export default AuthenticationPage;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import jwt_decode from "jwt-decode";
 
-import avatar from "../../images/avatar.png";
+import avatar from "../images/avatar.png";
 
 export default () => {
   const [authentication, setAuthentication] = useState(defaultValues);

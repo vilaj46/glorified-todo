@@ -1,7 +1,7 @@
 import express from "express";
 import jwt_decode from "jwt-decode";
 
-import User from "../models/User";
+import User from "../../models/User";
 
 const router = express.Router({ mergeParams: true });
 
