@@ -56,6 +56,7 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
   const [counter, setCounter] = useState(0);
 
   const [captchaValue, setCaptchaValue] = useState(undefined);
+  // const [ref, setRef] = useState(null);
 
   // Resets Form if we switch between the login / signup page.
   if (prevPage !== page) {
@@ -82,30 +83,47 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
     setCounter(1);
   }
 
-  // When page is initially loaded, remove the overhead message.
-  // useHistory state was persistent.
+  const recaptchaRef = React.createRef();
+
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
+    // When page is initially loaded, remove the overhead message.
+    // useHistory state was persistent.
     if (loaded === false && history.location.pathname === "/login") {
-      setLoaded(true);
       setOverHeadMessage("");
     }
-  }, [loaded, setLoaded, history]);
 
-  const recaptchaRef = React.createRef();
+    console.log(captchaValue);
+    if ((usernameError || emailError || passwordError) && captchaValue) {
+      recaptchaRef.current.reset();
+    }
+
+    setLoaded(true);
+  }, [
+    loaded,
+    setLoaded,
+    history,
+    recaptchaRef,
+    captchaValue,
+    usernameError,
+    emailError,
+    passwordError,
+  ]);
 
   function captchaChange(value) {
     setCaptchaValue(value);
   }
 
-  const onSubmit = (e) => {
+  // console.log(ref);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     // Our current input states.
     const credentials = { username, email, password };
     let recaptchaValue;
-
     if (settings.captcha) {
+      // console.log(ref.current);
       recaptchaValue = recaptchaRef.current.getValue();
     }
 
@@ -115,11 +133,21 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
       settings
     );
 
+    // Cancels the login / signup if we don't click the captcha.
     if (
       (recaptchaValue === undefined || recaptchaValue === "") &&
       toEmphCaptcha
     ) {
-      emphasize.captchaError(500, setLastClicked, lastClicked);
+      if (usernameError === true) {
+        emphasize.userErrorMessage(500, setLastClicked, lastClicked);
+      } else if (passwordError === true) {
+        emphasize.passErrorMessage(500, setLastClicked, lastClicked);
+      } else if (emailError === true) {
+        emphasize.emailErrorMessage(500, setLastClicked, lastClicked);
+      } else {
+        emphasize.captchaError(500, setLastClicked, lastClicked);
+      }
+      return;
     }
 
     // Also our current state not related to credentials.
@@ -129,6 +157,7 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
       emailMessage,
       lastClicked,
       history,
+      captchaValue,
     };
 
     // Our hook setters.
@@ -143,14 +172,40 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
       setToken,
     };
 
-    if (captchaValue === undefined && settings.captcha) return;
-
     if (page === "login") {
-      // display recaptcha
-      login(credentials, actions, state);
+      const didWeLogin = login(credentials, actions, state);
+      if (didWeLogin === false) {
+        setCaptchaValue(undefined);
+      }
     } else {
-      // display recaptcha
-      signup(credentials, actions, state);
+      const didWeSignup = await signup(credentials, actions, state);
+      if (didWeSignup === false) {
+        captchaChange(undefined);
+      }
+    }
+  };
+
+  const onUsernameChange = (value) => {
+    setUsername(value);
+    if (usernameMessage > 0) {
+      setUsernameMessage(0);
+      setUsernameError(false);
+    }
+  };
+
+  const onPasswordChange = (value) => {
+    setPassword(value);
+    if (passwordMessage > 0) {
+      setPasswordMessage(0);
+      setPasswordError(false);
+    }
+  };
+
+  const onEmailChange = (value) => {
+    setEmail(value);
+    if (emailMessage > 0) {
+      setEmailMessage(0);
+      setEmailError(false);
     }
   };
 
@@ -167,7 +222,7 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
             type="text"
             placeholder="Enter username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => onUsernameChange(e.target.value)}
             className={usernameError ? styles.error : ""}
           />
           <ErrorSVG error={usernameError} />
@@ -182,7 +237,7 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
               type="email"
               placeholder="Enter email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => onEmailChange(e.target.value)}
               className={emailError ? styles.error : ""}
             />
             <ErrorSVG error={emailError} />
@@ -194,7 +249,7 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
             type={displayPassword ? "text" : "password"}
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => onPasswordChange(e.target.value)}
             className={passwordError ? styles.error : ""}
             autoComplete="on"
           />

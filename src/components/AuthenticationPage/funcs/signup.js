@@ -19,15 +19,15 @@ const signup = async (credentials, actions, state) => {
   if (credentials.username.trim().length === 0) {
     // Username input is empty.
     messages.usernameIsEmpty(actions, state);
-    return;
+    return false;
   } else if (credentials.email.trim().length === 0) {
     // Email input is empty.
     messages.emailIsEmpty(actions, state);
-    return;
+    return false;
   } else if (credentials.password.trim().length === 0) {
     // Password input is empty.
     messages.passwordIsEmpty(actions, state);
-    return;
+    return false;
   }
 
   const response = await api.signup(credentials);
@@ -35,7 +35,7 @@ const signup = async (credentials, actions, state) => {
   // Success and we got our token.
   if (response.status === 200) {
     messages.successful(response, actions, state);
-    return;
+    return true;
   }
 
   // Error handling.
@@ -44,14 +44,15 @@ const signup = async (credentials, actions, state) => {
     if (data.includes("username") && data.includes("email")) {
       // Username and email are already in use.
       messages.usernameAndEmailInUse(actions, state);
-      return;
+      return false;
     } else if (data.includes("username")) {
       // Username in use.
       messages.onlyUsernameInUse(actions, state);
+      return false;
     } else if (data.includes("email")) {
       // Email in use.
       messages.onlyEmailInUse(actions, state);
-      return;
+      return false;
     }
   }
 };

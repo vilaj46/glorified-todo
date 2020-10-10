@@ -19,12 +19,14 @@ const login = async (credentials, actions, state) => {
   if (credentials.username.trim().length === 0) {
     // Username value is empty.
     messages.usernameIsEmpty(actions, state);
-    return;
+    return false;
   } else if (credentials.password.trim().length === 0) {
     // Password value is empty.
     messages.passwordIsEmpty(actions, state);
-    return;
+    return false;
   }
+
+  if (!state.captchaValue) return false;
 
   const response = await api.login({
     username: credentials.username,
@@ -34,13 +36,16 @@ const login = async (credentials, actions, state) => {
   if (response.status === 200) {
     // Successful login.
     messages.successful(response, actions, state);
+    return true;
   } else if (response.status === 406) {
     if (response.data === "Username not found.") {
       // Username was not found.
       messages.usernameNotFound(actions, state);
+      return false;
     } else {
       // Incorrect password.
       messages.passwordIncorrect(actions, state);
+      return false;
     }
   }
 };
