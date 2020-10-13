@@ -4,8 +4,6 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import passport from "passport";
-import GoogleStrategy from "passport-google-oauth20";
 
 // cd C:\"Program Files"\MongoDB\Server\4.4\bin
 
@@ -13,7 +11,6 @@ import GoogleStrategy from "passport-google-oauth20";
 import signup from "./routes/authentication/signup.js";
 import login from "./routes/authentication/login.js";
 import updateProfile from "./routes/authentication/updateProfile.js";
-import google from "./routes/authentication/google.js";
 
 // App setup.
 const app = express();
@@ -32,21 +29,6 @@ mongoose
   });
 mongoose.set("useFindAndModify", false);
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/redirect",
-    },
-    (accessToken, refreshToken, profile, cb) => {
-      console.log(accessToken);
-      console.log(refreshToken);
-      console.log(profile);
-    }
-  )
-);
-
 // Routes
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -60,11 +42,6 @@ app.get("/auth/google/redirect", (req, res, next) => {
 app.use("/signup", signup);
 app.use("/login", login);
 app.use("/users/:id", updateProfile);
-app.use(
-  "/auth/google",
-  // passport.authenticate("google", { scope: ["profile"] })
-  google
-);
 
 const port = 8080;
 app.listen(process.env.PORT || port, () => {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import ReCAPTCHA from "react-google-recaptcha";
-import GoogleLogin from "react-google-login";
 
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
@@ -13,7 +12,6 @@ import styles from "./AuthenticationPage.module.css";
 import resetHooks from "./funcs/resetHooks.js";
 import onChanges from "./funcs/onChanges.js";
 import onSubmit from "./funcs/onSubmit.js";
-import googleLogin from "./funcs/googleLogin.js";
 
 // Helper Components
 import LoginButton from "./helpers/LoginButton";
@@ -218,13 +216,6 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
         <LoginButton page={page} />
         <Settings settings={settings} setSettingsKey={setSettingsKey} />
       </Form>
-      <GoogleLogin
-        clientId="42780040355-28n6dcs4imkceufraqee2jmsboktg9n2.apps.googleusercontent.com"
-        buttonText="Google Login"
-        onSuccess={googleLogin}
-        onFailure={googleLogin}
-        cookiePolicy={"single_host_origin"}
-      />
     </Jumbotron>
   );
 };
