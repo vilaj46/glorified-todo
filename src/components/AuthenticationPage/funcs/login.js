@@ -26,7 +26,7 @@ const login = async (credentials, actions, state) => {
     return false;
   }
 
-  if (!state.captchaValue) return false;
+  if (!state.captchaValue && state.settings.captch) return false;
 
   const response = await api.login({
     username: credentials.username,

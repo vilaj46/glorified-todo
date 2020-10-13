@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import ReCAPTCHA from "react-google-recaptcha";
+import GoogleLogin from "react-google-login";
 
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
@@ -9,9 +10,10 @@ import { useHistory } from "react-router-dom";
 import styles from "./AuthenticationPage.module.css";
 
 // Helper Functions
-import login from "./funcs/login.js";
-import signup from "./funcs/signup.js";
-import emphasize from "./funcs/emphasize.js";
+import resetHooks from "./funcs/resetHooks.js";
+import onChanges from "./funcs/onChanges.js";
+import onSubmit from "./funcs/onSubmit.js";
+import googleLogin from "./funcs/googleLogin.js";
 
 // Helper Components
 import LoginButton from "./helpers/LoginButton";
@@ -56,31 +58,57 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
   const [counter, setCounter] = useState(0);
 
   const [captchaValue, setCaptchaValue] = useState(undefined);
-  // const [ref, setRef] = useState(null);
-
-  // Resets Form if we switch between the login / signup page.
-  if (prevPage !== page) {
-    setPrevPage(page);
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setUsernameError(false);
-    setEmailError(false);
-    setPasswordError(false);
-    setDisplayPassword(false);
-    setUsernameMessage(0);
-    setEmailMessage(0);
-    setPasswordMessage(0);
-    setOverHeadMessage("");
-    setCounter(0);
-    setCaptchaValue(undefined);
-  }
 
   // Prevents multiple rerenders.
   const history = useHistory();
   if (history.location.state && counter === 0) {
     setOverHeadMessage(history.location.state.message);
     setCounter(1);
+  }
+
+  const setters = {
+    setPrevPage,
+    setUsername,
+    setEmail,
+    setPassword,
+    setUsernameError,
+    setEmailError,
+    setPasswordError,
+    setDisplayPassword,
+    setUsernameMessage,
+    setEmailMessage,
+    setPasswordMessage,
+    setOverHeadMessage,
+    setCounter,
+    setCaptchaValue,
+    setToken,
+    setLastClicked,
+  };
+
+  const state = {
+    username,
+    password,
+    email,
+    usernameError,
+    passwordError,
+    emailError,
+    displayPassword,
+    usernameMessage,
+    emailMessage,
+    passwordMessage,
+    lastClicked,
+    prevPage,
+    overHeadMessage,
+    counter,
+    captchaValue,
+    settings,
+    history,
+    page,
+  };
+
+  // Resets Form if we switch between the login / signup page.
+  if (prevPage !== page) {
+    resetHooks(setters, page);
   }
 
   const recaptchaRef = React.createRef();
@@ -93,7 +121,6 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
       setOverHeadMessage("");
     }
 
-    console.log(captchaValue);
     if ((usernameError || emailError || passwordError) && captchaValue) {
       recaptchaRef.current.reset();
     }
@@ -114,101 +141,6 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
     setCaptchaValue(value);
   }
 
-  // console.log(ref);
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    // Our current input states.
-    const credentials = { username, email, password };
-    let recaptchaValue;
-    if (settings.captcha) {
-      // console.log(ref.current);
-      recaptchaValue = recaptchaRef.current.getValue();
-    }
-
-    const toEmphCaptcha = shouldWeDisplayCaptcha(
-      history,
-      credentials,
-      settings
-    );
-
-    // Cancels the login / signup if we don't click the captcha.
-    if (
-      (recaptchaValue === undefined || recaptchaValue === "") &&
-      toEmphCaptcha
-    ) {
-      if (usernameError === true) {
-        emphasize.userErrorMessage(500, setLastClicked, lastClicked);
-      } else if (passwordError === true) {
-        emphasize.passErrorMessage(500, setLastClicked, lastClicked);
-      } else if (emailError === true) {
-        emphasize.emailErrorMessage(500, setLastClicked, lastClicked);
-      } else {
-        emphasize.captchaError(500, setLastClicked, lastClicked);
-      }
-      return;
-    }
-
-    // Also our current state not related to credentials.
-    const state = {
-      usernameMessage,
-      passwordMessage,
-      emailMessage,
-      lastClicked,
-      history,
-      captchaValue,
-    };
-
-    // Our hook setters.
-    const actions = {
-      setUsernameError,
-      setEmailError,
-      setPasswordError,
-      setUsernameMessage,
-      setEmailMessage,
-      setPasswordMessage,
-      setLastClicked,
-      setToken,
-    };
-
-    if (page === "login") {
-      const didWeLogin = login(credentials, actions, state);
-      if (didWeLogin === false) {
-        setCaptchaValue(undefined);
-      }
-    } else {
-      const didWeSignup = await signup(credentials, actions, state);
-      if (didWeSignup === false) {
-        captchaChange(undefined);
-      }
-    }
-  };
-
-  const onUsernameChange = (value) => {
-    setUsername(value);
-    if (usernameMessage > 0) {
-      setUsernameMessage(0);
-      setUsernameError(false);
-    }
-  };
-
-  const onPasswordChange = (value) => {
-    setPassword(value);
-    if (passwordMessage > 0) {
-      setPasswordMessage(0);
-      setPasswordError(false);
-    }
-  };
-
-  const onEmailChange = (value) => {
-    setEmail(value);
-    if (emailMessage > 0) {
-      setEmailMessage(0);
-      setEmailError(false);
-    }
-  };
-
   return (
     <Jumbotron>
       {overHeadMessage && (
@@ -216,13 +148,18 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
           {overHeadMessage}
         </p>
       )}
-      <Form className={styles.form} onSubmit={(e) => onSubmit(e)}>
+      <Form
+        className={styles.form}
+        onSubmit={(e) => onSubmit(e, state, setters)}
+      >
         <Form.Group controlId="formBasic" className={styles.relative}>
           <Form.Control
             type="text"
             placeholder="Enter username"
             value={username}
-            onChange={(e) => onUsernameChange(e.target.value)}
+            onChange={(e) =>
+              onChanges.onUsernameChange(e.target.value, state, setters)
+            }
             className={usernameError ? styles.error : ""}
           />
           <ErrorSVG error={usernameError} />
@@ -237,7 +174,9 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
               type="email"
               placeholder="Enter email"
               value={email}
-              onChange={(e) => onEmailChange(e.target.value)}
+              onChange={(e) =>
+                onChanges.onEmailChange(e.target.value, state, setters)
+              }
               className={emailError ? styles.error : ""}
             />
             <ErrorSVG error={emailError} />
@@ -249,7 +188,9 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
             type={displayPassword ? "text" : "password"}
             placeholder="Password"
             value={password}
-            onChange={(e) => onPasswordChange(e.target.value)}
+            onChange={(e) =>
+              onChanges.onPasswordChange(e.target.value, state, setters)
+            }
             className={passwordError ? styles.error : ""}
             autoComplete="on"
           />
@@ -277,34 +218,16 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
         <LoginButton page={page} />
         <Settings settings={settings} setSettingsKey={setSettingsKey} />
       </Form>
+      <GoogleLogin
+        clientId="42780040355-28n6dcs4imkceufraqee2jmsboktg9n2.apps.googleusercontent.com"
+        buttonText="Google Login"
+        onSuccess={googleLogin}
+        onFailure={googleLogin}
+        cookiePolicy={"single_host_origin"}
+      />
     </Jumbotron>
   );
 };
-
-function shouldWeDisplayCaptcha(history, credentials, settings) {
-  const { pathname } = history.location;
-  const { username, email, password } = credentials;
-  const { captcha } = settings;
-
-  if (
-    pathname === "/login" &&
-    username.length > 0 &&
-    password.length > 0 &&
-    captcha
-  ) {
-    return true;
-  } else if (
-    pathname === "/signup" &&
-    username.length > 0 &&
-    email.length > 0 &&
-    password.length > 0 &&
-    captcha
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
 
 AuthenticationPage.propTypes = {
   setToken: PropTypes.func.isRequired,

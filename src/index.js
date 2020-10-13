@@ -12,10 +12,6 @@ import App from "./components/App/App";
 // Testing
 // Spacing on larger screens.
 
-// If we click login and our forms are blank, display errors.
-// If we get a username or password error remove the captchaValue.
-// Do the same on the signup page. If are email or username arein use remove captcha.
-
 // Hook todos up to the database.
 // Clean up todos.
 
@@ -23,7 +19,6 @@ import App from "./components/App/App";
 // Passports
 // Honeypot
 // Complex password
-// Expiration
 // Loading spinner for login and stuff.
 
 // Profile Page
