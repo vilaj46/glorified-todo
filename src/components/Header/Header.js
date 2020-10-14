@@ -9,13 +9,22 @@ import LogButton from "./helpers/LogButton";
 import ProfileButton from "./helpers/ProfileButton";
 import ItemsLink from "./helpers/ItemsLink";
 
-const Header = ({ authentication, isAuthenticated, setToken }) => {
+const Header = ({
+  authentication,
+  isAuthenticated,
+  setToken,
+  setInitialTodos,
+}) => {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div className={styles.linksContainer}>
           <ItemsLink />
-          <LogButton isAuthenticated={isAuthenticated} setToken={setToken} />
+          <LogButton
+            isAuthenticated={isAuthenticated}
+            setToken={setToken}
+            setInitialTodos={setInitialTodos}
+          />
           {!isAuthenticated && <SignupButton />}
         </div>
         <div className={styles.profileContainer}>
@@ -36,6 +45,7 @@ Header.propTypes = {
     token: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
   }).isRequired,
+  setInitialTodos: PropTypes.func.isRequired,
 };
 
 export default Header;

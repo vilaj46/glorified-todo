@@ -12,6 +12,9 @@ import signup from "./routes/authentication/signup.js";
 import login from "./routes/authentication/login.js";
 import updateProfile from "./routes/authentication/updateProfile.js";
 
+// Todos Route
+import todos from "./routes/todos.js";
+
 // App setup.
 const app = express();
 dotenv.config();
@@ -34,14 +37,13 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/auth/google/redirect", (req, res, next) => {
-  console.log("aaa");
-});
-
 // Authentication Routes
 app.use("/signup", signup);
 app.use("/login", login);
-app.use("/users/:id", updateProfile);
+app.use("/users/:id/profile", updateProfile);
+
+// Todos Route
+app.use("/users/:userID/todos", todos);
 
 const port = 8080;
 app.listen(process.env.PORT || port, () => {

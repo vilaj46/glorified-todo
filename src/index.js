@@ -15,12 +15,6 @@ import App from "./components/App/App";
 // Hook todos up to the database.
 // Clean up todos.
 
-// Other types of authentication
-// Passports
-// Honeypot
-// Complex password
-// Loading spinner for login and stuff.
-
 // Profile Page
 // List of items TodoItems for edit.
 // Ability to change email/password.

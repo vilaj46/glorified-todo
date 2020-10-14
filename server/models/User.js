@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     twitter: String,
     company: String,
   },
+  todos: Array,
 });
 
 userSchema.methods.createAuthObject = async function () {
@@ -24,6 +25,7 @@ userSchema.methods.createAuthObject = async function () {
     email: this.email,
     id: this._id,
     profile,
+    todos: this.todos,
   };
 };
 
@@ -51,6 +53,22 @@ userSchema.methods.checkPassword = function (potentialPassword) {
   const currentPassword = this.password;
   return bcrypt.compare(potentialPassword, currentPassword);
 };
+
+export const defaultValues = (credentials) => ({
+  username: credentials.username,
+  password: credentials.hash,
+  email: credentials.email,
+  profile: {
+    bio: "",
+    location: "",
+    visibleEmail: "",
+    emails: [credentials.email],
+    website: "",
+    twitter: "",
+    company: "",
+  },
+  todos: [],
+});
 
 const User = mongoose.model("User", userSchema);
 

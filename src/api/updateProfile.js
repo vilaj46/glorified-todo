@@ -17,7 +17,7 @@ import axios from "axios";
  */
 const updateProfile = async (id, token, data) => {
   return await axios
-    .put(`/users/${id}`, data, {
+    .put(`/users/${id}/profile`, data, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => {

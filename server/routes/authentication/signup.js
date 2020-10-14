@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import express from "express";
 
-import User from "../../models/User";
+import User, { defaultValues } from "../../models/User";
 
 const router = express.Router();
 
@@ -19,20 +19,8 @@ router.use(async (req, res) => {
         return res.status(500).send("Something went wrong with encryption.");
       } else {
         // Create new user.
-        const newUser = new User({
-          username: username,
-          password: hash,
-          email: email,
-          profile: {
-            bio: "",
-            location: "",
-            visibleEmail: "",
-            emails: [email],
-            website: "",
-            twitter: "",
-            company: "",
-          },
-        });
+        const userData = defaultValues({ username, hash, email });
+        const newUser = new User(userData);
 
         newUser.save(async (err) => {
           if (err) {
@@ -41,6 +29,11 @@ router.use(async (req, res) => {
           } else {
             // return jwt and data.
             const token = await newUser.createJWT();
+            const cookie = await newUser.createCookie();
+            res.cookie("session_id", cookie.data, {
+              maxAge: cookie.maxAge,
+              httpOnly: true,
+            });
             return res.json(token);
           }
         });

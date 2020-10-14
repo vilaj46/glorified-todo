@@ -1,4 +1,5 @@
 import { useState } from "react";
+import api from "../api/index.js";
 
 export default () => {
   const [todos, setTodos] = useState([]);
@@ -7,17 +8,27 @@ export default () => {
    * addTodo
    *
    * @param {Object} item - A potentially new todo item.
+   * @param {Object} auth - Authentication data.
+   * @param {Hook Function} setToken - Set our new token data.
    * @return {Boolean} Whether we added the TodoItem.
    *
    * Checks if our new todo isnt just a blank space.
    * If its not add it to the list.
    */
-  const addTodo = (item) => {
+  const addTodo = async (item, auth, setToken) => {
     const text = item.todo.trim();
+    item.todo = text;
+    todos.push(item);
+    setTodos([...todos]);
     if (text.length > 0) {
-      item.todo = text;
-      todos.push(item);
-      setTodos([...todos]);
+      if (auth.isAuthenticated) {
+        const response = await api.todos.addTodo(item, auth.authentication);
+        if (response.status === 200) {
+          setToken(response.token);
+        } else {
+          // Figure out our error codes.
+        }
+      }
       return true;
     } else {
       return false;
@@ -37,10 +48,19 @@ export default () => {
    *
    * Toggle completed on the found item.
    */
-  const completeTodo = (item) => {
+  const completeTodo = async (item, auth, setToken) => {
     const { index, IDNumber } = item;
     if (todos[index].IDNumber === IDNumber) {
       todos[index].completed = !todos[index].completed;
+
+      if (auth.isAuthenticated) {
+        const data = { ...todos[index], index: index };
+        const response = await api.todos.completeTodo(
+          data,
+          auth.authentication
+        );
+        setToken(response.token);
+      }
     } else {
       let searchedIndex;
       for (let i = 0; i < todos.length; i++) {
@@ -51,6 +71,11 @@ export default () => {
         }
       }
       todos[searchedIndex].completed = !todos[searchedIndex].completed;
+      if (auth.isAuthenticated) {
+        const data = { ...todos[searchedIndex], index: searchedIndex };
+        const response = api.todos.completeTodo(data, auth.authentication);
+        setToken(response.token);
+      }
     }
 
     setTodos([...todos]);
@@ -69,11 +94,15 @@ export default () => {
    *
    * Remove the found item.
    */
-  const removeTodo = (item) => {
+  const removeTodo = async (item, auth, setToken) => {
     const { index, IDNumber } = item;
 
     if (todos[index].IDNumber === IDNumber) {
       todos.splice(index, 1);
+      if (auth.isAuthenticated) {
+        const response = await api.todos.removeTodo(index, auth.authentication);
+        setToken(response.token);
+      }
     } else {
       let searchedIndex;
       for (let i = 0; i < todos.length; i++) {
@@ -84,6 +113,13 @@ export default () => {
         }
       }
       todos.splice(searchedIndex, 1);
+      if (auth.isAuthenticated) {
+        const response = await api.todos.removeTodo(
+          searchedIndex,
+          auth.authentication
+        );
+        setToken(response.token);
+      }
     }
 
     setTodos([...todos]);
@@ -105,5 +141,16 @@ export default () => {
     setTodos([...todos]);
   };
 
-  return [todos, addTodo, completeTodo, removeTodo, swapTodoItems];
+  const setInitialTodos = (todos) => {
+    setTodos([...todos]);
+  };
+
+  return [
+    todos,
+    addTodo,
+    completeTodo,
+    removeTodo,
+    swapTodoItems,
+    setInitialTodos,
+  ];
 };

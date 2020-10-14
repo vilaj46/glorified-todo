@@ -12,7 +12,16 @@ import xComplete from "../../svgs/xComplete.svg";
 
 import DragTypes from "./DragTypes.js";
 
-const TodoItem = ({ item, index, completeTodo, removeTodo, swapTodoItems }) => {
+const TodoItem = ({
+  item,
+  index,
+  completeTodo,
+  removeTodo,
+  swapTodoItems,
+  authentication,
+  isAuthenticated,
+  setToken,
+}) => {
   /**
    * removeHelper
    *
@@ -23,7 +32,8 @@ const TodoItem = ({ item, index, completeTodo, removeTodo, swapTodoItems }) => {
    */
   const removeHelper = (e) => {
     e.stopPropagation();
-    removeTodo({ ...item, index });
+    const auth = { authentication, isAuthenticated };
+    removeTodo({ ...item, index }, auth, setToken);
   };
 
   const [, drag] = useDrag({
@@ -43,11 +53,16 @@ const TodoItem = ({ item, index, completeTodo, removeTodo, swapTodoItems }) => {
   const checkImg = item.completed ? checkComplete : check;
   const xImg = item.completed ? xComplete : x;
 
+  const complete = () => {
+    const auth = { authentication, isAuthenticated };
+    completeTodo({ ...item, index }, auth, setToken);
+  };
+
   return (
     <li
       data-testid={item.IDNumber}
       className={`${styles.li} ${item.completed ? styles.completed : ""}`}
-      onClick={() => completeTodo({ ...item, index })}
+      onClick={complete}
       ref={drag}
     >
       <span className={styles.span}>
@@ -86,6 +101,9 @@ TodoItem.propTypes = {
   completeTodo: PropTypes.func.isRequired,
   removeTodo: PropTypes.func.isRequired,
   swapTodoItems: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  authentication: PropTypes.object.isRequired,
+  setToken: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

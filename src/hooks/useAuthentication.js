@@ -22,12 +22,12 @@ export default () => {
       setAuthentication({ ...defaultValues });
     } else {
       const decoded = jwt_decode(token);
-
       setAuthentication({
         ...authentication,
         ...decoded,
         token,
         profilePic: avatar,
+        todos: decoded.todos,
       });
       localStorage.setItem("token", token);
     }

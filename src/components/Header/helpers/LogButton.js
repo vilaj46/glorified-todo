@@ -6,10 +6,15 @@ import { Link } from "react-router-dom";
 
 import styles from "../Header.module.css";
 
-const LogButton = ({ isAuthenticated, setToken }) => {
+const LogButton = ({ isAuthenticated, setToken, setInitialTodos }) => {
+  const logout = () => {
+    setToken();
+    setInitialTodos([]);
+  };
+
   if (isAuthenticated) {
     return (
-      <Button className={styles.button} onClick={() => setToken()}>
+      <Button className={styles.button} onClick={logout}>
         Log Out
       </Button>
     );
@@ -25,6 +30,7 @@ const LogButton = ({ isAuthenticated, setToken }) => {
 LogButton.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   setToken: PropTypes.func.isRequired,
+  setInitialTodos: PropTypes.func.isRequired,
 };
 
 export default LogButton;

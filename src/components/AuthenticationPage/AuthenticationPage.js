@@ -64,6 +64,8 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
     setCounter(1);
   }
 
+  const recaptchaRef = React.createRef();
+
   const setters = {
     setPrevPage,
     setUsername,
@@ -102,14 +104,13 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
     settings,
     history,
     page,
+    recaptchaRef,
   };
 
   // Resets Form if we switch between the login / signup page.
   if (prevPage !== page) {
     resetHooks(setters, page);
   }
-
-  const recaptchaRef = React.createRef();
 
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {

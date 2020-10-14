@@ -23,7 +23,14 @@ import onLoad from "./funcs/onLoad.js";
 import isValidToken from "./funcs/isValidToken.js";
 
 const App = () => {
-  const [todos, addTodo, completeTodo, removeTodo, swapTodoItems] = useTodos();
+  const [
+    todos,
+    addTodo,
+    completeTodo,
+    removeTodo,
+    swapTodoItems,
+    setInitialTodos,
+  ] = useTodos();
   const [authentication, setToken, setProfileKey] = useAuthentication();
   const [
     settings,
@@ -46,7 +53,7 @@ const App = () => {
 
     // Sets up our authentication on page load.
     const loadedHook = { loaded, setLoaded };
-    onLoad(loadedHook, authentication.exp, setToken);
+    onLoad(loadedHook, authentication.exp, setToken, setInitialTodos);
   }, [
     loaded,
     setLoaded,
@@ -55,6 +62,7 @@ const App = () => {
     settings,
     setSettingsOnLoad,
     setInitialSettings,
+    setInitialTodos,
   ]);
 
   const isAuthenticated = isValidToken(authentication.token);
@@ -68,11 +76,19 @@ const App = () => {
               authentication={authentication}
               setToken={setToken}
               isAuthenticated={isAuthenticated}
+              setInitialTodos={setInitialTodos}
             />
             <Route
               path="/"
               exact
-              render={() => <AddTodoForm addTodo={addTodo} />}
+              render={() => (
+                <AddTodoForm
+                  addTodo={addTodo}
+                  isAuthenticated={isAuthenticated}
+                  authentication={authentication}
+                  setToken={setToken}
+                />
+              )}
             />
           </div>
           <Switch>
@@ -82,6 +98,10 @@ const App = () => {
                 completeTodo={completeTodo}
                 removeTodo={removeTodo}
                 swapTodoItems={swapTodoItems}
+                isAuthenticated={isAuthenticated}
+                authentication={authentication}
+                setToken={setToken}
+                setInitialTodos={setInitialTodos}
               />
             </Route>
             <Route path="/login" exact>
