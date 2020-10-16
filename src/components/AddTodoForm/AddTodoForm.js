@@ -5,12 +5,7 @@ import Button from "react-bootstrap/Button";
 
 import styles from "./AddTodoForm.module.css";
 
-const AddTodoForm = ({
-  addTodo,
-  isAuthenticated,
-  authentication,
-  setToken,
-}) => {
+const AddTodoForm = ({ addTodo, authData }) => {
   const [value, setValue] = useState("");
   const [showWarning, setShowWarning] = useState(false);
 
@@ -34,8 +29,7 @@ const AddTodoForm = ({
       IDNumber: value + Math.random(10000),
       completed: false,
     };
-    const auth = { isAuthenticated, authentication };
-    const didAdd = addTodo(newItem, auth, setToken);
+    const didAdd = addTodo(newItem, authData);
     if (didAdd) {
       setValue("");
       setShowWarning(false);
@@ -75,9 +69,14 @@ const AddTodoForm = ({
 
 AddTodoForm.propTypes = {
   addTodo: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  authentication: PropTypes.object.isRequired,
-  setToken: PropTypes.func.isRequired,
+  authData: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired,
+    authentication: PropTypes.object.isRequired,
+    setToken: PropTypes.func.isRequired,
+  }).isRequired,
+  // isAuthenticated: PropTypes.bool.isRequired,
+  // authentication: PropTypes.object.isRequired,
+  // setToken: PropTypes.func.isRequired,
 };
 
 export default AddTodoForm;

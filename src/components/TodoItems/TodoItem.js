@@ -12,16 +12,7 @@ import xComplete from "../../svgs/xComplete.svg";
 
 import DragTypes from "./DragTypes.js";
 
-const TodoItem = ({
-  item,
-  index,
-  completeTodo,
-  removeTodo,
-  swapTodoItems,
-  authentication,
-  isAuthenticated,
-  setToken,
-}) => {
+const TodoItem = ({ item, index, authData, todoData }) => {
   /**
    * removeHelper
    *
@@ -32,8 +23,7 @@ const TodoItem = ({
    */
   const removeHelper = (e) => {
     e.stopPropagation();
-    const auth = { authentication, isAuthenticated };
-    removeTodo({ ...item, index }, auth, setToken);
+    todoData.removeTodo({ ...item, index }, authData);
   };
 
   const [, drag] = useDrag({
@@ -46,7 +36,7 @@ const TodoItem = ({
   const [, drop] = useDrop({
     accept: DragTypes.TODO_ITEM,
     drop: (itemBeingDragged) => {
-      swapTodoItems(itemBeingDragged.data, { ...item, index });
+      todoData.swapTodoItems(itemBeingDragged.data, { ...item, index });
     },
   });
 
@@ -54,8 +44,7 @@ const TodoItem = ({
   const xImg = item.completed ? xComplete : x;
 
   const complete = () => {
-    const auth = { authentication, isAuthenticated };
-    completeTodo({ ...item, index }, auth, setToken);
+    todoData.completeTodo({ ...item, index }, authData);
   };
 
   return (
@@ -98,12 +87,16 @@ TodoItem.propTypes = {
     completed: PropTypes.bool.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
-  completeTodo: PropTypes.func.isRequired,
-  removeTodo: PropTypes.func.isRequired,
-  swapTodoItems: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  authentication: PropTypes.object.isRequired,
-  setToken: PropTypes.func.isRequired,
+  authData: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired,
+    authentication: PropTypes.object.isRequired,
+    setToken: PropTypes.func.isRequired,
+  }).isRequired,
+  todoData: PropTypes.shape({
+    completeTodo: PropTypes.func.isRequired,
+    removeTodo: PropTypes.func.isRequired,
+    swapTodoItems: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default TodoItem;

@@ -9,27 +9,18 @@ import LogButton from "./helpers/LogButton";
 import ProfileButton from "./helpers/ProfileButton";
 import ItemsLink from "./helpers/ItemsLink";
 
-const Header = ({
-  authentication,
-  isAuthenticated,
-  setToken,
-  setInitialTodos,
-}) => {
+const Header = ({ authData, setInitialTodos }) => {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div className={styles.linksContainer}>
           <ItemsLink />
-          <LogButton
-            isAuthenticated={isAuthenticated}
-            setToken={setToken}
-            setInitialTodos={setInitialTodos}
-          />
-          {!isAuthenticated && <SignupButton />}
+          <LogButton authData={authData} setInitialTodos={setInitialTodos} />
+          {!authData.isAuthenticated && <SignupButton />}
         </div>
         <div className={styles.profileContainer}>
-          {isAuthenticated && (
-            <ProfileButton profilePic={authentication.profilePic} />
+          {authData.isAuthenticated && (
+            <ProfileButton profilePic={authData.authentication.profilePic} />
           )}
         </div>
       </nav>
@@ -39,11 +30,13 @@ const Header = ({
 };
 
 Header.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  authentication: PropTypes.shape({
-    profilePic: PropTypes.string.isRequired,
-    token: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
+  authData: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired,
+    authentication: PropTypes.shape({
+      profilePic: PropTypes.string.isRequired,
+      token: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   setInitialTodos: PropTypes.func.isRequired,
 };

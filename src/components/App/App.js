@@ -31,29 +31,23 @@ const App = () => {
     swapTodoItems,
     setInitialTodos,
   ] = useTodos();
-  const [authentication, setToken, setProfileKey] = useAuthentication();
-  const [
-    settings,
-    setSettingsOnLoad,
-    setInitialSettings,
-    setSettingsKey,
-  ] = useSettings();
 
+  // Custom hooks.
+  const [authentication, setToken, setProfileKey] = useAuthentication();
+  const [settings, setSettingsOnLoad, setSettingsKey] = useSettings();
+
+  // Local hooks.
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (loaded === false) {
-      const settingsInStorage = localStorage.getItem("settings");
-      if (settingsInStorage) {
-        setSettingsOnLoad(settingsInStorage);
-      } else {
-        setInitialSettings();
-      }
-    }
+      setSettingsOnLoad();
 
-    // Sets up our authentication on page load.
-    const loadedHook = { loaded, setLoaded };
-    onLoad(loadedHook, authentication.exp, setToken, setInitialTodos);
+      // Sets up our authentication and todos on page load.
+      const loadedHook = { loaded, setLoaded };
+      const authHook = { exp: authentication.exp, setToken };
+      onLoad(loadedHook, authHook, setInitialTodos);
+    }
   }, [
     loaded,
     setLoaded,
@@ -61,48 +55,39 @@ const App = () => {
     setToken,
     settings,
     setSettingsOnLoad,
-    setInitialSettings,
     setInitialTodos,
   ]);
 
   const isAuthenticated = isValidToken(authentication.token);
+
+  // Our hook data to clean up the amount of props given to each component.
+  const authData = { authentication, isAuthenticated, setToken, setProfileKey };
+  const todoData = {
+    todos,
+    addTodo,
+    completeTodo,
+    removeTodo,
+    swapTodoItems,
+    setInitialTodos,
+  };
 
   return (
     loaded && (
       <Jumbotron className={styles.fixedPadding}>
         <div className={styles.width}>
           <div className={styles.top}>
-            <Header
-              authentication={authentication}
-              setToken={setToken}
-              isAuthenticated={isAuthenticated}
-              setInitialTodos={setInitialTodos}
-            />
+            <Header authData={authData} setInitialTodos={setInitialTodos} />
             <Route
               path="/"
               exact
               render={() => (
-                <AddTodoForm
-                  addTodo={addTodo}
-                  isAuthenticated={isAuthenticated}
-                  authentication={authentication}
-                  setToken={setToken}
-                />
+                <AddTodoForm addTodo={addTodo} authData={authData} />
               )}
             />
           </div>
           <Switch>
             <Route path="/" exact>
-              <TodoItems
-                todos={todos}
-                completeTodo={completeTodo}
-                removeTodo={removeTodo}
-                swapTodoItems={swapTodoItems}
-                isAuthenticated={isAuthenticated}
-                authentication={authentication}
-                setToken={setToken}
-                setInitialTodos={setInitialTodos}
-              />
+              <TodoItems authData={authData} todoData={todoData} />
             </Route>
             <Route path="/login" exact>
               {isAuthenticated ? (

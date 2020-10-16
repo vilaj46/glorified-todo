@@ -9,9 +9,16 @@ export default () => {
   /**
    * setToken
    *
-   * @param {Object} data - { username, jwt, profilePic }
+   * @param {String} token - Our newly created token from the backend.
    *
-   * Authentication is processed and we are adding it to App state.
+   * Sets our new token and the token in localStorage.
+   * This will keep our data updated with any new action.
+   *
+   * Our token will be null if we are clearing it. We check if there is a token still
+   * in the localStorage. If there is, clear it.
+   *
+   * If our token isn't null, we are giving a token with new data.
+   * Decode the token and set our authentication hook.
    */
   const setToken = (token = null) => {
     if (token === null) {
@@ -36,12 +43,10 @@ export default () => {
   /**
    * setProfileKey
    *
-   * @param {Object} data - Our profile keys and values
+   * @param {String} token - Our newly created token from the backend.
    *
-   * If we press the save button on our profile page,
-   * we iterate through the objects checking if the value has changed.
-   *
-   * If the value as changed we set our new profile.
+   * Updates our profile after the save button is clicked.
+   * Also updates our storage token.
    */
   const setProfileKey = (newToken) => {
     const decoded = jwt_decode(newToken);
@@ -53,6 +58,11 @@ export default () => {
   return [authentication, setToken, setProfileKey];
 };
 
+/**
+ * Default values so we don't get any propTypes warnings.
+ * Should reflect the information on the backend.
+ * This probably isn't the best way to handle this...
+ */
 const defaultValues = {
   email: "",
   iat: 0,
@@ -69,4 +79,5 @@ const defaultValues = {
     emails: [],
   },
   profilePic: "",
+  todos: [],
 };

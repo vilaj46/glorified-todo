@@ -7,26 +7,35 @@ export default () => {
   /**
    * addTodo
    *
-   * @param {Object} item - A potentially new todo item.
-   * @param {Object} auth - Authentication data.
-   * @param {Hook Function} setToken - Set our new token data.
+   * @param {Object} item - IDNumber, completed, todo.
+   * @param {Object} auth - authData from the App component.
    * @return {Boolean} Whether we added the TodoItem.
    *
-   * Checks if our new todo isnt just a blank space.
-   * If its not add it to the list.
+   * Initially we clean the todo item text by trimming the white space.
+   *
+   * If our text with the white space trimmed is greater than 0, we can proceed.
+   *
+   * We replace the items todo with our newly trimmed text.
+   * Push the item onto the todo array. Set our todo.
+   *
+   * If we are logged in, we send an api request to update our todo items in the backend.
+   *
+   * Return the success of our addition.
    */
-  const addTodo = async (item, auth, setToken) => {
+  const addTodo = async (item, auth) => {
     const text = item.todo.trim();
-    item.todo = text;
-    todos.push(item);
-    setTodos([...todos]);
+
     if (text.length > 0) {
+      item.todo = text;
+      todos.push(item);
+      setTodos([...todos]);
       if (auth.isAuthenticated) {
         const response = await api.todos.addTodo(item, auth.authentication);
         if (response.status === 200) {
-          setToken(response.token);
+          auth.setToken(response.token);
         } else {
           // Figure out our error codes.
+          return false;
         }
       }
       return true;
@@ -38,17 +47,19 @@ export default () => {
   /**
    * completedTodo
    *
-   * @param {Object} item - The todo item we will be completing or uncompleting.
+   * @param {Object} item - todo, IDNumber, completed, index.
+   * @param {Object} auth - authData from the App component.
+   * @return {Boolean} Whether we added the TodoItem.
    *
-   * Given the item and the current index of the item.
-   * First we check if the given index is the one we are completing.
+   * Since we are given the index, we can check immediately if the
+   * todos[index] matches our id. This way we won't have to iterate over the array.
+   * If it is the correct index, we toggle the completed property.
+   * Then check for authentication and do the same thing on the backend returning our new token.
    *
-   * If it isn't ( basically if we add drag and drop or item movement),
-   * then we will traverse the array checking.
-   *
-   * Toggle completed on the found item.
+   * If our index isn't lined up properly and the IDNumbers don't match,
+   * we search for the IDNumber in our array. Then do the same thing.
    */
-  const completeTodo = async (item, auth, setToken) => {
+  const completeTodo = async (item, auth) => {
     const { index, IDNumber } = item;
     if (todos[index].IDNumber === IDNumber) {
       todos[index].completed = !todos[index].completed;
@@ -59,70 +70,89 @@ export default () => {
           data,
           auth.authentication
         );
-        setToken(response.token);
-      }
-    } else {
-      let searchedIndex;
-      for (let i = 0; i < todos.length; i++) {
-        const todo = todos[i];
-        if (todo.IDNumber === IDNumber) {
-          searchedIndex = i;
-          break;
+        if (response.status === 200) {
+          auth.setToken(response.token);
+        } else {
+          // Figure out our error codes.
+          return false;
         }
       }
+      setTodos([...todos]);
+      return true;
+    } else {
+      const searchedIndex = searchItemIndex(IDNumber, todos);
+      if (searchedIndex === -1) return false; // Not found.
       todos[searchedIndex].completed = !todos[searchedIndex].completed;
       if (auth.isAuthenticated) {
         const data = { ...todos[searchedIndex], index: searchedIndex };
         const response = api.todos.completeTodo(data, auth.authentication);
-        setToken(response.token);
-      }
-    }
 
-    setTodos([...todos]);
+        if (response.status === 200) {
+          auth.setToken(response.token);
+        } else {
+          // Figure out error codes.
+          return false;
+        }
+      }
+      setTodos([...todos]);
+      return true;
+    }
   };
 
   /**
    * removeTodo
    *
-   * @param {Object} item - The todo item we will be removing.
+   * @param {Object} item - todo, IDNumber, completed, index.
+   * @param {Object} auth - authData from the app component
+   * @return {Boolean} Whether we added the TodoItem.
    *
-   * Given the item and the current index of the item.
-   * First we check if the given index is the one we are removing.
+   * Since we are given the index, we can check immediately if the
+   * todos[index] matches our id. This way we won't have to iterate over the array.
+   * If it is the correct index, remove it from the array and update our backend as well.
    *
-   * If it isn't ( basically if we add drag and drop or item movement),
-   * then we will traverse the array checking.
    *
-   * Remove the found item.
+   * If our index isn't lined up properly and the IDNumbers don't match,
+   * we search for the IDNumber in our array. Then do the same thing.
    */
-  const removeTodo = async (item, auth, setToken) => {
+  const removeTodo = async (item, auth) => {
     const { index, IDNumber } = item;
 
     if (todos[index].IDNumber === IDNumber) {
       todos.splice(index, 1);
       if (auth.isAuthenticated) {
-        const response = await api.todos.removeTodo(index, auth.authentication);
-        setToken(response.token);
-      }
-    } else {
-      let searchedIndex;
-      for (let i = 0; i < todos.length; i++) {
-        const todo = todos[i];
-        if (todo.IDNumber === IDNumber) {
-          searchedIndex = i;
-          break;
+        const response = await api.todos.removeTodo(
+          { index, IDNumber },
+          auth.authentication
+        );
+
+        if (response.status === 200) {
+          auth.setToken(response.token);
+        } else {
+          // Figure out error codes.
+          return false;
         }
       }
+      setTodos([...todos]);
+      return true;
+    } else {
+      const searchedIndex = searchItemIndex(IDNumber, todos);
+      if (searchedIndex === -1) return false; // Not found.
       todos.splice(searchedIndex, 1);
       if (auth.isAuthenticated) {
         const response = await api.todos.removeTodo(
-          searchedIndex,
+          { index: searchedIndex, IDNumber },
           auth.authentication
         );
-        setToken(response.token);
+        if (response.status === 200) {
+          auth.setToken(response.token);
+        } else {
+          // Figure out error codes.
+          return false;
+        }
       }
+      setTodos([...todos]);
+      return true;
     }
-
-    setTodos([...todos]);
   };
 
   /**
@@ -141,8 +171,35 @@ export default () => {
     setTodos([...todos]);
   };
 
+  /**
+   * setInitialTodos
+   *
+   * @param {Array} todos - Todos Array decoded from storage on application load.
+   *
+   * This function is called in the onLoad function in our App component.
+   */
   const setInitialTodos = (todos) => {
     setTodos([...todos]);
+  };
+
+  /**
+   * searchItemIndex
+   *
+   * @param {String} IDNumber  - The id we are searching for.
+   * @param {Array} todos - The current todos state.
+   * @return {Number}
+   *
+   * Search the array for the matching IDNumbers.
+   * If it is found, return the index. Otherwise, return -1.
+   */
+  const searchItemIndex = (IDNumber, todos) => {
+    for (let i = 0; i < todos.length; i++) {
+      const todo = todos[i];
+      if (todo.IDNumber === IDNumber) {
+        return i;
+      }
+    }
+    return -1;
   };
 
   return [

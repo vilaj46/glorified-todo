@@ -7,37 +7,20 @@ import TodoItem from "./TodoItem";
 
 import styles from "./TodoItems.module.css";
 
-const TodoItems = ({
-  todos,
-  completeTodo,
-  removeTodo,
-  swapTodoItems,
-  isAuthenticated,
-  authentication,
-  setToken,
-  setInitialTodos,
-}) => {
+const TodoItems = ({ authData, todoData }) => {
   const [loaded, setLoaded] = useState(false);
-  const [currentTodos, setCurrentTodos] = useState(todos);
+  const [currentTodos, setCurrentTodos] = useState(todoData.todos);
   useEffect(() => {
-    if (loaded === false && isAuthenticated) {
-      setCurrentTodos(authentication.todos);
-      setInitialTodos(authentication.todos);
-    } else if (loaded && isAuthenticated) {
-      setCurrentTodos(authentication.todos);
+    if (loaded === false && authData.isAuthenticated) {
+      setCurrentTodos(authData.authentication.todos);
+      todoData.setInitialTodos(authData.authentication.todos);
+    } else if (loaded && authData.isAuthenticated) {
+      setCurrentTodos(authData.authentication.todos);
     } else {
-      setCurrentTodos(todos);
+      setCurrentTodos(todoData.todos);
     }
     setLoaded(true);
-  }, [
-    loaded,
-    setLoaded,
-    setCurrentTodos,
-    authentication,
-    isAuthenticated,
-    todos,
-    setInitialTodos,
-  ]);
+  }, [loaded, setLoaded, setCurrentTodos, authData, todoData]);
 
   // On todos load, check if we have todos.
   return (
@@ -49,12 +32,8 @@ const TodoItems = ({
               item={item}
               key={item.IDNumber}
               index={index}
-              completeTodo={completeTodo}
-              removeTodo={removeTodo}
-              swapTodoItems={swapTodoItems}
-              isAuthenticated={isAuthenticated}
-              authentication={authentication}
-              setToken={setToken}
+              todoData={todoData}
+              authData={authData}
             />
           );
         })}
@@ -64,14 +43,18 @@ const TodoItems = ({
 };
 
 TodoItems.propTypes = {
-  todos: PropTypes.array.isRequired,
-  completeTodo: PropTypes.func.isRequired,
-  removeTodo: PropTypes.func.isRequired,
-  swapTodoItems: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  authentication: PropTypes.object.isRequired,
-  setToken: PropTypes.func.isRequired,
-  setInitialTodos: PropTypes.func.isRequired,
+  authData: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired,
+    authentication: PropTypes.object.isRequired,
+    setToken: PropTypes.func.isRequired,
+  }).isRequired,
+  todoData: PropTypes.shape({
+    todos: PropTypes.array.isRequired,
+    completeTodo: PropTypes.func.isRequired,
+    removeTodo: PropTypes.func.isRequired,
+    swapTodoItems: PropTypes.func.isRequired,
+    setInitialTodos: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default TodoItems;
