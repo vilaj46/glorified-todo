@@ -26,10 +26,14 @@ app.use(cookieParser());
 // MongoDB setup.
 const options = { useUnifiedTopology: true, useNewUrlParser: true };
 mongoose
-  .connect("mongodb://127.0.0.1:27017/glorified-todo", options)
+  .connect(
+    `mongodb://${process.env.MLAB_USER}:${process.env.MLAB_PW}@ds259577.mlab.com:59577/glorified-todo`,
+    options
+  )
   .then(() => {
-    console.log("Connected to MongoDB.");
+    console.log("Connected to Mlab MongoDB.");
   });
+
 mongoose.set("useFindAndModify", false);
 
 // Routes
