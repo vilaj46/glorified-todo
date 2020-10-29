@@ -1,21 +1,20 @@
 {
   "files": {
-    "main.css": "/glorified-todo/static/css/main.e5e01661.chunk.css",
-    "main.js": "/glorified-todo/static/js/main.97abc03c.chunk.js",
-    "main.js.map": "/glorified-todo/static/js/main.97abc03c.chunk.js.map",
+    "main.css": "/glorified-todo/static/css/main.d2cddb4b.chunk.css",
+    "main.js": "/glorified-todo/static/js/main.9dc9d4a4.chunk.js",
+    "main.js.map": "/glorified-todo/static/js/main.9dc9d4a4.chunk.js.map",
     "runtime-main.js": "/glorified-todo/static/js/runtime-main.18086f88.js",
     "runtime-main.js.map": "/glorified-todo/static/js/runtime-main.18086f88.js.map",
     "static/css/2.11829350.chunk.css": "/glorified-todo/static/css/2.11829350.chunk.css",
-    "static/js/2.6f0e81c5.chunk.js": "/glorified-todo/static/js/2.6f0e81c5.chunk.js",
-    "static/js/2.6f0e81c5.chunk.js.map": "/glorified-todo/static/js/2.6f0e81c5.chunk.js.map",
+    "static/js/2.578fadd7.chunk.js": "/glorified-todo/static/js/2.578fadd7.chunk.js",
+    "static/js/2.578fadd7.chunk.js.map": "/glorified-todo/static/js/2.578fadd7.chunk.js.map",
     "index.html": "/glorified-todo/index.html",
-    "precache-manifest.17df407c8a3d60a6967c18df7add9d32.js": "/glorified-todo/precache-manifest.17df407c8a3d60a6967c18df7add9d32.js",
+    "precache-manifest.faae537d56acfc92cd2b28177c9a1152.js": "/glorified-todo/precache-manifest.faae537d56acfc92cd2b28177c9a1152.js",
     "service-worker.js": "/glorified-todo/service-worker.js",
     "static/css/2.11829350.chunk.css.map": "/glorified-todo/static/css/2.11829350.chunk.css.map",
-    "static/css/main.e5e01661.chunk.css.map": "/glorified-todo/static/css/main.e5e01661.chunk.css.map",
-    "static/js/2.6f0e81c5.chunk.js.LICENSE.txt": "/glorified-todo/static/js/2.6f0e81c5.chunk.js.LICENSE.txt",
+    "static/css/main.d2cddb4b.chunk.css.map": "/glorified-todo/static/css/main.d2cddb4b.chunk.css.map",
+    "static/js/2.578fadd7.chunk.js.LICENSE.txt": "/glorified-todo/static/js/2.578fadd7.chunk.js.LICENSE.txt",
     "static/media/auth_problem.svg": "/glorified-todo/static/media/auth_problem.2a5a1bfc.svg",
-    "static/media/avatar.svg": "/glorified-todo/static/media/avatar.4894c98f.svg",
     "static/media/check.svg": "/glorified-todo/static/media/check.7812c5ab.svg",
     "static/media/checkComplete.svg": "/glorified-todo/static/media/checkComplete.c4e37bc8.svg",
     "static/media/company.svg": "/glorified-todo/static/media/company.8d611e64.svg",
@@ -31,8 +30,8 @@
   "entrypoints": [
     "static/js/runtime-main.18086f88.js",
     "static/css/2.11829350.chunk.css",
-    "static/js/2.6f0e81c5.chunk.js",
-    "static/css/main.e5e01661.chunk.css",
-    "static/js/main.97abc03c.chunk.js"
+    "static/js/2.578fadd7.chunk.js",
+    "static/css/main.d2cddb4b.chunk.css",
+    "static/js/main.9dc9d4a4.chunk.js"
   ]
 }
