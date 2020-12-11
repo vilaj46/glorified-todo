@@ -24,6 +24,7 @@ const login = async (credentials) => {
     })
     .catch((err) => {
       // 406, 400
+      console.log(err);
       const { status } = err.response;
       if (status === 406) {
         // Username not found or incorrect password.

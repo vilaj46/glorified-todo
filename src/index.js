@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
 import { HashRouter as Router, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,16 +18,6 @@ import App from "./components/App/App";
 // Verify account.
 // Delete account.
 
-// On the deploy file, redirect to the '/' instead of having http://vilaj46.github.io/glorified-todo?
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Router>
-//       <Route to="/" exact component={App} />
-//     </Router>
-//   </React.StrictMode>,
-//   document.getElementById("root")
-// );
 ReactDOM.render(
   <React.StrictMode>
     <Router>
