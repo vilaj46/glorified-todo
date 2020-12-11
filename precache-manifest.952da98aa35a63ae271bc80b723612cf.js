@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7e867174753d2fc07b000a0dad7bd906",
+    "revision": "9cf23e25e2969a02e0f823ecac58b6d9",
     "url": "/glorified-todo/index.html"
   },
   {
-    "revision": "0f8fac8373925bec606b",
+    "revision": "e67de6cf0f694d521398",
     "url": "/glorified-todo/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "b947607c3541da363aea",
+    "revision": "c0299b4db07725b91177",
     "url": "/glorified-todo/static/css/main.d2cddb4b.chunk.css"
   },
   {
-    "revision": "0f8fac8373925bec606b",
-    "url": "/glorified-todo/static/js/2.7678209f.chunk.js"
+    "revision": "e67de6cf0f694d521398",
+    "url": "/glorified-todo/static/js/2.205b9046.chunk.js"
   },
   {
     "revision": "3453b8997016469371284a28c0e873e2",
-    "url": "/glorified-todo/static/js/2.7678209f.chunk.js.LICENSE.txt"
+    "url": "/glorified-todo/static/js/2.205b9046.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b947607c3541da363aea",
-    "url": "/glorified-todo/static/js/main.345da631.chunk.js"
+    "revision": "c0299b4db07725b91177",
+    "url": "/glorified-todo/static/js/main.e03be20d.chunk.js"
   },
   {
     "revision": "e61405ad4a564c75c5b4",
