@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/glorified-todo/static/css/main.d2cddb4b.chunk.css",
-    "main.js": "/glorified-todo/static/js/main.d5107d9c.chunk.js",
-    "main.js.map": "/glorified-todo/static/js/main.d5107d9c.chunk.js.map",
+    "main.js": "/glorified-todo/static/js/main.8e938599.chunk.js",
+    "main.js.map": "/glorified-todo/static/js/main.8e938599.chunk.js.map",
     "runtime-main.js": "/glorified-todo/static/js/runtime-main.18086f88.js",
     "runtime-main.js.map": "/glorified-todo/static/js/runtime-main.18086f88.js.map",
     "static/css/2.11829350.chunk.css": "/glorified-todo/static/css/2.11829350.chunk.css",
-    "static/js/2.205b9046.chunk.js": "/glorified-todo/static/js/2.205b9046.chunk.js",
-    "static/js/2.205b9046.chunk.js.map": "/glorified-todo/static/js/2.205b9046.chunk.js.map",
+    "static/js/2.3daf0d82.chunk.js": "/glorified-todo/static/js/2.3daf0d82.chunk.js",
+    "static/js/2.3daf0d82.chunk.js.map": "/glorified-todo/static/js/2.3daf0d82.chunk.js.map",
     "index.html": "/glorified-todo/index.html",
-    "precache-manifest.df515993b2667f822902963f8aaa771f.js": "/glorified-todo/precache-manifest.df515993b2667f822902963f8aaa771f.js",
+    "precache-manifest.9eb0a901d4986de027a638c798da4b28.js": "/glorified-todo/precache-manifest.9eb0a901d4986de027a638c798da4b28.js",
     "service-worker.js": "/glorified-todo/service-worker.js",
     "static/css/2.11829350.chunk.css.map": "/glorified-todo/static/css/2.11829350.chunk.css.map",
     "static/css/main.d2cddb4b.chunk.css.map": "/glorified-todo/static/css/main.d2cddb4b.chunk.css.map",
-    "static/js/2.205b9046.chunk.js.LICENSE.txt": "/glorified-todo/static/js/2.205b9046.chunk.js.LICENSE.txt",
+    "static/js/2.3daf0d82.chunk.js.LICENSE.txt": "/glorified-todo/static/js/2.3daf0d82.chunk.js.LICENSE.txt",
     "static/media/auth_problem.svg": "/glorified-todo/static/media/auth_problem.2a5a1bfc.svg",
     "static/media/check.svg": "/glorified-todo/static/media/check.7812c5ab.svg",
     "static/media/checkComplete.svg": "/glorified-todo/static/media/checkComplete.c4e37bc8.svg",
@@ -30,8 +30,8 @@
   "entrypoints": [
     "static/js/runtime-main.18086f88.js",
     "static/css/2.11829350.chunk.css",
-    "static/js/2.205b9046.chunk.js",
+    "static/js/2.3daf0d82.chunk.js",
     "static/css/main.d2cddb4b.chunk.css",
-    "static/js/main.d5107d9c.chunk.js"
+    "static/js/main.8e938599.chunk.js"
   ]
 }
