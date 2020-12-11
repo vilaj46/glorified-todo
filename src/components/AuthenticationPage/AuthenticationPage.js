@@ -20,7 +20,7 @@ import EmailText from "./helpers/EmailText";
 import PasswordText from "./helpers/PasswordText";
 import ErrorSVG from "./helpers/ErrorSVG";
 import PasswordVisibilityButton from "./helpers/PasswordVisibilityButton";
-import Settings from "./helpers/Settings";
+// import Settings from "./helpers/Settings";
 
 const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
   // Current state of the inputs.

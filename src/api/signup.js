@@ -25,6 +25,7 @@ const signup = async (credentials) => {
     .catch((err) => {
       // 500, 406, 400
       const { status } = err.response;
+      console.log(status);
       if (status === 406) {
         // Figure out if it is username, email, or both.
         const { data } = err.response;
