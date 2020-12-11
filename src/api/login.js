@@ -13,12 +13,6 @@ import axios from "axios";
  * The message is then displayed on our Authentication Page.
  */
 const login = async (credentials) => {
-  axios
-    .get("https://glorified-todo-backend.herokuapp.com/")
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => console.log(err));
   return await axios
     .post("https://glorified-todo-backend.herokuapp.com/login", credentials)
     .then((res) => {
