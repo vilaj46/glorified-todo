@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/glorified-todo/static/css/main.d2cddb4b.chunk.css",
-    "main.js": "/glorified-todo/static/js/main.65c1e5d2.chunk.js",
-    "main.js.map": "/glorified-todo/static/js/main.65c1e5d2.chunk.js.map",
+    "main.js": "/glorified-todo/static/js/main.d5107d9c.chunk.js",
+    "main.js.map": "/glorified-todo/static/js/main.d5107d9c.chunk.js.map",
     "runtime-main.js": "/glorified-todo/static/js/runtime-main.18086f88.js",
     "runtime-main.js.map": "/glorified-todo/static/js/runtime-main.18086f88.js.map",
     "static/css/2.11829350.chunk.css": "/glorified-todo/static/css/2.11829350.chunk.css",
     "static/js/2.205b9046.chunk.js": "/glorified-todo/static/js/2.205b9046.chunk.js",
     "static/js/2.205b9046.chunk.js.map": "/glorified-todo/static/js/2.205b9046.chunk.js.map",
     "index.html": "/glorified-todo/index.html",
-    "precache-manifest.088cad6aadd26fb6b8da699c26d55e30.js": "/glorified-todo/precache-manifest.088cad6aadd26fb6b8da699c26d55e30.js",
+    "precache-manifest.df515993b2667f822902963f8aaa771f.js": "/glorified-todo/precache-manifest.df515993b2667f822902963f8aaa771f.js",
     "service-worker.js": "/glorified-todo/service-worker.js",
     "static/css/2.11829350.chunk.css.map": "/glorified-todo/static/css/2.11829350.chunk.css.map",
     "static/css/main.d2cddb4b.chunk.css.map": "/glorified-todo/static/css/main.d2cddb4b.chunk.css.map",
@@ -32,6 +32,6 @@
     "static/css/2.11829350.chunk.css",
     "static/js/2.205b9046.chunk.js",
     "static/css/main.d2cddb4b.chunk.css",
-    "static/js/main.65c1e5d2.chunk.js"
+    "static/js/main.d5107d9c.chunk.js"
   ]
 }
