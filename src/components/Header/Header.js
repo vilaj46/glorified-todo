@@ -24,7 +24,7 @@ const Header = ({ authData, setInitialTodos }) => {
           )}
         </div>
       </nav>
-      <h1>My Glorified To Do List</h1>
+      <h1>My Glorified To Do List HEY</h1>
     </header>
   );
 };
