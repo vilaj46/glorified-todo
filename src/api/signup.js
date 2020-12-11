@@ -14,7 +14,7 @@ import axios from "axios";
  */
 const signup = async (credentials) => {
   return await axios
-    .post("/signup", credentials)
+    .post("https://glorified-todo-backend.herokuapp.com/signup", credentials)
     .then((response) => {
       // Successful returns the token.
       return {
