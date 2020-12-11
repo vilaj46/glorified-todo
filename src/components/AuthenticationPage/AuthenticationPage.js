@@ -215,7 +215,7 @@ const AuthenticationPage = ({ setToken, page, settings, setSettingsKey }) => {
           </div>
         )}
         <LoginButton page={page} />
-        <Settings settings={settings} setSettingsKey={setSettingsKey} />
+        {/* <Settings settings={settings} setSettingsKey={setSettingsKey} /> */}
       </Form>
     </Jumbotron>
   );

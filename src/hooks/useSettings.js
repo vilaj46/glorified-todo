@@ -45,5 +45,5 @@ export default () => {
 };
 
 const defaultValues = {
-  captcha: false,
+  captcha: true,
 };
