@@ -13,9 +13,16 @@ import axios from "axios";
  * If we are successful return the token, otherwise just retun the message.
  */
 const addTodo = async (item, authentication) => {
-  const response = await axios.post(`/users/${authentication.id}/todos`, item, {
-    headers: { Authorization: `Bearer ${authentication.token}` },
-  });
+  // const response = await axios.post(`/users/${authentication.id}/todos`, item, {
+
+  console.log(authentication.token);
+  const response = await axios.post(
+    `https://glorified-todo-backend.herokuapp.com/users/${authentication.id}/todos`,
+    item,
+    {
+      headers: { Authorization: `Bearer ${authentication.token}` },
+    }
+  );
 
   if (response.status === 200) {
     return {
