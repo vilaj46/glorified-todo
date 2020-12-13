@@ -48,7 +48,8 @@ const addTodo = async (item, authentication) => {
  */
 const completeTodo = async (item, authentication) => {
   const response = await axios.put(
-    `/users/${authentication.id}/todos/${item.IDNumber}`,
+    // `/users/${authentication.id}/todos/${item.IDNumber}`,
+    `https://glorified-todo-backend.herokuapp.com/users/${authentication.id}/todos/${item.IDNumber}`,
     item,
     {
       headers: { Authorization: `Bearer ${authentication.token}` },
@@ -82,7 +83,8 @@ const completeTodo = async (item, authentication) => {
  */
 const removeTodo = async (item, authentication) => {
   const response = await axios.delete(
-    `/users/${authentication.id}/todos/${item.IDNumber}/${item.index}`,
+    // `/users/${authentication.id}/todos/${item.IDNumber}/${item.index}`,
+    `https://glorified-todo-backend.herokuapp.com/users/${authentication.id}/todos/${item.IDNumber}/${item.index}`,
     {
       headers: { Authorization: `Bearer ${authentication.token}` },
     }
