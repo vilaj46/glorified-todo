@@ -19,7 +19,7 @@ const updateProfile = async (id, token, data) => {
   return await axios
     // .put(`/users/${id}/profile`, data, {
     .put(
-      `https://glorified-todo-backend.herokuapp.com/users/users/${id}/profile`,
+      `https://glorified-todo-backend.herokuapp.com/users/${id}/profile`,
       data,
       {
         headers: { Authorization: `Bearer ${token}` },
