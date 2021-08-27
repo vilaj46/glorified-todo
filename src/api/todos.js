@@ -117,7 +117,7 @@ const removeTodo = async (item, authentication) => {
  */
 const swapTodos = async (item1, item2, authentication) => {
   const response = await axios.put(
-    `http://localhost:8080/users/${authentication.id}/todos/${item1.IDNumber}-${item2.IDNumber}/${item1.index}-${item2.index}`,
+    `https://glorified-todo-backend.herokuapp.com/users/${authentication.id}/todos/${item1.IDNumber}-${item2.IDNumber}/${item1.index}-${item2.index}`,
     {
       headers: { Authorization: `Bearer ${authentication.token}` },
     }
