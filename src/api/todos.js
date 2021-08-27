@@ -103,8 +103,41 @@ const removeTodo = async (item, authentication) => {
   }
 };
 
+/**
+ * swapTodo
+ *
+ * @param {Object} item - IDNumber and index.
+ * @param {Object} authentication - Our authentication item...email, iat, exp, username, token, profile.
+ *
+ *
+ * Given our todo item information and our authentication
+ * we make an api delete call to our todos route.
+ *
+ * If we are successful return the token, otherwise just return the message.
+ */
+const swapTodos = async (item1, item2, authentication) => {
+  const response = await axios.put(
+    `http://localhost:8080/users/${authentication.id}/todos/${item1.IDNumber}-${item2.IDNumber}/${item1.index}-${item2.index}`,
+    {
+      headers: { Authorization: `Bearer ${authentication.token}` },
+    }
+  );
+  if (response.status === 200) {
+    return {
+      status: 200,
+      token: response.data,
+    };
+  } else {
+    return {
+      status: 500,
+      data: "Something went wrong",
+    };
+  }
+};
+
 export default {
   addTodo,
-  completeTodo,
+  swapTodos,
   removeTodo,
+  completeTodo,
 };

@@ -163,7 +163,52 @@ export default () => {
    *
    * Swap the items in the array.
    */
-  const swapTodoItems = (item1, item2) => {
+  const swapTodoItems = async (item1, item2, auth) => {
+    let item1Index = item1.index;
+    let item1IDNumber = item1.IDNumber;
+    let item2Index = item2.index;
+    let item2IDNumber = item2.IDNumber;
+    if (
+      todos[item1Index].IDNumber === item1IDNumber &&
+      todos[item2Index].IDNumber === item2IDNumber
+    ) {
+      // All successful.
+      const response = await api.todos.swapTodos(
+        item1,
+        item2,
+        auth.authentication
+      );
+
+      if (response.status === 200) {
+        auth.setToken(response.token);
+      } else {
+        // Figure out error codes.
+        return false;
+      }
+    } else {
+      // If for whatever reason something is out of order
+      // or the indexes are not correct, we'll find it in the backend.
+      // I should still be putting safety net here.
+      return false;
+      // if (todos[item1Index].IDNumber !== item1IDNumber) {
+      //   // Find item1 index
+      // }
+      // if (todos[item2Index] === item2IDNumber) {
+      //   // Find item2 index
+      // }
+
+      // // Check again
+      // if (
+      //   todos[item1Index].IDNumber === item1IDNumber &&
+      //   todos[item2Index] === item2IDNumber
+      // ) {
+      //   // Do the same call.
+      // } else {
+      //   // Don't do the call.
+      // }
+    }
+
+    // Will have to move up.
     let newItem1 = { ...item1, index: item2.index };
     let newItem2 = { ...item2, index: item1.index };
     todos[item1.index] = newItem2;

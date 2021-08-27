@@ -36,7 +36,11 @@ const TodoItem = ({ item, index, authData, todoData }) => {
   const [, drop] = useDrop({
     accept: DragTypes.TODO_ITEM,
     drop: (itemBeingDragged) => {
-      todoData.swapTodoItems(itemBeingDragged.data, { ...item, index });
+      todoData.swapTodoItems(
+        itemBeingDragged.data,
+        { ...item, index },
+        authData
+      );
     },
   });
 
