@@ -1,12 +1,24 @@
-### Authentication
+# Glorified Todo
 
-### Mongo database
+## Intro
 
-### Drag n Drop
+A practice todo list which also includes
+a login and saves state.
 
-### CRUD
+### Live Demo
 
-#### GOALS:
+https://vilaj46.github.io/glorified-todo/#/
 
-    Use Hooks
-    Unit testing
+### Why
+
+This todo list interface was created to practice
+deploying a front end. It is also hooked up to a backend
+and makes use of a database.
+
+- React
+  - Create React App
+  - Custom Hooks
+  - Drag and Drop
+- Recaptcha
+- Styling
+  - CSS Modules
